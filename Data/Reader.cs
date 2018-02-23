@@ -61,7 +61,7 @@ namespace Data
 
             var firstTime = true;
 
-            var tik = new Tik();
+            var tik = new Tik(){Name = StringUtils.GetTikName(fileName)};
 
             using (var sr = new StreamReader(fileName, Encoding.GetEncoding(1251)))
             {

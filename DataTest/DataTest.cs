@@ -14,7 +14,7 @@ namespace DataTest
     public class DataTest
     {
         [Test]
-        public void Test()
+        public void TxtFileDataExtractTest()
         {
             var reader = new Reader();
 
@@ -24,18 +24,18 @@ namespace DataTest
             Assert.IsNotNull(tik);
 
             Assert.AreEqual(37, tik.Uiks.Count);
-            Assert.AreEqual("УИК №517", tik.Uiks[0].Name);
-            Assert.AreEqual("УИК №553", tik.Uiks[tik.Uiks.Count - 1].Name);
 
-            Test1(tik,         14137, 0, 8934, 996, 8934, 996, 9850, 80);
-            Test1(tik.Uiks[0], 577, 0, 344, 26, 344, 26, 368, 2);
-            //Test1(tik.Uiks[tik.Uiks.Count - 1], 14137, 0, 8934, 996, 8934, 996, 9850, 80);
+            Test1(tik,                          "Алейская", 14137, 0, 8934, 996, 8934, 996, 9850, 80);
+            Test1(tik.Uiks[0],                  "УИК №517", 577, 0, 344, 26, 344, 26, 368, 2);
+            Test1(tik.Uiks[tik.Uiks.Count - 1], "УИК №553", 469, 0, 320, 35, 320, 35, 350, 5);
         }
 
-        private void Test1(IElectItem item, 
+        private void Test1(IElectItem item, string name,
             int numberOfVoters, int numberOfEarlier, int numberOfInside, int numberOfOutside, int stationary, int portable, int valid, int inValid)
         {
             Assert.AreEqual(numberOfVoters, item.NumberOfVoters);
+
+            Assert.AreEqual(name, item.Name);
 
             Assert.AreEqual(numberOfEarlier, item.NumberOfEarlier);
             Assert.AreEqual(numberOfInside, item.NumberOfInside);
