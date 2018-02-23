@@ -17,7 +17,7 @@ namespace DataTest
         public void Test()
         {
             var reader = new Reader();
-            var r = Environment.CurrentDirectory;
+
             var dir = Path.GetDirectoryName(typeof(DataTest).Assembly.Location);
             
             var tik = reader.Generate(dir + @"\..\..\..\..\Results\ResultsPresident\Алтайский край\Алейская\СИЗКСРФ\Алейская 2012.txt");
