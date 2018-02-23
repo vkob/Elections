@@ -25,12 +25,14 @@ namespace DataTest
 
             Assert.AreEqual(37, tik.Uiks.Count);
 
-            Test1(tik,                          "Алейская", 14137, 0, 8934, 996, 8934, 996, 9850, 80);
-            Test1(tik.Uiks[0],                  "УИК №517", 577, 0, 344, 26, 344, 26, 368, 2);
-            Test1(tik.Uiks[tik.Uiks.Count - 1], "УИК №553", 469, 0, 320, 35, 320, 35, 350, 5);
+            CheckData(tik,                          "Алейская", 14137, 0, 8934, 996, 8934, 996, 9850, 80);
+            CheckData(tik.Uiks[0],                  "УИК №517", 577, 0, 344, 26, 344, 26, 368, 2);
+            CheckData(tik.Uiks[tik.Uiks.Count - 1], "УИК №553", 469, 0, 320, 35, 320, 35, 350, 5);
+
+            tik.Check();
         }
 
-        private void Test1(IElectItem item, string name,
+        private void CheckData(IElectItem item, string name,
             int numberOfVoters, int numberOfEarlier, int numberOfInside, int numberOfOutside, int stationary, int portable, int valid, int inValid)
         {
             Assert.AreEqual(numberOfVoters, item.NumberOfVoters);

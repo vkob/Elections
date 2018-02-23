@@ -50,6 +50,11 @@ namespace Data
 
         const int captionIndex = 1;
 
+        public District Get(string path)
+        {
+            return new District();
+        }
+
         public Tik Generate(string fileName)
         {
             var electionFoo = GetFoo(fileName);
