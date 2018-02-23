@@ -26,14 +26,7 @@ namespace Data.Places
 
         public void Add(District district)
         {
-            NumberOfVoters += district.NumberOfVoters;
-            NumberOfEarlier += district.NumberOfEarlier;
-            NumberOfInside += district.NumberOfInside;
-            NumberOfOutside += district.NumberOfOutside;
-            Portable += district.Portable;
-            Stationary += district.Stationary;
-            Valid += district.Valid;
-            InValid += district.InValid;
+            PlaceUtil.Add(this, district);
         }
     }
 }

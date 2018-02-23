@@ -27,14 +27,7 @@ namespace Data.Places
 
         public void Add(Tik tik)
         {
-            NumberOfVoters += tik.NumberOfVoters;
-            NumberOfEarlier += tik.NumberOfEarlier;
-            NumberOfInside += tik.NumberOfInside;
-            NumberOfOutside += tik.NumberOfOutside;
-            Portable += tik.Portable;
-            Stationary += tik.Stationary;
-            Valid += tik.Valid;
-            InValid += tik.InValid;
+            PlaceUtil.Add(this, tik);
         }
     }
 }

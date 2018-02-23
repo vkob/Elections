@@ -59,7 +59,7 @@ namespace Data
 
             var lineCounter = 0;
 
-            var firstTime = true;
+            //var firstTime = true;
 
             var tik = new Tik(){Name = StringUtils.GetTikName(fileName)};
 

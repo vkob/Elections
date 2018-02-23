@@ -19,5 +19,17 @@ namespace Data.Places
             Debug.Assert(item.Valid == items.Sum(u => u.Valid), "Valid");
             Debug.Assert(item.InValid == items.Sum(u => u.InValid), "InValid");
         }
+        
+        public static void Add(IElectItem parent, IElectItem child)
+        {
+            parent.NumberOfVoters += child.NumberOfVoters;
+            parent.NumberOfEarlier += child.NumberOfEarlier;
+            parent.NumberOfInside += child.NumberOfInside;
+            parent.NumberOfOutside += child.NumberOfOutside;
+            parent.Portable += child.Portable;
+            parent.Stationary += child.Stationary;
+            parent.Valid += child.Valid;
+            parent.InValid += child.InValid;
+        }
     }
 }
