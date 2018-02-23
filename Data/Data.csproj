@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Candidate.cs" />
+    <Compile Include="Creators\CountryCreator.cs" />
     <Compile Include="Creators\DistrictCreator.cs" />
     <Compile Include="FileList.cs" />
     <Compile Include="Places\Country.cs" />

@@ -18,10 +18,20 @@ namespace DataTest
         {
             var dir = Path.GetDirectoryName(typeof(TikCreatorTest).Assembly.Location);
 
-            var list = new FileList(dir + @"\..\..\..\..\Results\ResultsPresident\Алтайский край\", "*2012.txt").GetList();
-            var district = new DistrictCreator().Create(list);
+            var district = new DistrictCreator().Create(dir + @"\..\..\..\..\Results\ResultsPresident\Алтайский край\", "*2012.txt");
 
-            TikCreatorTest.CheckData(district, "Алтайский край", 1961328, 67, 1102078, 73701, 1101660, 73770, 1163426, 12004);
+            Common.CheckData(district, new District()
+            {
+                Name = "Алтайский край",
+                NumberOfVoters = 1961328,
+                NumberOfEarlier = 67,
+                NumberOfInside = 1102078,
+                NumberOfOutside = 73701,
+                Stationary = 1101660,
+                Portable = 73770,
+                Valid = 1163426,
+                InValid = 12004
+            });
         }
     }
 }

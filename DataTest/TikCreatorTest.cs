@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Data;
+using Data.Places;
 using NUnit.Framework;
 
 namespace DataTest
@@ -25,29 +26,44 @@ namespace DataTest
 
             Assert.AreEqual(37, tik.Uiks.Count);
 
-            CheckData(tik,                          "Алейская", 14137, 0, 8934, 996, 8934, 996, 9850, 80);
-            CheckData(tik.Uiks[0],                  "УИК №517", 577, 0, 344, 26, 344, 26, 368, 2);
-            CheckData(tik.Uiks[tik.Uiks.Count - 1], "УИК №553", 469, 0, 320, 35, 320, 35, 350, 5);
+            Common.CheckData(tik, new District(){
+                Name     = "Алейская",
+                NumberOfVoters = 14137,
+                NumberOfEarlier = 0,
+                NumberOfInside = 8934,
+                NumberOfOutside = 996,
+                Stationary = 8934,
+                Portable = 996,
+                Valid = 9850,
+                InValid = 80});
+
+            Common.CheckData(tik.Uiks[0], new District()
+            {
+                Name = "УИК №517",
+                NumberOfVoters = 577,
+                NumberOfEarlier = 0,
+                NumberOfInside = 344,
+                NumberOfOutside = 26,
+                Stationary = 344,
+                Portable = 26,
+                Valid = 368,
+                InValid = 2
+            });
+
+            Common.CheckData(tik.Uiks[tik.Uiks.Count - 1], new District()
+            {
+                Name = "УИК №553",
+                NumberOfVoters = 469,
+                NumberOfEarlier = 0,
+                NumberOfInside = 320,
+                NumberOfOutside = 35,
+                Stationary = 320,
+                Portable = 35,
+                Valid = 350,
+                InValid = 5
+            });
 
             tik.Check();
-        }
-
-        public static void CheckData(IElectItem item, string name,
-            int numberOfVoters, int numberOfEarlier, int numberOfInside, int numberOfOutside, int stationary, int portable, int valid, int inValid)
-        {
-            Assert.AreEqual(numberOfVoters, item.NumberOfVoters);
-
-            Assert.AreEqual(name, item.Name);
-
-            Assert.AreEqual(numberOfEarlier, item.NumberOfEarlier);
-            Assert.AreEqual(numberOfInside, item.NumberOfInside);
-            Assert.AreEqual(numberOfOutside, item.NumberOfOutside);
-
-            Assert.AreEqual(stationary, item.Stationary);
-            Assert.AreEqual(portable, item.Portable);
-
-            Assert.AreEqual(valid, item.Valid);
-            Assert.AreEqual(inValid, item.InValid);
         }
     }
 }
