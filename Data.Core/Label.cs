@@ -13,7 +13,7 @@ namespace Data.Core
             LineNumber = lineNumber;
         }
 
-        public string Caption { get; set; }
+        public string Caption { get; set; } 
 
         public int LineNumber { get; set; }
     }
