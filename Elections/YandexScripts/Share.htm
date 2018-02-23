@@ -1,0 +1,39 @@
+<table align="center">
+   <tr>
+      <td>
+         <div class="holster">
+            <div class="block_container s3 b-custom-share" id="e_1">
+               <div class="b-share">
+                  <span id="ya_share_1">share</span></div>
+               <div class="b-share-sizer">
+               </div>
+               <div class="clear">
+               </div>
+               <script type="text/javascript">
+                  var shareTimer1 = setInterval(function () {
+                     if (document.getElementById("ya_share_1")) {
+                        clearInterval(shareTimer1);
+
+                        Ya.share({
+                           elementID: "ya_share_1",
+                           style: {
+                              'button': true,
+                              'icon': true,
+                              'border': true
+                           },
+                           services: ['yaru', 'vkontakte', 'twitter', 'facebook', 'lj', 'odnoklassniki', 'friendfeed', 'moimir'],
+                           popup: { // настройки попапа
+                              blocks: { // блоки
+                                 'Поделитесь с друзьями': ['yaru', 'vkontakte', 'twitter', 'facebook', 'lj', 'odnoklassniki', 'friendfeed', 'moimir']
+                              },
+                              input: false
+                           }
+                        });
+                     }
+                  }, 50);
+               </script>
+            </div>
+         </div>
+      </td>
+   </tr>
+</table>

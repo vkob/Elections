@@ -1,0 +1,2 @@
+﻿1. Fix tittle of index file, Suma/President
+2. Check numbers of presence and so on.
