@@ -9,7 +9,7 @@ using Data.Places;
 
 namespace Data
 {
-    public class Reader
+    public class TikCreator
     {
         public ElectionFoo GetFoo(string fileName)
         {
@@ -50,12 +50,7 @@ namespace Data
 
         const int captionIndex = 1;
 
-        public District Get(string path)
-        {
-            return new District();
-        }
-
-        public Tik Generate(string fileName)
+        public Tik Create(string fileName)
         {
             var electionFoo = GetFoo(fileName);
 

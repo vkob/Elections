@@ -22,14 +22,7 @@ namespace Data.Places
 
         public void Check()
         {
-            Debug.Assert(NumberOfVoters == Uiks.Sum(u => u.NumberOfVoters), "NumberOfVoters");
-            Debug.Assert(NumberOfEarlier == Uiks.Sum(u => u.NumberOfEarlier), "NumberOfEarlier");
-            Debug.Assert(NumberOfInside == Uiks.Sum(u => u.NumberOfInside), "NumberOfInside");
-            Debug.Assert(NumberOfOutside == Uiks.Sum(u => u.NumberOfOutside), "NumberOfOutside");
-            Debug.Assert(Portable == Uiks.Sum(u => u.Portable), "Portable");
-            Debug.Assert(Stationary == Uiks.Sum(u => u.Stationary), "Stationary");
-            Debug.Assert(Valid == Uiks.Sum(u => u.Valid), "Valid");
-            Debug.Assert(InValid == Uiks.Sum(u => u.InValid), "InValid");
+            PlaceUtil.Check(this, Uiks.Cast<IElectItem>().ToList());
         }
     }
 }

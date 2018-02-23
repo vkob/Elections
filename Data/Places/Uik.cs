@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Data.Places
 {
@@ -16,5 +18,10 @@ namespace Data.Places
         public string Name { get; set; }
 
         public List<Pair> Pairs { get; set; }
+
+        public void Check()
+        {
+
+        }
     }
 }

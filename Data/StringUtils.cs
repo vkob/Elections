@@ -12,5 +12,11 @@ namespace Data
             var split = fileName.Split('\\');
             return split[split.Length - 3];
         }
+
+        public static string GetDistrictName(string path)
+        {
+            var split = path.Split('\\');
+            return split[split.Length - 4];
+        }
     }
 }

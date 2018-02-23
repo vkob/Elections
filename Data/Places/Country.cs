@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Data.Places
 {
@@ -17,5 +18,10 @@ namespace Data.Places
         public int Valid { get; set; }
         public int InValid { get; set; }
         public string Name { get; set; }
+        
+        public void Check()
+        {
+            PlaceUtil.Check(this, Districts.Cast<IElectItem>().ToList());
+        }
     }
 }

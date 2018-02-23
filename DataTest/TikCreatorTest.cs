@@ -11,16 +11,16 @@ using NUnit.Framework;
 namespace DataTest
 {
     [TestFixture]
-    public class DataTest
+    public class TikCreatorTest
     {
         [Test]
-        public void TxtFileDataExtractTest()
+        public void TikTest()
         {
-            var reader = new Reader();
+            var reader = new TikCreator();
 
-            var dir = Path.GetDirectoryName(typeof(DataTest).Assembly.Location);
+            var dir = Path.GetDirectoryName(typeof(TikCreatorTest).Assembly.Location);
             
-            var tik = reader.Generate(dir + @"\..\..\..\..\Results\ResultsPresident\Алтайский край\Алейская\СИЗКСРФ\Алейская 2012.txt");
+            var tik = reader.Create(dir + @"\..\..\..\..\Results\ResultsPresident\Алтайский край\Алейская\СИЗКСРФ\Алейская 2012.txt");
             Assert.IsNotNull(tik);
 
             Assert.AreEqual(37, tik.Uiks.Count);
@@ -32,7 +32,7 @@ namespace DataTest
             tik.Check();
         }
 
-        private void CheckData(IElectItem item, string name,
+        public static void CheckData(IElectItem item, string name,
             int numberOfVoters, int numberOfEarlier, int numberOfInside, int numberOfOutside, int stationary, int portable, int valid, int inValid)
         {
             Assert.AreEqual(numberOfVoters, item.NumberOfVoters);

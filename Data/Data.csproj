@@ -39,12 +39,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Candidate.cs" />
+    <Compile Include="Creators\DistrictCreator.cs" />
+    <Compile Include="FileList.cs" />
     <Compile Include="Places\Country.cs" />
     <Compile Include="DataConsts.cs" />
     <Compile Include="Places\District.cs" />
     <Compile Include="IElectItem.cs" />
     <Compile Include="Pair.cs" />
-    <Compile Include="Reader.cs" />
+    <Compile Include="Creators\TikCreator.cs" />
+    <Compile Include="Places\PlaceUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Places\Tik.cs" />
     <Compile Include="Places\Uik.cs" />

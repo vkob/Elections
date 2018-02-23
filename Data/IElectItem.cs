@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Data
 {
-    public interface IElectItem
+    public interface IElectItem 
     {
         int NumberOfVoters { get; set; }
 
@@ -22,5 +22,7 @@ namespace Data
 
         string Name { get; set; }
         List<Pair> Pairs { get; set; }
+
+        void Check();
     }
 }
