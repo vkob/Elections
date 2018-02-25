@@ -82,7 +82,7 @@ namespace TestElections
          Assert.AreEqual("Тамбовская_177", 
                         download.GetName1(
                                   "<a style=\"text-decoration: none\" href=\"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&amp;tvd=100100067796087&amp;vrn=100100067795849&amp;region=0&amp;global=1&amp;sub_region=0&amp;prver=0&amp;pronetvd=0&amp;vibid=2682000507746&amp;type=233\">Тамбовская_177</a></nobr>"));
-         //
+         //ё
          Assert.AreEqual("Звёздная городская",
               download.GetName1(
                   "<a style=\"text-decoration: none\" href=\"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&amp;tvd=100100067796150&amp;vrn=100100067795849&amp;region=0&amp;global=1&amp;sub_region=0&amp;prver=0&amp;pronetvd=0&amp;vibid=25920001184764&amp;type=233\">Звёздная городская</a></nobr>"));
@@ -92,7 +92,6 @@ namespace TestElections
                         Assert.AreEqual("Астрахань, Кировская",
                          download.GetName1(
                             "<a style=\"TEXT-DECORATION: none\" href=\"http://www.astrakhan.vybory.izbirkom.ru/region/region/astrakhan?action=show&amp;tvd=4304220103086&amp;vrn=4304220103082&amp;region=30&amp;global=&amp;sub_region=0&amp;prver=0&amp;pronetvd=null&vibid=4304220103176&type=222\">Астрахань, Кировская</a></nobr>"));
-          
       }
 
       [Test]
