@@ -26,7 +26,7 @@ namespace Elections
       Presence
    }
 
-   public class ProcessExcel
+   public class ProcessExcel : IDisposable
    {
       #region Consts
 
@@ -44,11 +44,13 @@ namespace Elections
       private const int Count2007 = 2402;
       private const double CountDelta2007 = (double) Count2007 / 100;
 
-      #endregion
+        #endregion
 
-      #region Fields
+        #region Fields
 
-      public static Dictionary<string, string> Parties = new[]
+       private ApplicationClass app = new ApplicationClass();
+
+        public static Dictionary<string, string> Parties = new[]
          {
             //2003 
 
@@ -192,7 +194,9 @@ namespace Elections
 
       public ProcessExcel() 
       {
-         MaxDeltaPair = new Pair<double, string>(-1, "");  
+         MaxDeltaPair = new Pair<double, string>(-1, "");
+
+         app = new ApplicationClass();
       }
 
       #endregion
@@ -284,7 +288,6 @@ namespace Elections
 
          object misValue = System.Reflection.Missing.Value;
 
-         var app = new ApplicationClass();
          var workBookNew = app.Workbooks.Add(misValue);
 
          var workSheetNew = (Worksheet)workBookNew.Worksheets[1];
@@ -371,12 +374,9 @@ namespace Elections
          {
             workBookNew.Close(false, null, null);
          }
-
-         app.Quit();
-
+            
          ReleaseObject(workSheetNew);
          ReleaseObject(workBookNew);
-         ReleaseObject(app);
 
          stopWatch.Stop();
          Trace.WriteLine(stopWatch.Elapsed);
@@ -657,23 +657,23 @@ namespace Elections
 
          object misValue = System.Reflection.Missing.Value;
 
-         var app = new ApplicationClass();
-         var workBook = app.Workbooks.Open(fi.FullName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+         var workbooks = app.Workbooks;
+         var workBook = workbooks.Open(fi.FullName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
 
-         var workSheet = (Worksheet)workBook.Worksheets[1];
+         var worksheets = workBook.Worksheets;
+         var workSheet = (Worksheet)worksheets[1];
 
          workBook.SaveAs(fileName, XlFileFormat.xlTextWindows, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
          workBook.Close(true, misValue, misValue);
-         app.Quit();
 
          ReleaseObject(workSheet);
+         ReleaseObject(worksheets);
          ReleaseObject(workBook);
-         ReleaseObject(app);
       }
 
-      #endregion Public Methods
+        #endregion Public Methods
 
-      private ElectionInfo ProcessXlsFile(string fileName, string faction)
+        private ElectionInfo ProcessXlsFile(string fileName, string faction)
       {
          var app = new ApplicationClass();
          var workBook = app.Workbooks.Open(fileName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
@@ -822,5 +822,11 @@ namespace Elections
          }
          return new Triple<double, double, double>(min, max, resultValue);
       }
-   }
+
+      public void Dispose()
+      {
+          app.Quit();
+          ReleaseObject(app);
+      }
+    }
 }
