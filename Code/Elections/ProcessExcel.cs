@@ -608,6 +608,12 @@ namespace Elections
          return fi.Name;
       }
 
+       public void ExportXls(string path, string years)
+       {
+           var filePatterns = years.Split(',').Select(y => $"*{y}.xls").ToArray();
+           ExportXls(path, filePatterns);
+       }
+
       public void ExportXls(string path, string[] filePatterns)
       {
          if (IsStopped) return;
@@ -617,30 +623,30 @@ namespace Elections
          {
             if (IsStopped) return;
 
-            Action<string> processFiles = (pattern) =>
-            {
-               foreach (var fi in di.GetFiles(pattern))
-               {
-                  if (IsStopped) return;
-                  try
-                  {
-
-                     SaveXlsToTxt(fi);
-                  }
-                  catch(Exception ex)
-                  {
-                     Trace.WriteLine(string.Format("{0}: {1}", fi.FullName, ex.Message));
-                  }
-               }
-            };
-
             if (di.FullName.EndsWith(Consts.LocalCommittee))
             {
-               filePatterns.ForEach(processFiles);
+               filePatterns.ForEach(pattern => ProcessFiles(di, pattern));
             }
             ExportXls(di.FullName, filePatterns);
          }          
       }
+
+       void ProcessFiles(DirectoryInfo di, string pattern)
+       {
+           foreach (var fi in di.GetFiles(pattern))
+           {
+               if (IsStopped) return;
+               try
+               {
+
+                   SaveXlsToTxt(fi);
+               }
+               catch (Exception ex)
+               {
+                   Trace.WriteLine(string.Format("{0}: {1}", fi.FullName, ex.Message));
+               }
+           }
+        }
 
       public void SaveXlsToTxt(FileInfo fi)
       {

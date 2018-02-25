@@ -169,34 +169,28 @@ namespace ElectionRunHelper
 
         private static void DownloadXls(string type, string year)
         {
-            string path;
+            Download.FindFileForXlsExtraction(GetResultPath(type), year);
+        }
+
+        private static string GetResultPath(string type)
+        {
             switch (type.ToLower())
             {
                 case "duma":
-                    path = Consts.LocalPathDumaResults;
-                    break;
+                    return Consts.LocalPathDumaResults;
                 case "astrahan":
-                    path = Consts.LocalPathAstrahanResults;
-                    break;
+                    return Consts.LocalPathAstrahanResults;
                 case "president":
-                    path = Consts.LocalPathPresidentResults;
-                    break;
+                    return Consts.LocalPathPresidentResults;
                 default:
                     throw new Exception("Unknown type");
             }
-
-            Download.FindFileForXlsExtraction(path, year);
         }
 
-        private static void ExtraxtXlsToTxt()
+        private static void ExtraxtXlsToTxt(string type, string years)
         {
             var processExcel = new ProcessExcel();
-            processExcel.ExportXls(Consts.ResultsPath + @"\" + Consts.ResultsDuma,
-                new[] { Consts.PatternExt2003Xls, Consts.PatternExt2007Xls, Consts.PatternExt2011Xls });
-            processExcel.ExportXls(Consts.ResultsPath + @"\" + Consts.ResultsAstrahan,
-                new[] { Consts.PatternExt2009Xls, Consts.PatternExt2012Xls });
-            processExcel.ExportXls(Consts.ResultsPath + @"\" + Consts.ResultsPresident,
-                new[] { Consts.PatternExt2004Xls, Consts.PatternExt2008Xls, Consts.PatternExt2012Xls });
+            processExcel.ExportXls(GetResultPath(type), years);
         }
 
         private static void GenerateAll()
@@ -264,10 +258,10 @@ namespace ElectionRunHelper
                     DownloadHtml(args[1]);//1 2016
                     break;
                 case "2":
-                    DownloadXls(args[1], args[2]);//2 duma 2016
+                    DownloadXls(args[1], args[2]);//2 duma 2016 
                     break;
                 case "3":
-                    ExtraxtXlsToTxt();
+                    ExtraxtXlsToTxt(args[1], args[2]);//3 duma 2016
                     break;
                 case "4":
                     FindMinMaxData();
