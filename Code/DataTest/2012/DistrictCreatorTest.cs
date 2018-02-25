@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Data;
+﻿using System.IO;
 using Data.Creators;
 using Data.Places;
 using NUnit.Framework;
 
-namespace DataTest
+namespace DataTest._2012
 {
     [TestFixture]
     class DistrictCreatorTest

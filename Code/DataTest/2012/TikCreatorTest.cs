@@ -1,15 +1,9 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.IO;
 using Data;
 using Data.Places;
 using NUnit.Framework;
 
-namespace DataTest
+namespace DataTest._2012
 {
     [TestFixture]
     public class TikCreatorTest

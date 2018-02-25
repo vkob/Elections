@@ -57,44 +57,21 @@ namespace Elections
 
       public ElectionCommitteeResults(string fileName)
       {
-         ElectionFoo electionFoo = null;
+         ElectionFoo electionFoo = ElectionFoo.GetFoo(fileName);
 
-         if (fileName.EndsWith(Data.Core.Consts.Ending2003Txt))
-         {
-            electionFoo = ElectionFoo.Duma2003;
-         }
-         else
-         if (fileName.EndsWith(Data.Core.Consts.Ending2007Txt))
-         {
-            electionFoo = ElectionFoo.Duma2007;
-         }
-         else
-         if (fileName.EndsWith(Data.Core.Consts.Ending2011Txt))
-         {
-            electionFoo = ElectionFoo.Duma2011;
-         }
-         else
-         if (fileName.EndsWith(Data.Core.Consts.Ending2004Txt))
-         {
-            electionFoo = ElectionFoo.President2004;
-         }
-         else
-         if (fileName.EndsWith(Data.Core.Consts.Ending2008Txt))
-         {
-            electionFoo = ElectionFoo.President2008;
-         }
-         else
-         if (fileName.EndsWith(Consts.Ending2009Txt))
-         {
-            electionFoo = ExcelConsts.Astrahan2009;
-         }
-         else
-         if (fileName.EndsWith(Data.Core.Consts.Ending2012Txt))
-         {
-            electionFoo = fileName.Contains(Consts.ResultsAstrahan) ? ExcelConsts.Astrahan2012 : ElectionFoo.President2012;
-         }
+          if (fileName.Contains(Consts.ResultsAstrahan))
+          {
+              if (fileName.EndsWith(Consts.Ending2009Txt))
+              {
+                  electionFoo = ExcelConsts.Astrahan2009;
+              }
+              else if (fileName.EndsWith(Data.Core.Consts.Ending2012Txt))
+              {
+                  electionFoo = ExcelConsts.Astrahan2012;
+              }
+          }
 
-         const int captionIndex = 1;
+          const int captionIndex = 1;
          var stopWatch = new Stopwatch();
          stopWatch.Start();
 

@@ -58,6 +58,7 @@
         public static ElectionFoo Duma2003;
         public static ElectionFoo Duma2007;
         public static ElectionFoo Duma2011;
+        public static ElectionFoo Duma2016;
 
         public static ElectionFoo President2004;
         public static ElectionFoo President2008;
@@ -90,6 +91,18 @@
             };
 
             Duma2011 = new ElectionFoo()
+            {
+                RowLocalElectionCommittee = 8,
+                NumberOfElectorsInList = new Label(ЧИСЛО_ИЗБИРАТЕЛЕЙ_ВНЕСЕННЫХ_В_СПИСОК_ИЗБИРАТЕЛЕЙ, 9),
+                NumberOfEarlier = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ИЗБИРАТЕЛЯМ_ПРОГОЛОСОВАВШИМ_ДОСРОЧНО, 11),
+                NumberOfIn = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ИЗБИРАТЕЛЯМ_В_ПОМЕЩЕНИИ_ДЛЯ_ГОЛОСОВАНИЯ, 12),
+                NumberOfOut = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ИЗБИРАТЕЛЯМ_ВНЕ_ПОМЕЩЕНИЯ_ДЛЯ_ГОЛОСОВАНИЯ, 13),
+                NumberOfInvalidBallot = new Label(ЧИСЛО_НЕДЕЙСТВИТЕЛЬНЫХ_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ, 17),
+                NumberOfValidBallot = new Label(ЧИСЛО_ДЕЙСТВИТЕЛЬНЫХ_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ, 18),
+                MinRowNumberForFactions = 28
+            };
+
+            Duma2016 = new ElectionFoo()
             {
                 RowLocalElectionCommittee = 8,
                 NumberOfElectorsInList = new Label(ЧИСЛО_ИЗБИРАТЕЛЕЙ_ВНЕСЕННЫХ_В_СПИСОК_ИЗБИРАТЕЛЕЙ, 9),
@@ -152,5 +165,42 @@
         public Label Stationary;
 
         public int MinRowNumberForFactions;
+
+        public static ElectionFoo GetFoo(string fileName)
+        {
+            ElectionFoo electionFoo = null;
+
+            if (fileName.EndsWith(Consts.Ending2003Txt))
+            {
+                electionFoo = Duma2003;
+            }
+            else
+            if (fileName.EndsWith(Consts.Ending2007Txt))
+            {
+                electionFoo = Duma2007;
+            }
+            else
+            if (fileName.EndsWith(Consts.Ending2011Txt))
+            {
+                electionFoo = Duma2011;
+            }
+            else
+            if (fileName.EndsWith(Consts.Ending2004Txt))
+            {
+                electionFoo = President2004;
+            }
+            else
+            if (fileName.EndsWith(Consts.Ending2008Txt))
+            {
+                electionFoo = President2008;
+            }
+            else
+            if (fileName.EndsWith(Consts.Ending2012Txt))
+            {
+                electionFoo = President2012;
+            }
+
+            return electionFoo;
+        }
     }
 }

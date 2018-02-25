@@ -42,9 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
-    <Compile Include="CountryCreatorTest.cs" />
-    <Compile Include="DistrictCreatorTest.cs" />
-    <Compile Include="TikCreatorTest.cs" />
+    <Compile Include="2012\CountryCreatorTest.cs" />
+    <Compile Include="2012\DistrictCreatorTest.cs" />
+    <Compile Include="2012\TikCreatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

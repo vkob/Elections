@@ -11,48 +11,11 @@ namespace Data
 {
     public class TikCreator
     {
-        public ElectionFoo GetFoo(string fileName)
-        {
-            ElectionFoo electionFoo = null;
-
-            if (fileName.EndsWith(Consts.Ending2003Txt))
-            {
-                electionFoo = ElectionFoo.Duma2003;
-            }
-            else
-            if (fileName.EndsWith(Consts.Ending2007Txt))
-            {
-                electionFoo = ElectionFoo.Duma2007;
-            }
-            else
-            if (fileName.EndsWith(Consts.Ending2011Txt))
-            {
-                electionFoo = ElectionFoo.Duma2011;
-            }
-            else
-            if (fileName.EndsWith(Consts.Ending2004Txt))
-            {
-                electionFoo = ElectionFoo.President2004;
-            }
-            else
-            if (fileName.EndsWith(Consts.Ending2008Txt))
-            {
-                electionFoo = ElectionFoo.President2008;
-            }
-            else
-            if (fileName.EndsWith(Consts.Ending2012Txt))
-            {
-                electionFoo = ElectionFoo.President2012;
-            }
-
-            return electionFoo;
-        }
-
         const int captionIndex = 1;
 
         public Tik Create(string fileName)
         {
-            var electionFoo = GetFoo(fileName);
+            var electionFoo = ElectionFoo.GetFoo(fileName);
 
             var stopWatch = new Stopwatch();
             stopWatch.Start();
