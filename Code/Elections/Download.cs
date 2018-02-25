@@ -43,29 +43,32 @@ namespace Elections
          Start(electionYear.Year, Path.Combine(Consts.ResultsPath, electionYear.Result), Consts.MainHtmlFileName, electionYear.Link);
       }
 
-      public static void FindFileForXlsExtraction(string path)
+      public static void FindFileForXlsExtraction(string path, string year)
       {
          var directoryInfo = new DirectoryInfo(path);
          var directoryInfos = directoryInfo.GetDirectories();
+
+         var fileFilter = year.ToLower() == Consts.AllYears ? Consts.PatthernExtHtml : $"*{year}.html";
          foreach (var di in directoryInfos)
          {
             if (di.FullName.EndsWith(Consts.LocalCommittee))
             {
-               foreach (var fi in di.GetFiles(Consts.PatthernExtHtml))
+               foreach (var fi in di.GetFiles(fileFilter))
                {
-                  //Trace.WriteLine(fi.FullName);
                   var xlsFileName = GetXlsName(fi.FullName);
+                  var xlsFullFileName = di.FullName + @"\" + xlsFileName;
+                  if (File.Exists(xlsFullFileName)) continue;
                   using (var sr = new StreamReader(fi.FullName))
                   {
                      var text = sr.ReadToEnd();
                      var xlsHRef = FindRegionXlsHRef(text);
-                     DownloadFile(xlsHRef, di.FullName + @"\" + xlsFileName);
+                     DownloadFile(xlsHRef, xlsFullFileName);
                   }
                }
             }
             else
             {
-               FindFileForXlsExtraction(di.FullName);
+               FindFileForXlsExtraction(di.FullName, year);
             }
          }
       }
@@ -246,6 +249,9 @@ namespace Elections
             case Consts.Ending2012Html:
                ending = Consts.Ending2012Xls;
                break;
+             case Consts.Ending2016Html:
+                 ending = Consts.Ending2016Xls;
+                 break;
             default:
                throw new Exception("Add new extension to constants");
          }

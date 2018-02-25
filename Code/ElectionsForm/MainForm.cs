@@ -83,12 +83,12 @@ namespace ElectionsForm
 
       private void btnDownloadXlsFilesDuma_Click(object sender, EventArgs e)
       {
-         Download.FindFileForXlsExtraction(Consts.LocalPathDumaResults);
+         Download.FindFileForXlsExtraction(Consts.LocalPathDumaResults, Consts.AllYears);
       }
 
       private void btnDownloadXlsFilesPres_Click(object sender, EventArgs e)
       {
-         Download.FindFileForXlsExtraction(Consts.LocalPathPresidentResults);
+         Download.FindFileForXlsExtraction(Consts.LocalPathPresidentResults, Consts.AllYears);
       }
 
       private void btnSortByDelta_Click(object sender, EventArgs e)

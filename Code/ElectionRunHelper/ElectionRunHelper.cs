@@ -167,11 +167,25 @@ namespace ElectionRunHelper
             }
         }
 
-        private static void DownloadXls()
+        private static void DownloadXls(string type, string year)
         {
-            //Download.FindFileForXlsExtraction(Consts.LocalPathDumaResults);
-            Download.FindFileForXlsExtraction(Consts.LocalPathAstrahanResults);
-            //Download.FindFileForXlsExtraction(Consts.LocalPathPresidentResults);
+            string path;
+            switch (type.ToLower())
+            {
+                case "duma":
+                    path = Consts.LocalPathDumaResults;
+                    break;
+                case "astrahan":
+                    path = Consts.LocalPathAstrahanResults;
+                    break;
+                case "president":
+                    path = Consts.LocalPathPresidentResults;
+                    break;
+                default:
+                    throw new Exception("Unknown type");
+            }
+
+            Download.FindFileForXlsExtraction(path, year);
         }
 
         private static void ExtraxtXlsToTxt()
@@ -247,10 +261,10 @@ namespace ElectionRunHelper
             switch (args[0])
             {
                 case "1":
-                    DownloadHtml(args[1]);
+                    DownloadHtml(args[1]);//1 2016
                     break;
                 case "2":
-                    DownloadXls();
+                    DownloadXls(args[1], args[2]);//2 duma 2016
                     break;
                 case "3":
                     ExtraxtXlsToTxt();

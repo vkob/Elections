@@ -53,6 +53,8 @@ namespace Elections
 
         public const string MainHtmlFileName = "all";
 
+        public const string AllYears = "all";
+
         public const string ExtHtml = ".html";
         public const string PatthernExtHtml = "*.html";
 
@@ -83,10 +85,12 @@ namespace Elections
         public const string Ending2004Html = "2004.html";
         public const string Ending2008Html = "2008.html";
         public const string Ending2012Html = "2012.html";
+        public const string Ending2016Html = "2016.html";
 
         public const string Ending2003Xls = "2003.xls";
         public const string Ending2007Xls = "2007.xls";
         public const string Ending2011Xls = "2011.xls";
+        public const string Ending2016Xls = "2016.xls";
 
         public const string Ending2004Xls = "2004.xls";
         public const string Ending2008Xls = "2008.xls";
