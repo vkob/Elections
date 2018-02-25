@@ -18,7 +18,12 @@ namespace Data.Places
         public int Valid { get; set; }
         public int InValid { get; set; }
         public string Name { get; set; }
-        
+
+        public Country()
+        {
+            Districts = new List<District>();
+        }
+
         public void Check()
         {
             PlaceUtil.Check(this, Districts.Cast<IElectItem>().ToList());
@@ -26,6 +31,8 @@ namespace Data.Places
 
         public void Add(District district)
         {
+            Districts.Add(district);
+
             PlaceUtil.Add(this, district);
         }
     }

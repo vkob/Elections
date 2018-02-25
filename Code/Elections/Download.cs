@@ -15,7 +15,7 @@ namespace Elections
 
       private const string Vybory = @"http://www.[a-z]*\.?vybory.izbirkom.ru";
       private const string RegionIzbirkom = "/region/[0-9a-z&=;?/_]+";
-      private const string Name = @"(?<name>([а-яa-z\s\(\)\-№N0-9,.]+))";
+      private const string Name = @"(?<name>([а-яёa-z\s\(\)\-№N0-9,._]+))";
 
       private const string NameSpecial = @"^[0-9]{1,3}\s" + Name;
 
@@ -40,8 +40,8 @@ namespace Elections
 
       public void Start(ElectionYear electionYear)
       {
-         Start(electionYear.Year, Path.Combine(Consts.ResultsPath, electionYear.Result), Consts.MainHtmlFileName, electionYear.Link);
-      }
+          Start(electionYear.Year, Path.Combine(Consts.ResultsPath, electionYear.Result), Consts.MainHtmlFileName, electionYear.Link);
+        }
 
       public static void FindFileForXlsExtraction(string path, string year)
       {

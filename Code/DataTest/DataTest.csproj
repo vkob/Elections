@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="2016\CountryCreatorTest.cs" />
+    <Compile Include="2016\DistrictCreatorTest.cs" />
+    <Compile Include="2016\TikCreatorTest.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="2012\CountryCreatorTest.cs" />
     <Compile Include="2012\DistrictCreatorTest.cs" />

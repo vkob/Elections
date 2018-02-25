@@ -27,6 +27,8 @@ namespace Data.Places
 
         public void Add(Tik tik)
         {
+            Tiks.Add(tik);
+
             PlaceUtil.Add(this, tik);
         }
     }

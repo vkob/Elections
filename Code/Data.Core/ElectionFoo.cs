@@ -105,13 +105,15 @@
             Duma2016 = new ElectionFoo()
             {
                 RowLocalElectionCommittee = 8,
-                NumberOfElectorsInList = new Label(ЧИСЛО_ИЗБИРАТЕЛЕЙ_ВНЕСЕННЫХ_В_СПИСОК_ИЗБИРАТЕЛЕЙ, 9),
-                NumberOfEarlier = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ИЗБИРАТЕЛЯМ_ПРОГОЛОСОВАВШИМ_ДОСРОЧНО, 11),
-                NumberOfIn = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ИЗБИРАТЕЛЯМ_В_ПОМЕЩЕНИИ_ДЛЯ_ГОЛОСОВАНИЯ, 12),
-                NumberOfOut = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ИЗБИРАТЕЛЯМ_ВНЕ_ПОМЕЩЕНИЯ_ДЛЯ_ГОЛОСОВАНИЯ, 13),
-                NumberOfInvalidBallot = new Label(ЧИСЛО_НЕДЕЙСТВИТЕЛЬНЫХ_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ, 17),
-                NumberOfValidBallot = new Label(ЧИСЛО_ДЕЙСТВИТЕЛЬНЫХ_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ, 18),
-                MinRowNumberForFactions = 28
+                NumberOfElectorsInList = new Label("\"Число избирателей, внесенных в список избирателей на момент окончания голосования\"", 9),
+                NumberOfEarlier = new Label("\"Число избирательных бюллетеней, выданных избирателям, проголосовавшим досрочно\"", 11),
+                NumberOfIn = new Label("\"Число избирательных бюллетеней, выданных в помещении для голосования в день голосования\"", 12),
+                NumberOfOut = new Label("\"Число избирательных бюллетеней, выданных вне помещения для голосования в день голосования\"", 13),
+                NumberOfInvalidBallot = new Label("\"Число недействительных избирательных бюллетеней\"", 17),
+                NumberOfValidBallot = new Label("\"Число действительных избирательных бюллетеней\"", 18),
+                Portable = new Label("\"Число избирательных бюллетеней, содержащихся в переносных ящиках для голосования\"", 15),
+                Stationary = new Label("\"Число избирательных бюллетеней, содержащихся в стационарных ящиках для голосования\"", 16),
+                MinRowNumberForFactions = -1
             };
 
             President2004 = new ElectionFoo()
@@ -198,6 +200,11 @@
             if (fileName.EndsWith(Consts.Ending2012Txt))
             {
                 electionFoo = President2012;
+            }
+            else
+            if (fileName.EndsWith(Consts.Ending2016Txt))
+            {
+                electionFoo = Duma2016;
             }
 
             return electionFoo;
