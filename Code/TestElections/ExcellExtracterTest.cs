@@ -14,13 +14,13 @@ namespace TestElections
         [Test]
         public void SaveXlsToTxtTest()
         {
-            var files = new[]
+            var files = new[]  
             {
                 @"\..\..\..\..\Results\ResultsDuma\ОИК №1\Адыгейская\СИЗКСРФ\Адыгейская 2016",
                 @"\..\..\..\..\Results\ResultsDuma\ОИК №1\Гиагинская\СИЗКСРФ\Гиагинская 2016",
                 @"\..\..\..\..\Results\ResultsDuma\ОИК №1\Кошехабльская\СИЗКСРФ\Кошехабльская 2016",
 
-            };
+            }; 
 
             using (var excellExtracter = new ExcellExtracter())
             {
