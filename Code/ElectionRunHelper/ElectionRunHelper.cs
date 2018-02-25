@@ -51,7 +51,7 @@ namespace ElectionRunHelper
             {
                 using (var sr = new StreamReader(fileName))
                 {
-                    return ((List<Election>) xmlSerializer.Deserialize(sr)).ToDictionary(
+                    return ((List<Election>)xmlSerializer.Deserialize(sr)).ToDictionary(
                         election => election.ElectionCommittee, election => election);
                 }
             };
@@ -78,17 +78,17 @@ namespace ElectionRunHelper
 
         private static void GeneratePresenceDiagram()
         {
-            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] {"ER", "KPRF", "SR", "LDPR"}, AxisYType.People,
+            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR" }, AxisYType.People,
                 DiagramType.Presence);
-            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] {"ER", "KPRF", "SR", "LDPR"}, AxisYType.UIK,
+            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR" }, AxisYType.UIK,
                 DiagramType.Presence);
         }
 
         private static void GenerateFooResultsDiagram()
         {
-            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] {"ER", "KPRF", "SR", "LDPR", "YA"},
+            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR", "YA" },
                 AxisYType.People, DiagramType.Results);
-            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] {"ER", "KPRF", "SR", "LDPR", "YA"},
+            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR", "YA" },
                 AxisYType.UIK, DiagramType.Results);
         }
 
@@ -132,17 +132,39 @@ namespace ElectionRunHelper
 
         }
 
-        private static void DownloadHtml()
+        private static void DownloadHtml(string year)
         {
             var download = new Download();
-            download.Start(Consts.ElectionAstrahan2009);
-            download.Start(Consts.ElectionAstrahan2012);
-            //download.Start(Consts.ElectionYear2003);
-            //download.Start(Consts.ElectionYear2004);
-            //download.Start(Consts.ElectionYear2007);
-            //download.Start(Consts.ElectionYear2008);
-            //download.Start(Consts.ElectionYear2011);
-            //download.Start(Consts.ElectionYear2012);
+
+            switch (year)
+            {
+                case "2003":
+                    download.Start(Consts.ElectionYear2003);
+                    break;
+                case "2004":
+                    download.Start(Consts.ElectionYear2004);
+                    break;
+                case "2007":
+                    download.Start(Consts.ElectionYear2007);
+                    break;
+                case "2008":
+                    download.Start(Consts.ElectionYear2008);
+                    break;
+                case "2009":
+                    download.Start(Consts.ElectionAstrahan2009);
+                    download.Start(Consts.ElectionAstrahan2012);
+                    break;
+                case "2011":
+                    download.Start(Consts.ElectionYear2011);
+                    break;
+                case "2012":
+                    download.Start(Consts.ElectionYear2012);
+                    break;
+                case "2016":
+                    download.Start(Consts.ElectionYear2016);
+                    break;
+
+            }
         }
 
         private static void DownloadXls()
@@ -156,11 +178,11 @@ namespace ElectionRunHelper
         {
             var processExcel = new ProcessExcel();
             processExcel.ExportXls(Consts.ResultsPath + @"\" + Consts.ResultsDuma,
-                new[] {Consts.PatternExt2003Xls, Consts.PatternExt2007Xls, Consts.PatternExt2011Xls});
+                new[] { Consts.PatternExt2003Xls, Consts.PatternExt2007Xls, Consts.PatternExt2011Xls });
             processExcel.ExportXls(Consts.ResultsPath + @"\" + Consts.ResultsAstrahan,
-                new[] {Consts.PatternExt2009Xls, Consts.PatternExt2012Xls});
+                new[] { Consts.PatternExt2009Xls, Consts.PatternExt2012Xls });
             processExcel.ExportXls(Consts.ResultsPath + @"\" + Consts.ResultsPresident,
-                new[] {Consts.PatternExt2004Xls, Consts.PatternExt2008Xls, Consts.PatternExt2012Xls});
+                new[] { Consts.PatternExt2004Xls, Consts.PatternExt2008Xls, Consts.PatternExt2012Xls });
         }
 
         private static void GenerateAll()
@@ -225,7 +247,7 @@ namespace ElectionRunHelper
             switch (args[0])
             {
                 case "1":
-                    DownloadHtml();
+                    DownloadHtml(args[1]);
                     break;
                 case "2":
                     DownloadXls();
