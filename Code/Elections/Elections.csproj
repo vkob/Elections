@@ -54,6 +54,7 @@
     <Compile Include="ElectionYear.cs" />
     <Compile Include="ExcelConsts.cs" />
     <Compile Include="ElectionCommitteeResults.cs" />
+    <Compile Include="ExcellExtracter.cs" />
     <Compile Include="FooData.cs" />
     <Compile Include="ProcessExcel.cs" />
     <Compile Include="ProcessTxt.cs" />

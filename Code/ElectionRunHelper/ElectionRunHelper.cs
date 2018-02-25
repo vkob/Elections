@@ -189,8 +189,10 @@ namespace ElectionRunHelper
 
         private static void ExtraxtXlsToTxt(string type, string years)
         {
-            var processExcel = new ProcessExcel();
-            processExcel.ExportXls(GetResultPath(type), years);
+            using (var excellExtracter = new ExcellExtracter())
+            {
+                excellExtracter.ExportXls(GetResultPath(type), years);
+            }
         }
 
         private static void GenerateAll()
