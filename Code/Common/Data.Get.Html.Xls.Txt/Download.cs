@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Data.Core;
 
-namespace Data.Loader
+namespace Data.Get.Html.Xls.Txt
 {
     public class Download
     {
@@ -44,7 +44,7 @@ namespace Data.Loader
 
         public const string PatthernExtHtml = "*.html";
 
-        private const int ElectionYear2003 = 2003;
+        public const int ElectionYear2003 = 2003;
 
         public const string LocalCommitteeLong = "сайт избирательной комиссии субъекта Российской Федерации";
 

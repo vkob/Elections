@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Data.Loader;
-using Elections;
+﻿using System.IO;
 using NUnit.Framework;
 
-namespace TestElections
+namespace Data.Get.Html.Xls.Txt.Tests
 {
     [TestFixture]
     class ExcellExtracterTest
@@ -17,9 +11,9 @@ namespace TestElections
         {
             var files = new[]  
             {
-                @"\..\..\..\..\Results\ResultsDuma\ОИК №1\Адыгейская\СИЗКСРФ\Адыгейская 2016",
-                @"\..\..\..\..\Results\ResultsDuma\ОИК №1\Гиагинская\СИЗКСРФ\Гиагинская 2016",
-                @"\..\..\..\..\Results\ResultsDuma\ОИК №1\Кошехабльская\СИЗКСРФ\Кошехабльская 2016",
+                @"\..\..\..\..\..\Results\ResultsDuma\ОИК №1\Адыгейская\СИЗКСРФ\Адыгейская 2016",
+                @"\..\..\..\..\..\Results\ResultsDuma\ОИК №1\Гиагинская\СИЗКСРФ\Гиагинская 2016",
+                @"\..\..\..\..\..\Results\ResultsDuma\ОИК №1\Кошехабльская\СИЗКСРФ\Кошехабльская 2016",
 
             }; 
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AD46A3E1-4AC2-4C09-9AF8-1F3D215CF333}</ProjectGuid>
+    <ProjectGuid>{39854C46-722B-44AE-8358-D2451F551F44}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Data</RootNamespace>
-    <AssemblyName>Data</AssemblyName>
+    <RootNamespace>Data.Get.Html.Xls.Txt.Tests</RootNamespace>
+    <AssemblyName>Data.Get.Html.Xls.Txt.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -33,6 +33,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.9.0\lib\net35\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,26 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Candidate.cs" />
-    <Compile Include="Creators\CountryCreator.cs" />
-    <Compile Include="Creators\DistrictCreator.cs" />
-    <Compile Include="FileList.cs" />
-    <Compile Include="Places\Country.cs" />
-    <Compile Include="DataConsts.cs" />
-    <Compile Include="Places\District.cs" />
-    <Compile Include="IElectItem.cs" />
-    <Compile Include="Pair.cs" />
-    <Compile Include="Creators\TikCreator.cs" />
-    <Compile Include="Places\PlaceUtil.cs" />
+    <Compile Include="DownloadTest.cs" />
+    <Compile Include="ExcellExtracterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Places\Tik.cs" />
-    <Compile Include="Places\Uik.cs" />
-    <Compile Include="StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Data.Core\Data.Core.csproj">
-      <Project>{c851ae66-3c29-4179-9836-9efbc8e3b7a4}</Project>
-      <Name>Data.Core</Name>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestXlsLoad.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data.Get.Html.Xls.Txt\Data.Get.Html.Xls.Txt.csproj">
+      <Project>{f8d94bbe-9e8c-4db6-b2d6-0460eb48a9f8}</Project>
+      <Name>Data.Get.Html.Xls.Txt</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

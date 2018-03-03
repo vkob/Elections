@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using Data.Core;
 using Microsoft.Office.Interop.Excel;
 
-namespace Data.Loader
+namespace Data.Get.Html.Xls.Txt
 {
     public class ExcellExtracter : IDisposable
     {

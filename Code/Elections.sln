@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections", "Elections\Elections.csproj", "{20E4FF46-3F49-4B5E-9011-30221F6E2B52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestElections", "TestElections\TestElections.csproj", "{8638E02E-1C85-4320-9F0E-FE3098351BDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elections.Tests", "Elections.Tests\Elections.Tests.csproj", "{8638E02E-1C85-4320-9F0E-FE3098351BDC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectionRunHelper", "ElectionRunHelper\ElectionRunHelper.csproj", "{7D4BF921-EF8E-478A-BECC-79DF67FBD7AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTest", "DataTest\DataTest.csproj", "{C07F160B-E902-46D4-B68F-1F7D99826FD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Tests", "Data.Tests\Data.Tests.csproj", "{C07F160B-E902-46D4-B68F-1F7D99826FD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{AD46A3E1-4AC2-4C09-9AF8-1F3D215CF333}"
 EndProject
@@ -21,7 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{65F43C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Core", "Common\Data.Core\Data.Core.csproj", "{C851AE66-3C29-4179-9836-9EFBC8E3B7A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Loader", "Common\Data.Loader\Data.Loader.csproj", "{F8D94BBE-9E8C-4DB6-B2D6-0460EB48A9F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Get.Html.Xls.Txt", "Common\Data.Get.Html.Xls.Txt\Data.Get.Html.Xls.Txt.csproj", "{F8D94BBE-9E8C-4DB6-B2D6-0460EB48A9F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Get.Html.Xls.Txt.Tests", "Common\Data.Get.Html.Xls.Txt.Tests\Data.Get.Html.Xls.Txt.Tests.csproj", "{39854C46-722B-44AE-8358-D2451F551F44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,18 @@ Global
 		{F8D94BBE-9E8C-4DB6-B2D6-0460EB48A9F8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F8D94BBE-9E8C-4DB6-B2D6-0460EB48A9F8}.Release|x86.ActiveCfg = Release|Any CPU
 		{F8D94BBE-9E8C-4DB6-B2D6-0460EB48A9F8}.Release|x86.Build.0 = Release|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Debug|x86.Build.0 = Debug|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Release|x86.ActiveCfg = Release|Any CPU
+		{39854C46-722B-44AE-8358-D2451F551F44}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +137,7 @@ Global
 		{AD46A3E1-4AC2-4C09-9AF8-1F3D215CF333} = {11F66CDE-9A1B-43C2-8303-6804E0F4022F}
 		{C851AE66-3C29-4179-9836-9EFBC8E3B7A4} = {65F43C22-04AA-435A-95FA-C849927B29EE}
 		{F8D94BBE-9E8C-4DB6-B2D6-0460EB48A9F8} = {65F43C22-04AA-435A-95FA-C849927B29EE}
+		{39854C46-722B-44AE-8358-D2451F551F44} = {65F43C22-04AA-435A-95FA-C849927B29EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {895BA3F0-F898-4F40-90F4-4A5D89EB6FAF}
