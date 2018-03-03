@@ -50,9 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consts.cs" />
-    <Compile Include="Download.cs" />
     <Compile Include="ElectionYear.cs" />
-    <Compile Include="ExcelConsts.cs" />
     <Compile Include="ElectionCommitteeResults.cs" />
     <Compile Include="ExcellExtracter.cs" />
     <Compile Include="FooData.cs" />
@@ -70,7 +68,6 @@
     <Compile Include="Utility\Six.cs" />
     <Compile Include="Utility\TextProcessFunctions.cs" />
     <Compile Include="Utility\Triple.cs" />
-    <Compile Include="Utility\ElectionDataRenamer.cs" />
     <Compile Include="ElectionInfo.cs" />
     <Compile Include="XmlProcessing\Election.cs" />
     <Compile Include="XmlProcessing\Foo.cs" />

@@ -59,19 +59,7 @@ namespace Elections
       {
          ElectionFoo electionFoo = ElectionFoo.GetFoo(fileName);
 
-          if (fileName.Contains(Consts.ResultsAstrahan))
-          {
-              if (fileName.EndsWith(Consts.Ending2009Txt))
-              {
-                  electionFoo = ExcelConsts.Astrahan2009;
-              }
-              else if (fileName.EndsWith(Data.Core.Consts.Ending2012Txt))
-              {
-                  electionFoo = ExcelConsts.Astrahan2012;
-              }
-          }
-
-          const int captionIndex = 1;
+         const int captionIndex = 1;
          var stopWatch = new Stopwatch();
          stopWatch.Start();
 

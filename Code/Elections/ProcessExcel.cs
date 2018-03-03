@@ -209,7 +209,7 @@ namespace Elections
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            string path = Path.Combine(Consts.ResultsPath, electionYears[0].Result);
+            string path = Path.Combine(Data.Core.Consts.ResultsPath, electionYears[0].Result);
             var electionType = electionYears[0].ElectionType;
             var patterns = electionYears.Select(ey => ey.PatternExt).ToArray();
 
@@ -263,7 +263,7 @@ namespace Elections
                     }
                 };
 
-                if (di.FullName.EndsWith(Consts.LocalCommittee))
+                if (di.FullName.EndsWith(Data.Core.Consts.LocalCommittee))
                 {
                     electionYears.ForEach(processFiles);
                 }
@@ -609,48 +609,6 @@ namespace Elections
         }
 
         #endregion Public Methods
-
-        private ElectionInfo ProcessXlsFile(string fileName, string faction)
-        {
-            var app = new ApplicationClass();
-            var workBook = app.Workbooks.Open(fileName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-            var workSheet = (Worksheet)workBook.Worksheets[1];
-
-            var range = workSheet.UsedRange;
-
-            var year = fileName.Contains(Consts.Ending2007Xls) ? Consts.ElectionYear2007 : fileName.Contains(Consts.Ending2011Xls) ? Consts.ElectionYear2011 : null;
-
-            minRowNumberForFactions = MinRowNumberForFactions(year, range);
-
-            var factionNumbersRow = FindFactionRow(range, faction);
-            var factionPercentRow = factionNumbersRow + 1;
-
-            int maxColUik = MaxColumnUIK(range, ElectionFoo.Flag, ElectionFoo.Duma2007.RowLocalElectionCommittee, ElectionFoo.MinColUik);
-            var pair = FindMinMaxPercentages(range, factionPercentRow, ElectionFoo.MinColUik, maxColUik);
-            var delta = pair.Second - pair.First;
-
-            var electionInfo = new ElectionInfo();
-            electionInfo.Min = pair.First;
-            electionInfo.Max = pair.Second;
-            electionInfo.Value = pair.Third;
-            electionInfo.Number = maxColUik - ElectionFoo.MinColUik + 1;
-
-            if (delta > MaxDeltaPair.First)
-            {
-                MaxDeltaPair = new Pair<double, string>(delta, fileName);
-            }
-
-            Trace.WriteLine(string.Format("Min={0}, Max={1}, Delta={2}, Number={3}, Value={4}, {5}", electionInfo.Min, electionInfo.Max, delta, electionInfo.Number, electionInfo.Value, fileName));
-
-            workBook.Close(true, null, null);
-            app.Quit();
-
-            ReleaseObject(workSheet);
-            ReleaseObject(workBook);
-            ReleaseObject(app);
-
-            return electionInfo;
-        }
 
         private static void ReleaseObject(object obj)
         {

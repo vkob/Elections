@@ -31,7 +31,7 @@ namespace Elections
             var directoryInfos = directoryInfo.GetDirectories();
             foreach (var di in directoryInfos)
             {
-                if (di.FullName.EndsWith(Consts.LocalCommittee))
+                if (di.FullName.EndsWith(Data.Core.Consts.LocalCommittee))
                 {
                     filePatterns.ForEach(pattern => ProcessFiles(di, pattern));
                 }

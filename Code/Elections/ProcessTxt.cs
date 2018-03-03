@@ -39,7 +39,7 @@ namespace Elections
          var stopWatch = new Stopwatch();
          stopWatch.Start();
 
-         SearchTxtFiles(Path.Combine(Consts.ResultsPath, electionYear.Result), filesPattern, electionYear.Result);
+         SearchTxtFiles(Path.Combine(Data.Core.Consts.ResultsPath, electionYear.Result), filesPattern, electionYear.Result);
 
          SaveDictionary();
 

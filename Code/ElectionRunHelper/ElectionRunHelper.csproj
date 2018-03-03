@@ -56,6 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Data.Loader\Data.Loader.csproj">
+      <Project>{f8d94bbe-9e8c-4db6-b2d6-0460eb48a9f8}</Project>
+      <Name>Data.Loader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Elections\Elections.csproj">
       <Project>{20E4FF46-3F49-4B5E-9011-30221F6E2B52}</Project>
       <Name>Elections</Name>

@@ -25,10 +25,7 @@ namespace ElectionRunHelper
 
             //processTxt.Start(Consts.ElectionYear2004);
             //processTxt.Start(Consts.ElectionYear2008);
-            //processTxt.Start(Consts.ElectionYear2012);
-
-            //processTxt.Start(Consts.ElectionAstrahan2009);
-            processTxt.Start(Consts.ElectionAstrahan2012);
+            processTxt.Start(Consts.ElectionYear2012);
         }
 
         private static void SortByDeltaFunc()
@@ -107,11 +104,6 @@ namespace ElectionRunHelper
                 Consts.ElectionYear2008,
                 Consts.ElectionYear2012,
             });
-            processExcel.PrepareDrawAllDiagrams(new[]
-            {
-                Consts.ElectionAstrahan2009,
-                Consts.ElectionAstrahan2012
-            });
         }
 
         private static void DrawOneDiagram()
@@ -135,36 +127,7 @@ namespace ElectionRunHelper
         private static void DownloadHtml(string year)
         {
             var download = new Download();
-
-            switch (year)
-            {
-                case "2003":
-                    download.Start(Consts.ElectionYear2003);
-                    break;
-                case "2004":
-                    download.Start(Consts.ElectionYear2004);
-                    break;
-                case "2007":
-                    download.Start(Consts.ElectionYear2007);
-                    break;
-                case "2008":
-                    download.Start(Consts.ElectionYear2008);
-                    break;
-                case "2009":
-                    download.Start(Consts.ElectionAstrahan2009);
-                    download.Start(Consts.ElectionAstrahan2012);
-                    break;
-                case "2011":
-                    download.Start(Consts.ElectionYear2011);
-                    break;
-                case "2012":
-                    download.Start(Consts.ElectionYear2012);
-                    break;
-                case "2016":
-                    download.Start(Consts.ElectionYear2016);
-                    break;
-
-            }
+            download.Start(year);
         }
 
         private static void DownloadXls(string type, string year)
@@ -235,8 +198,6 @@ namespace ElectionRunHelper
             var zipFiles = new ZipFiles();
             zipFiles.StartZipping(new[]
             {
-                Consts.ElectionAstrahan2009,
-                Consts.ElectionAstrahan2012,
                 Consts.ElectionYear2003,
                 Consts.ElectionYear2004,
                 Consts.ElectionYear2007,

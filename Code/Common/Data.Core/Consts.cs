@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -16,5 +17,11 @@ namespace Data.Core
         public const string Ending2008Txt = "2008.txt";
         public const string Ending2012Txt = "2012.txt";
         public const char Tab = '	';
+
+        public const string ResultsDuma = "ResultsDuma";
+        public const string ResultsPresident = "ResultsPresident";
+        public const string TopPath = @"..\..\..\..\";
+        public static string ResultsPath = Path.Combine(TopPath, "Results");
+        public const string LocalCommittee = @"СИЗКСРФ";
     }
 }

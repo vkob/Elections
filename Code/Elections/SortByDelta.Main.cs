@@ -43,18 +43,8 @@ namespace Elections
          sbMain.Append(res.First);
          if (res != null) sbGraphics.Append(res.Second);
 
-         //2009
-         res = Start(needOutput, new[] { Consts.ElectionAstrahan2009 }, Consts.ElectionAstrahan2009, false);
-         sbMain.Append(res.First);
-         if (res != null) sbGraphics.Append(res.Second);
-
          //2011
          res = Start(needOutput, new[] { Consts.ElectionYear2007, Consts.ElectionYear2011 }, Consts.ElectionYear2007, true);
-         sbMain.Append(res.First);
-         if (res != null) sbGraphics.Append(res.Second);
-
-         //2012
-         res = Start(needOutput, new[] { Consts.ElectionAstrahan2012, Consts.ElectionAstrahan2009 }, Consts.ElectionAstrahan2009, false);
          sbMain.Append(res.First);
          if (res != null) sbGraphics.Append(res.Second);
 

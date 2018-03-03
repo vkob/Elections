@@ -11,7 +11,6 @@ namespace Elections
         #region External
 
         public const string LocalPath = @"..\..\..\";
-        public const string TopPath = @"..\..\..\..\";
 
         public const string Regions = "Regions";
         public const string Upload = "Upload";
@@ -29,35 +28,22 @@ namespace Elections
         public const string TxtZip = "Txt{0}{1}";
         public const string XlsZip = "Xls{0}{1}";
 
-        public static string ResultsPath = Path.Combine(TopPath, "Results");
-        public static string UpdatePath = Path.Combine(TopPath, Upload);
-        public static string ToZipPath = Path.Combine(TopPath, "ToZip");
+        public static string UpdatePath = Path.Combine(Data.Core.Consts.TopPath, Upload);
+        public static string ToZipPath = Path.Combine(Data.Core.Consts.TopPath, "ToZip");
 
         public static string GraphicsPath = Path.Combine(UpdatePath, Graphics);
         public static string AllIksPath = Path.Combine(UpdatePath, AllIks);
         public static string AllRegionsPath = Path.Combine(UpdatePath, AllRegions);
         public static string ZipPath = Path.Combine(UpdatePath, Zip);
 
-        public static string LocalPathDumaResults = Path.Combine(ResultsPath, Consts.ResultsDuma);
-        public static string LocalPathPresidentResults = Path.Combine(ResultsPath, Consts.ResultsPresident);
-        public static string LocalPathAstrahanResults = Path.Combine(ResultsPath, Consts.ResultsAstrahan);
+        public static string LocalPathDumaResults = Path.Combine(Data.Core.Consts.ResultsPath, Data.Core.Consts.ResultsDuma);
+        public static string LocalPathPresidentResults = Path.Combine(Data.Core.Consts.ResultsPath, Data.Core.Consts.ResultsPresident);
+        public static string LocalPathAstrahanResults = Path.Combine(Data.Core.Consts.ResultsPath, Consts.ResultsAstrahan);
 
         #endregion
 
-        public const string LocalCommitteeLong = "сайт избирательной комиссии субъекта Российской Федерации";
-        public const string LocalCommittee = @"СИЗКСРФ";
-
-        public const string ResultsDuma = "ResultsDuma";
-        public const string ResultsPresident = "ResultsPresident";
         public const string ResultsAstrahan = "ResultsAstrahan";
-
-        public const string MainHtmlFileName = "all";
-
-        public const string AllYears = "all";
-
-        public const string ExtHtml = ".html";
-        public const string PatthernExtHtml = "*.html";
-
+        
         public const string PatternExtJpg = "*{0}.jpg";
         public const string PatternExtTxt = "*{0}.txt";
         public const string PatternExtXls = "*{0}.xls";
@@ -77,24 +63,6 @@ namespace Elections
 
         public const string DumaExtremeResults = "Duma{0}.txt";
         public const string PresidentExtremeResults = "President{0}.txt";
-
-        public const string Ending2003Html = "2003.html";
-        public const string Ending2007Html = "2007.html";
-        public const string Ending2011Html = "2011.html";
-
-        public const string Ending2004Html = "2004.html";
-        public const string Ending2008Html = "2008.html";
-        public const string Ending2012Html = "2012.html";
-        public const string Ending2016Html = "2016.html";
-
-        public const string Ending2003Xls = "2003.xls";
-        public const string Ending2007Xls = "2007.xls";
-        public const string Ending2011Xls = "2011.xls";
-        public const string Ending2016Xls = "2016.xls";
-
-        public const string Ending2004Xls = "2004.xls";
-        public const string Ending2008Xls = "2008.xls";
-        public const string Ending2012Xls = "2012.xls";
 
         #region FooData Constants
 
@@ -185,33 +153,18 @@ namespace Elections
 
         #endregion
 
-        public static readonly ElectionYear ElectionYear2003 = new ElectionYear(ElectionType.Duma, 2003, 55.75, DumaLink2003, DumaFooData2003);
-        public static readonly ElectionYear ElectionYear2007 = new ElectionYear(ElectionType.Duma, 2007, 63.71, DumaLink2007, DumaFooData2007);
-        public static readonly ElectionYear ElectionYear2011 = new ElectionYear(ElectionType.Duma, 2011, 60.2, DumaLink2011, DumaFooData2011);
-        public static readonly ElectionYear ElectionYear2016 = new ElectionYear(ElectionType.Duma, 2016, -1, DumaLink2012, DumaFooData2011);
+        public static readonly ElectionYear ElectionYear2003 = new ElectionYear(ElectionType.Duma, 2003, 55.75, DumaFooData2003);
+        public static readonly ElectionYear ElectionYear2007 = new ElectionYear(ElectionType.Duma, 2007, 63.71, DumaFooData2007);
+        public static readonly ElectionYear ElectionYear2011 = new ElectionYear(ElectionType.Duma, 2011, 60.2, DumaFooData2011);
+        public static readonly ElectionYear ElectionYear2016 = new ElectionYear(ElectionType.Duma, 2016, -1, DumaFooData2011);
 
-        public static readonly ElectionYear ElectionYear2004 = new ElectionYear(ElectionType.President, 2004, 64.38, PresidentLink2004, PresFooData2004);
-        public static readonly ElectionYear ElectionYear2008 = new ElectionYear(ElectionType.President, 2008, 69.70, PresidentLink2008, PresFooData2008);
-        public static readonly ElectionYear ElectionYear2012 = new ElectionYear(ElectionType.President, 2012, 65.34, PresidentLink2012, PresFooData2012);
-
-        public static readonly ElectionYear ElectionAstrahan2009 = new ElectionYear(ElectionType.Astrahan, 2009, 0, AstrahanLink2009, AstrahanFooData2009);
-        public static readonly ElectionYear ElectionAstrahan2012 = new ElectionYear(ElectionType.Astrahan, 2012, 0, AstrahanLink2012, AstrahanFooData2012);
-
+        public static readonly ElectionYear ElectionYear2004 = new ElectionYear(ElectionType.President, 2004, 64.38, PresFooData2004);
+        public static readonly ElectionYear ElectionYear2008 = new ElectionYear(ElectionType.President, 2008, 69.70, PresFooData2008);
+        public static readonly ElectionYear ElectionYear2012 = new ElectionYear(ElectionType.President, 2012, 65.34, PresFooData2012);
 
         public const string ElectionsDir = "Elections";
 
-        private const string DumaLink2003 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100095621&vrn=100100095619&region=0&global=1&sub_region=0&prver=0&pronetvd=0&vibid=100100095621&type=233";
-        private const string DumaLink2007 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100021960186&vrn=100100021960181&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=100100021960186&type=233";
-        private const string DumaLink2011 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100028713304&vrn=100100028713299&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=100100028713304&type=233";
-        private const string DumaLink2012 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100067795854&vrn=100100067795849&region=0&global=1&sub_region=0&prver=0&pronetvd=0&vibid=100100067795854&type=233";
-
-        private const string PresidentLink2004 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=1001000882951&vrn=1001000882950&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=1001000882951&type=227";
-        private const string PresidentLink2008 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100022249920&vrn=100100022176412&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=100100022249920&type=227";
-        private const string PresidentLink2012 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100031793509&vrn=100100031793505&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=100100031793509&type=227";
-
-        private const string AstrahanLink2009 = @"http://www.astrakhan.vybory.izbirkom.ru/region/region/astrakhan?action=show&root=1&tvd=430422094012&vrn=430422093999&region=30&global=&sub_region=30&prver=0&pronetvd=null&vibid=430422094012&type=222";
-        private const string AstrahanLink2012 = @"http://www.astrakhan.vybory.izbirkom.ru/region/region/astrakhan?action=show&root=1&tvd=4304220103086&vrn=4304220103082&region=30&global=&sub_region=0&prver=0&pronetvd=null&vibid=4304220103086&type=222";
-        public const string Ending2009Txt = "2009.txt";
+         public const string Ending2009Txt = "2009.txt";
 
     }
 }

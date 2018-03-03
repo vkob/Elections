@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Elections.XmlProcessing;
 using Microsoft.Office.Interop.Excel;
@@ -13,7 +14,14 @@ namespace Elections.Utility
    {
       public const char Tab = '	';
 
-      public static List<Election> ReadSavedData(string path)
+       private const string Vybory = @"http://www.[a-z]*\.?vybory.izbirkom.ru";
+       private const string RegionIzbirkom = "/region/[0-9a-z&=;?/_]+";
+       private const string Name = @"(?<name>([а-яёa-z\s\(\)\-№N0-9,._]+))";
+
+        public static readonly Regex regexFinish =
+           new Regex("(?<tag>(<a href=\"(?<href>(" + Vybory + RegionIzbirkom + "))\">" + Name + "</a>))", RegexOptions.IgnoreCase);
+
+        public static List<Election> ReadSavedData(string path)
       {
 
          var xmlSerializer = new XmlSerializer(typeof(List<Election>));
@@ -37,7 +45,7 @@ namespace Elections.Utility
             source = sr.ReadToEnd();
          }
 
-         var matchFinish = Download.regexFinish.Match(source);
+         var matchFinish = regexFinish.Match(source);
 
          if (matchFinish.Success)
          {

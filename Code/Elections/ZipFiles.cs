@@ -28,7 +28,7 @@ namespace Elections
 
             var elections = ProcessData.GetElectionDataWithNormalizedPlace(resultsLast, electionYear.Year, SortByDelta.GetAdditional(electionYear.ElectionType));
 
-            FindFiles(elections, new DirectoryInfo(Path.Combine(Consts.ResultsPath, electionYear.Result)), electionYear, destJpg, destJpgByIrr, destTxt, destXls);
+            FindFiles(elections, new DirectoryInfo(Path.Combine(Data.Core.Consts.ResultsPath, electionYear.Result)), electionYear, destJpg, destJpgByIrr, destTxt, destXls);
          }
       }
 

@@ -1,18 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8638E02E-1C85-4320-9F0E-FE3098351BDC}</ProjectGuid>
+    <ProjectGuid>{F8D94BBE-9E8C-4DB6-B2D6-0460EB48A9F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestElections</RootNamespace>
-    <AssemblyName>TestElections</AssemblyName>
+    <RootNamespace>Data.Loader</RootNamespace>
+    <AssemblyName>Data.Loader</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.9.0\lib\net35\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,32 +38,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExcellExtracterTest.cs" />
+    <Compile Include="Download.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDownload.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestXlsLoad.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Data.Loader\Data.Loader.csproj">
-      <Project>{f8d94bbe-9e8c-4db6-b2d6-0460eb48a9f8}</Project>
-      <Name>Data.Loader</Name>
+    <ProjectReference Include="..\Data.Core\Data.Core.csproj">
+      <Project>{c851ae66-3c29-4179-9836-9efbc8e3b7a4}</Project>
+      <Name>Data.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Elections\Elections.csproj">
-      <Project>{20E4FF46-3F49-4B5E-9011-30221F6E2B52}</Project>
-      <Name>Elections</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

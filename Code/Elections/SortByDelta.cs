@@ -1006,13 +1006,13 @@ namespace Elections
             for (int j = 0; j < electionsAll.Length; j++)
             {
                var what_ = (electionYears[j].ElectionType == ElectionType.Duma)
-                  ? Consts.ResultsDuma
+                  ? Data.Core.Consts.ResultsDuma
                   : (electionYears[j].ElectionType == ElectionType.President)
-                     ? Consts.ResultsPresident
+                     ? Data.Core.Consts.ResultsPresident
                      : Consts.ResultsAstrahan;
 
                if (!electionsAll[j].ContainsKey(place)) continue;
-               var localPath = Consts.ResultsPath + @"\" + what_ + @"\" + electionsAll[j][place].ElectionCommittee;
+               var localPath = Data.Core.Consts.ResultsPath + @"\" + what_ + @"\" + electionsAll[j][place].ElectionCommittee;
                var di = new DirectoryInfo(localPath);
                //if (!di.Exists) continue;
                var pattern = string.Format(Consts.PatternExtJpg, electionYears[j].Year);
