@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Xml;
-using System.Text;
-using System.Xml.Serialization;
 using Data.Get.Html.Xls.Txt;
 using Elections;
 using Elections.Utility;
-using Elections.XmlProcessing;
 using Extensions = Data.Core.Extensions;
 
 namespace ElectionRunHelper
@@ -32,18 +25,7 @@ namespace ElectionRunHelper
 
             var resultsPrev = Consts.LocalPath + @"\" + Consts.ElectionsDir + @"\" + what + @"\" + what + year + ".xml";
 
-            var xmlSerializer = new XmlSerializer(typeof(List<Election>));
-
-            Func<string, Dictionary<string, Election>> getElectionData = (fileName) =>
-            {
-                using (var sr = new StreamReader(fileName))
-                {
-                    return ((List<Election>)xmlSerializer.Deserialize(sr)).ToDictionary(
-                        election => election.ElectionCommittee, election => election);
-                }
-            };
-
-            var electionsPrev = getElectionData(resultsPrev);
+            var electionsPrev = ProcessData.ReadSavedData(resultsPrev).ToDictionary(election => election.ElectionCommittee, election => election);
 
             foreach (var kvp in electionsPrev)
             {
