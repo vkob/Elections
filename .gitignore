@@ -33,6 +33,11 @@ bld/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
+
+#not Checkin html and xls
+*.html
+*.xls
+
 # NUNIT
 *.VisualState.xml
 TestResult.xml
