@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using Data.Loader;
 using Elections;
 using Elections.Utility;
 using NUnit.Framework;
@@ -43,13 +44,13 @@ namespace TestElections
                "\"prver=0&\"+" +
                "\"sortorder=\"+sortorder);";
 
-            Trace.WriteLine(Elections.Download.FindRegionXlsHRef(text2));
+            Trace.WriteLine(Download.FindRegionXlsHRef(text2));
             Assert.AreEqual(
                "http://www.altai_terr.vybory.izbirkom.ru/servlet/ExcelReportVersion?region=22&sub_region=22&root=222000041&global=true&vrn=100100028713299&tvd=2222000423902&type=233&vibid=2222000423902&condition=&action=show&version=null&prver=0&sortorder=0",
-               Elections.Download.FindRegionXlsHRef(text1));
+               Download.FindRegionXlsHRef(text1));
             Assert.AreEqual(
                "http://www.adygei.vybory.izbirkom.ru/servlet/ExcelReportVersion?region=1&sub_region=1&root=12000001&global=true&vrn=100100021960181&tvd=2012000128014&type=233&vibid=2012000128014&condition=&action=show&version=null&prver=0&sortorder=0",
-               Elections.Download.FindRegionXlsHRef(text2));
+               Download.FindRegionXlsHRef(text2));
          }
 
       }

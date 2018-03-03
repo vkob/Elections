@@ -7,7 +7,7 @@ using System.Text;
 using Data.Core;
 using Data.Places;
 
-namespace Data
+namespace Data.Creators
 {
     public class TikCreator
     {

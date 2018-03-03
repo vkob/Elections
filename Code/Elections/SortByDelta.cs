@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
+using Data.Core;
 using Elections.Rows;
 using Elections.Utility;
 using Elections.XmlProcessing;

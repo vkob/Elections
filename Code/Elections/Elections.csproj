@@ -52,7 +52,6 @@
     <Compile Include="Consts.cs" />
     <Compile Include="ElectionYear.cs" />
     <Compile Include="ElectionCommitteeResults.cs" />
-    <Compile Include="ExcellExtracter.cs" />
     <Compile Include="FooData.cs" />
     <Compile Include="ProcessExcel.cs" />
     <Compile Include="ProcessTxt.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="Rows\SimpleRow.cs" />
     <Compile Include="SortByDelta.cs" />
     <Compile Include="SortByDelta.Main.cs" />
-    <Compile Include="Utility\Extensions.cs" />
     <Compile Include="Utility\Pair.cs" />
     <Compile Include="Utility\ProcessData.cs" />
     <Compile Include="Utility\Quadruple.cs" />

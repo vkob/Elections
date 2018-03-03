@@ -8,9 +8,11 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Text;
 using System.Xml.Serialization;
+using Data.Loader;
 using Elections;
 using Elections.Utility;
 using Elections.XmlProcessing;
+using Extensions = Data.Core.Extensions;
 
 namespace ElectionRunHelper
 {
@@ -65,8 +67,7 @@ namespace ElectionRunHelper
                 var foos = kvp.Value.Foos.Where(foo => Math.Abs(foo.Value - maxValue) < 0.001);
                 if (foos.Count() > 1 || foos.First().Name != mainFooName)
                 {
-                    foos.ForEach(
-                        foo =>
+                    Extensions.ForEach(foos, foo =>
                             Trace.WriteLine(string.Format("{0}: {1} {2}", foo.Name, kvp.Value.ElectionCommittee,
                                 foo.Value)));
                 }

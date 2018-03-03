@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using Elections.Utility;
+using Data.Core;
 using Microsoft.Office.Interop.Excel;
 
-namespace Elections
+namespace Data.Loader
 {
     public class ExcellExtracter : IDisposable
     {
