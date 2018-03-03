@@ -199,27 +199,27 @@ namespace Elections
          if (numbersData.Length == 0) return false;
          
          const int captionIndex = 1;
-         var partyName = numbersData[captionIndex];
+         var name = numbersData[captionIndex];
 
-         if (partyName.StartsWith("\"") && partyName.EndsWith("\""))
+         if (name.StartsWith("\"") && name.EndsWith("\""))
          {
-            partyName = partyName.Substring(1, partyName.Length - 2);
+            name = name.Substring(1, name.Length - 2);
          }
 
-         if (partyName.StartsWith(". "))
+         if (name.StartsWith(". "))
          {
-            partyName = partyName.Substring(". ".Length);
+            name = name.Substring(". ".Length);
          }
 
-         partyName = partyName.Replace("\"\"", "\"");
+         name = name.Replace("\"\"", "\"");
 
          var numbers = Enumerable.Range(captionIndex + 1, numbersData.Length - captionIndex - 1).Select(i => numbersData[i]).ToArray();
          
          var linePercents = sr.ReadLine();
 
-         if (!ProcessExcel.Parties.ContainsKey(partyName)) return true;
+         if (!Participants.Names.ContainsKey(name)) return true;
 
-         var shortPartyName = ProcessExcel.Parties[partyName];
+         var shortPartyName = Participants.Names[name];
 
          var percents = linePercents.Split(new[] {Data.Core.Consts.Tab }, StringSplitOptions.RemoveEmptyEntries);
 

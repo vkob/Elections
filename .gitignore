@@ -37,6 +37,7 @@ bld/
 #not Checkin html and xls
 *.html
 *.xls
+*.jpg
 
 # NUNIT
 *.VisualState.xml

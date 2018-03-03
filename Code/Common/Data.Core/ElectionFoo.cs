@@ -113,7 +113,7 @@
                 NumberOfValidBallot = new Label("\"Число действительных избирательных бюллетеней\"", 18),
                 Portable = new Label("\"Число избирательных бюллетеней, содержащихся в переносных ящиках для голосования\"", 15),
                 Stationary = new Label("\"Число избирательных бюллетеней, содержащихся в стационарных ящиках для голосования\"", 16),
-                MinRowNumberForFactions = -1
+                MinRowNumberForFactions = 28
             };
 
             President2004 = new ElectionFoo()

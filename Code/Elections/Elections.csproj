@@ -55,6 +55,7 @@
     <Compile Include="ElectionYear.cs" />
     <Compile Include="ElectionCommitteeResults.cs" />
     <Compile Include="FooData.cs" />
+    <Compile Include="Participants.cs" />
     <Compile Include="ProcessExcel.cs" />
     <Compile Include="ProcessTxt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

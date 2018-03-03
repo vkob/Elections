@@ -39,7 +39,8 @@ namespace Elections
          var stopWatch = new Stopwatch();
          stopWatch.Start();
 
-         SearchTxtFiles(Path.Combine(Data.Core.Consts.ResultsPath, electionYear.Result), filesPattern, electionYear.Result);
+          var path = @"W:\VS\Reps\SVN\Elections\Elections\Results\ResultsDuma";
+         SearchTxtFiles(path, filesPattern, electionYear.Result);
 
          SaveDictionary();
 
@@ -66,7 +67,7 @@ namespace Elections
             foreach (var fi in directoryInfo.GetFiles(filesPattern))
             {
                //if (!fi.FullName.Contains("ерритория за пределами")) continue;
-
+                 
                if (IsStopped) break;
                var idx = fi.FullName.IndexOf(results);
                var key = fi.FullName.Substring(idx + results.Length + 1);
@@ -75,7 +76,7 @@ namespace Elections
                electionCommitteeResults.Href = Utility.ProcessData.GetHref(fi.Directory, electionYear.Year);
                dictionary.Add(key, electionCommitteeResults);
                //IsStopped = true;
-            }
+            }   
          }
       }
 
