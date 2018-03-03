@@ -18,38 +18,6 @@ namespace ElectionRunHelper
 {
     class ElectionRunHelper
     {
-        private static void FindMinMaxData(string year)
-        {
-            var processTxt = new ProcessTxt();
-            switch (year)
-            {
-                case "2003":
-                    processTxt.Start(Consts.ElectionYear2003);
-                    break;
-                case "2007":
-                    processTxt.Start(Consts.ElectionYear2007);
-                    break;
-                case "2011":
-                    processTxt.Start(Consts.ElectionYear2011);
-                    break;
-                case "2016":
-                    processTxt.Start(Consts.ElectionYear2016);
-                    break;
-
-                case "2004":
-                    processTxt.Start(Consts.ElectionYear2004);
-                    break;
-                case "2008":
-                    processTxt.Start(Consts.ElectionYear2008);
-                    break;
-                case "2012":
-                    processTxt.Start(Consts.ElectionYear2012);
-                    break;
-
-            }
-        }
-
-
         private static void SortByDeltaFunc()
         {
             var sortByDelta = new SortByDelta();
@@ -248,7 +216,7 @@ namespace ElectionRunHelper
                     ExtraxtXlsToTxt(args[1], args[2]);//3 duma 2016
                     break;
                 case "4":
-                    FindMinMaxData(args[1]);
+                    new ProcessTxt().Start(args[1]);//2016
                     break;
                 case "5":
                     GenerateDiagrams();

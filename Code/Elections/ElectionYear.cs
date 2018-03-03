@@ -47,7 +47,7 @@ namespace Elections
             default:
                throw new Exception("Unknown type");
          }
-         PatternExt = string.Format("*{0}.txt", year);
+         PatternExt = String.Format("*{0}.txt", year);
       }
 
       #endregion
@@ -66,5 +66,28 @@ namespace Elections
       public FooData[] FooData { get; set; }
 
       #endregion
+
+       public static ElectionYear GetElectionYear(string year)
+       {
+           switch (year)
+           {
+               case "2003":
+                   return Consts.ElectionYear2003;
+               case "2007":
+                   return Consts.ElectionYear2007;
+               case "2011":
+                   return Consts.ElectionYear2011;
+               case "2016":
+                   return Consts.ElectionYear2016;
+               case "2004":
+                   return Consts.ElectionYear2004;
+               case "2008":
+                   return Consts.ElectionYear2008;
+               case "2012":
+                   return Consts.ElectionYear2012;
+           }
+
+           return null;
+       }
    }
 }
