@@ -68,6 +68,7 @@ namespace ElectionRunHelper
                 Consts.ElectionYear2003,
                 Consts.ElectionYear2007,
                 Consts.ElectionYear2011,
+                Consts.ElectionYear2016,
             });
             processExcel.PrepareDrawAllDiagrams(new[]
             {
@@ -101,8 +102,6 @@ namespace ElectionRunHelper
             var zipFiles = new ZipFiles();
             zipFiles.StartCopying(new[]
             {
-                //Consts.ElectionAstrahan2009, 
-                //Consts.ElectionAstrahan2012, 
                 //Consts.ElectionYear2003, 
                 //Consts.ElectionYear2004,
                 //Consts.ElectionYear2007,
@@ -175,9 +174,6 @@ namespace ElectionRunHelper
                     break;
                 case "13":
                     FindLocalLeader();
-                    break;
-                case "14":
-                    GenerateDiagrams();
                     break;
                 case "16":
                     GeneratePresenceDiagram();
