@@ -9,47 +9,49 @@ using Elections.XmlProcessing;
 
 namespace Elections
 {
-    public class ProcessTxt
+    public class FinalXmlCreator
     {
         #region Fields
 
-        public bool IsStopped;
-
-        private Dictionary<string, ElectionCommitteeResults> dictionary = new Dictionary<string, ElectionCommitteeResults>();
-        private string fileName;
-        private ElectionYear electionYear;
+        private readonly Dictionary<string, ElectionCommitteeResults> _dictionary = new Dictionary<string, ElectionCommitteeResults>();
+        private string _fileName;
+        private ElectionYear _electionYear;
 
         #endregion
 
-        public void Start(string year)
+        public void Start(string years)
         {
-            electionYear = ElectionYear.GetElectionYear(year);
+            var yearsSplitted = years.Split(',').Select(y => y.Trim());
 
-            dictionary.Clear();
+            foreach (var year in yearsSplitted)
+            {
+                _electionYear = ElectionYear.GetElectionYear(year);
 
-            var fileForExtremeResults = electionYear.DirElectionInfo + electionYear.Year + ".xml";
-            var electionInfoDir = Consts.LocalPath + @"\" + Consts.ElectionsDir + @"\" + electionYear.DirElectionInfo + @"\";
+                _dictionary.Clear();
 
-            if (!Directory.Exists(electionInfoDir)) Directory.CreateDirectory(electionInfoDir);
+                var electionInfoDir = Consts.LocalPath + @"\" + Consts.ElectionsDir + @"\" +
+                                      _electionYear.DirElectionInfo + @"\";
 
-            fileName = electionInfoDir + fileForExtremeResults;
+                if (!Directory.Exists(electionInfoDir)) Directory.CreateDirectory(electionInfoDir);
 
-            var filesPattern = string.Format(Consts.PatternExtTxt, electionYear.Year);
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
+                _fileName = electionInfoDir + _electionYear.DirElectionInfo + _electionYear.Year + ".xml";
 
-            var path = @"W:\VS\Reps\SVN\Elections\Elections\Results\ResultsDuma";
-            SearchTxtFiles(path, filesPattern, electionYear.Result);
+                var filesPattern = string.Format(Consts.PatternExtTxt, _electionYear.Year);
+                var stopWatch = new Stopwatch();
+                stopWatch.Start();
 
-            SaveDictionary();
+                var path = Data.Core.Consts.ResultsPath + _electionYear.Result;
+                SearchTxtFiles(path, filesPattern, _electionYear.Result);
 
-            stopWatch.Stop();
-            Trace.WriteLine(stopWatch.Elapsed.ToString());
+                SaveDictionary();
+
+                stopWatch.Stop();
+                Trace.WriteLine(stopWatch.Elapsed.ToString());
+            }
         }
 
         private void SearchTxtFiles(string path, string filesPattern, string results)
         {
-            if (IsStopped) return;
             var directoryInfo = new DirectoryInfo(path);
 
             var directories = directoryInfo.GetDirectories();
@@ -57,7 +59,6 @@ namespace Elections
             {
                 foreach (var di in directories)
                 {
-                    if (IsStopped) break;
                     SearchTxtFiles(di.FullName, filesPattern, results);
                 }
             }
@@ -67,14 +68,12 @@ namespace Elections
                 {
                     //if (!fi.FullName.Contains("ерритория за пределами")) continue;
 
-                    if (IsStopped) break;
                     var idx = fi.FullName.IndexOf(results);
                     var key = fi.FullName.Substring(idx + results.Length + 1);
 
                     var electionCommitteeResults = new ElectionCommitteeResults(fi.FullName);
-                    electionCommitteeResults.Href = Utility.ProcessData.GetHref(fi.Directory, electionYear.Year);
-                    dictionary.Add(key, electionCommitteeResults);
-                    //IsStopped = true;
+                    electionCommitteeResults.Href = Utility.ProcessData.GetHref(fi.Directory, _electionYear.Year);
+                    _dictionary.Add(key, electionCommitteeResults);
                 }
             }
         }
@@ -89,7 +88,7 @@ namespace Elections
             ////new FooData() { RussianShort = "Яблоко", Color = "white", IsMain = false, RussianLong = "Яблоко" , Result =0},
             ////new FooData() { RussianShort = "СПС", Color = "white", IsMain = false, RussianLong = "СПС" , Result =0},
 
-            if (electionYear.ElectionType == ElectionType.Duma)
+            if (_electionYear.ElectionType == ElectionType.Duma)
             {
                 translitted = new[]
                    {
@@ -106,7 +105,7 @@ namespace Elections
             }
             else
             {
-                var people = dictionary.Values.First().partiesData.Keys.ToArray();
+                var people = _dictionary.Values.First().partiesData.Keys.ToArray();
                 translitted = new string[people.Length][];
                 for (int i = 0; i < translitted.Length; i++)
                 {
@@ -118,17 +117,17 @@ namespace Elections
 
             var elections = new List<Election>();
 
-            var numberOfVoted = dictionary.Sum(kvp => kvp.Value.NumberOfIn + kvp.Value.NumberOfOut + kvp.Value.NumberOfEarlier);
-            var all = dictionary.Sum(kvp => kvp.Value.NumberOfElectorsInList);
+            var numberOfVoted = _dictionary.Sum(kvp => kvp.Value.NumberOfIn + kvp.Value.NumberOfOut + kvp.Value.NumberOfEarlier);
+            var all = _dictionary.Sum(kvp => kvp.Value.NumberOfElectorsInList);
 
-            var first = dictionary.First();
+            var first = _dictionary.First();
             foreach (var partyKvp in first.Value.partiesData)
             {
-                var max = dictionary.Max(kvp => kvp.Value.partiesData[partyKvp.Key].Percent);
+                var max = _dictionary.Max(kvp => kvp.Value.partiesData[partyKvp.Key].Percent);
                 Trace.WriteLine(string.Format("{0} {1}", partyKvp.Key, max));
             }
 
-            foreach (var kvp in dictionary)
+            foreach (var kvp in _dictionary)
             {
                 var electionCommitteeResults = kvp.Value;
                 int idx = kvp.Key.LastIndexOf('\\');
@@ -171,7 +170,7 @@ namespace Elections
             }
 
             var xmlSerializer = new XmlSerializer(typeof(List<Election>));
-            using (var sw = new StreamWriter(fileName))
+            using (var sw = new StreamWriter(_fileName))
             {
                 xmlSerializer.Serialize(sw, elections);
             }

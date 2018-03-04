@@ -198,7 +198,7 @@ namespace ElectionRunHelper
                     ExtraxtXlsToTxt(args[1], args[2]);//3 duma 2016
                     break;
                 case "4":
-                    new ProcessTxt().Start(args[1]);//2016
+                    new FinalXmlCreator().Start(args[1]);//2016
                     break;
                 case "5":
                     GenerateDiagrams();
