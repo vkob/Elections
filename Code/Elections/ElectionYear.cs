@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -59,6 +60,9 @@ namespace Elections
         public double Presence { get; private set; }
         public string DirElectionInfo { get; private set; }
         public string Result { get; private set; }
+
+        public string FullPath => Path.Combine(Data.Core.Consts.ResultsPath, Result);
+
         public string PatternExt { get; private set; }
         public string MainTitle { get; private set; }
 

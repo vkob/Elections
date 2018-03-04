@@ -12,31 +12,21 @@ namespace Elections.Tests
     public class ProcessExcelTest
     {
         [Test]
-        public void Te()
+        public void DrawDiagramForTxtDataTest()
         {
-            //var processExcel = new ProcessExcel();
-            //string fileName;
-            //fileName = @"W:\VS2010\duma\Elections\ResultsDuma\Алтайский край\Табунская\СИЗКСРФ\Табунская 2011.txt";
-            //processExcel.DrawDiagramForTxtData(new FileInfo(fileName), Consts.ElectionYear2011, true);
+            using (var processExcel = new ProcessExcel())
+            {
+                Common(processExcel, Consts.ElectionYear2007);
+                Common(processExcel, Consts.ElectionYear2011);
+            }
         }
 
-
-        private static void DrawOneDiagram()
+        private void Common(ProcessExcel processExcel, ElectionYear electionYear)
         {
-            var processExcel = new ProcessExcel();
-            string fileName;
-            //fileName = @"W:\VS2010\duma\Elections\ResultsDuma\Город Москва - Восточная\район Гольяново\СИЗКСРФ\район гольяново 2011.txt";
-            //processExcel.DrawDiagramForTxtData(new FileInfo(fileName), ElectionType.Duma, true);
-
-            //fileName = @"W:\VS2010\duma\Elections\ResultsPresident\Город Москва\район Гольяново\СИЗКСРФ\район гольяново 2012.txt";
-            //processExcel.DrawDiagramForTxtData(new FileInfo(fileName), ElectionType.President, true);
-
-            //fileName = @"W:\VS2010\duma\Elections\ResultsDuma\Чеченская Республика\Наурская\СИЗКСРФ\наурская 2011.txt";
-            //processExcel.DrawDiagramForTxtData(new FileInfo(fileName), ElectionType.Duma, true);
-
-            fileName = @"W:\VS2010\duma\Elections\ResultsDuma\Алтайский край\Табунская\СИЗКСРФ\Табунская 2011.txt";
-            processExcel.DrawDiagramForTxtData(new FileInfo(fileName), Consts.ElectionYear2007, true);
-
+            var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
+            string fileName = Path.Combine(Path.Combine(dir, electionYear.FullPath),
+                $@"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {electionYear.Year}.txt");
+            processExcel.DrawDiagramForTxtData(new FileInfo(fileName), electionYear, true);
         }
     }
 }

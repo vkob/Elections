@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using Data.Core;
@@ -209,7 +210,8 @@ namespace Elections
 
             object misValue = System.Reflection.Missing.Value;
 
-            var workBookNew = app.Workbooks.Add(misValue);
+            var workBooks = app.Workbooks;
+            var workBookNew = workBooks.Add(misValue);
 
             var workSheetNew = (Worksheet)workBookNew.Worksheets[1];
 
@@ -274,37 +276,17 @@ namespace Elections
             chart.Legend.Font.Bold = true;
             chart.PlotArea.Width = uiksWidth;
             chart.Legend.Left = chart.PlotArea.Left + chart.PlotArea.Width + 10;
-            //((Excel.LegendEntry) chart.Legend.LegendEntries(5)).
-            //var f = ((Excel.LegendEntry) chart.Legend.LegendEntries(1));
-            // ((Excel.LegendEntry)chart.Legend.LegendEntries(1)).LegendKey.Interior.ColorIndex = 1;//.Color = (int)Excel.XlRgbColor.rgbRed;
-            //Trace.WriteLine(chart.Legend.Left);
 
             chart.Export(picName, "JPG", misValue);
 
-            //if (!File.Exists(fileNameTmp) || overWrite)
-            //{
-            //   if (overWrite)
-            //   {
-            //      if (File.Exists(fileNameTmp)) File.Delete(fileNameTmp);
-            //   }
-            //   workBookNew.SaveAs(fileNameTmp, XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue,
-            //                      XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-            //   workBookNew.Close(true, null, null);
-            //}
-            //else
-            {
-                workBookNew.Close(false, null, null);
-            }
+            workBookNew.Close(false, null, null);
 
-            ReleaseObject(workSheetNew);
-            ReleaseObject(workBookNew);
+            Marshal.ReleaseComObject(workSheetNew);
+            Marshal.ReleaseComObject(workBookNew);
+            Marshal.ReleaseComObject(workBooks);
 
             stopWatch.Stop();
             Trace.WriteLine(stopWatch.Elapsed);
-            //using (var sw = new StreamWriter("trace.txt", true))
-            //{
-            //   sw.WriteLine("{0} {1}", stopWatch.Elapsed, fi.FullName);
-            //}
         }
 
         private static SortedDictionary<int, int> GetNumbersToPresence(string foo, List<Election> elections, AxisYType axisYType)
