@@ -51,28 +51,47 @@ namespace Elections
 
         private ApplicationClass app;
 
-        public Dictionary<string, int> PartiesOrder = new[]
-           {
-            new KeyValuePair<string, int>("Справедливая Россия", 1),
-            new KeyValuePair<string, int>("ЛДПР", 2),
-            new KeyValuePair<string, int>("Патриоты России", 3),
-            new KeyValuePair<string, int>("КПРФ", 4),
-            new KeyValuePair<string, int>("Яблоко", 5),
-            new KeyValuePair<string, int>("Единая Россия", 6),
-            new KeyValuePair<string, int>("Правое Дело", 7),
-         }.ToDictionary(k => k.Key, k => k.Value);
+        public static Dictionary<string, int> PartiesOrder2003 = new[]
+        {
+            new KeyValuePair<string, int>("Единая Россия", 1),  //37.56%
+            new KeyValuePair<string, int>("КПРФ", 2),           //12.61%
+            new KeyValuePair<string, int>("ЛДПР", 3),           //11.45%
+            new KeyValuePair<string, int>("Родина", 4),         //9.02%
+            new KeyValuePair<string, int>("Яблоко", 5),         //4.30%
+        }.ToDictionary(k => k.Key, k => k.Value);
 
-        public Dictionary<string, int> PartiesOrder2003 = new[]
-           {
-            new KeyValuePair<string, int>("Единая Россия", 1),
-            new KeyValuePair<string, int>("КПРФ", 2),
-            new KeyValuePair<string, int>("ЛДПР", 3),
-            new KeyValuePair<string, int>("Родина", 4),
-            new KeyValuePair<string, int>("Яблоко", 5), 
-            //new KeyValuePair<string, int>("СПС", 6), 
-            //new KeyValuePair<string, int>("АПР", 7), 
-            //new KeyValuePair<string, int>("РППиПСС", 8), 
-         }.ToDictionary(k => k.Key, k => k.Value);
+        public static Dictionary<string, int> PartiesOrder2007 = new[]
+        {
+            new KeyValuePair<string, int>("Единая Россия", 1),      //64.30%
+            new KeyValuePair<string, int>("КПРФ", 2),               //11.57%
+            new KeyValuePair<string, int>("ЛДПР", 3),               //8.14%
+            new KeyValuePair<string, int>("Справедливая Россия", 4),//7.74%
+            new KeyValuePair<string, int>("Яблоко", 5),             //1.59%
+        }.ToDictionary(k => k.Key, k => k.Value);
+
+        public static Dictionary<string, int> PartiesOrder2011 = new[]
+        {
+            new KeyValuePair<string, int>("Единая Россия", 1),      //49.32%
+            new KeyValuePair<string, int>("КПРФ", 2),               //19.19%
+            new KeyValuePair<string, int>("ЛДПР", 3),               //11.67%
+            new KeyValuePair<string, int>("Справедливая Россия", 4),//13.24%
+            new KeyValuePair<string, int>("Яблоко", 5),             //3.43%
+        }.ToDictionary(k => k.Key, k => k.Value);
+
+        public static Dictionary<string, int> PartiesOrder2016 = new[]
+        {
+            new KeyValuePair<string, int>("Единая Россия", 1),      //54.20%
+            new KeyValuePair<string, int>("КПРФ", 2),               //13.34%
+            new KeyValuePair<string, int>("ЛДПР", 3),               //13.14%
+            new KeyValuePair<string, int>("Справедливая Россия", 4),//6.22%
+            new KeyValuePair<string, int>("Яблоко", 5),             //1.99%
+        }.ToDictionary(k => k.Key, k => k.Value);
+
+        public static Dictionary<int, Dictionary<string, int>> PartiesOrders = new Dictionary<int, Dictionary<string, int>>{
+            {2003, PartiesOrder2003},
+            {2007, PartiesOrder2007},
+            {2011, PartiesOrder2011},
+            {2016, PartiesOrder2016},};
 
         public Dictionary<string, int> PresidentOrder = new[]
         {
@@ -90,13 +109,6 @@ namespace Elections
          new KeyValuePair<string,int>("Прохоров",4),
 
          new KeyValuePair<string,int>("Миронов",5),
-      }.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-        public Dictionary<string, int> AstrahanOrder = new[]
-        {
-         new KeyValuePair<string, int>("Боженов",1),
-         new KeyValuePair<string, int>("Столяров",1),
-         new KeyValuePair<string,int>("Шеин",2),
       }.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
         private int minRowNumberForFactions;
@@ -227,13 +239,12 @@ namespace Elections
             {
                 var fooName = kvp.Key;
                 Trace.WriteLine(fooName);
-                var partiesOrder = year == Consts.ElectionYear2003.Year ? PartiesOrder2003 : PartiesOrder;
-                if (electionYear.ElectionType == ElectionType.Duma && !partiesOrder.ContainsKey(fooName) || electionYear.ElectionType == ElectionType.President && !PresidentOrder.ContainsKey(fooName)) continue;
+
+                if (electionYear.ElectionType == ElectionType.Duma && !PartiesOrders[electionYear.Year].ContainsKey(fooName) ||
+                    electionYear.ElectionType == ElectionType.President && !PresidentOrder.ContainsKey(fooName)) continue;
                 var partyOrder = (electionYear.ElectionType == ElectionType.Duma)
-                   ? partiesOrder[fooName]
-                   : (electionYear.ElectionType == ElectionType.President)
-                      ? PresidentOrder[fooName]
-                      : AstrahanOrder[fooName];
+                   ? PartiesOrders[electionYear.Year][fooName]
+                   : PresidentOrder[fooName];
 
                 workSheetNew.Cells[partyOrder + 1, 1] = string.Format("{0}, {1}%", fooName, kvp.Value.Percent.ToString().Replace(",", "."));
                 for (int j = 0; j < electionCommitteeResults.uiks.Count; j++)
@@ -591,8 +602,8 @@ namespace Elections
                                            columnWithMin = col;
                                        }
                                        if (doubleValue > max) max = doubleValue;
-                                    //Trace.WriteLine(string.Format("{0}", doubleValue));
-                                }
+                                       //Trace.WriteLine(string.Format("{0}", doubleValue));
+                                   }
                                };
 
             findMinMax();
