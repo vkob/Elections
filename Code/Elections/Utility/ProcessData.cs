@@ -60,10 +60,10 @@ namespace Elections.Utility
             return null;
         }
 
-        public static Dictionary<string, Election> GetElectionDataWithNormalizedPlace(string fileName, int year, string additional)
+        public static Dictionary<string, Election> GetElectionDataWithNormalizedPlace(string fileName, int year)
         {
             var list = ReadSavedData(fileName);
-            list.ForEach(e => e.NormalizeElectionCommitteeName(year, additional));
+            list.ForEach(e => e.NormalizeElectionCommitteeName(year));
             var dict = list.ToDictionary(election => election.ElectionCommitteeName, election => election, StringComparer.CurrentCultureIgnoreCase);
             return dict;
         }

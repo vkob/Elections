@@ -72,13 +72,13 @@ namespace Elections.XmlProcessing
          return uikNumbers;
       }
 
-      public void NormalizeElectionCommitteeName(int year, string additional)
+      public void NormalizeElectionCommitteeName(int year)
       {
          ElectionCommitteeName = TextProcessFunctions.GetNormalizedPlace(TextProcessFunctions.GetElectionCommitteeName(ElectionCommittee, year));
          Region = TextProcessFunctions.GetRegion(ElectionCommittee);
 
          Translit = TextProcessFunctions.Translit(ElectionCommitteeName);
-         HrefHtmlFile = string.Format("<a href=\"../{0}{1}/{2}.html\">{3}</a>", Consts.Files, year + additional, Translit, ElectionCommitteeName);
+         HrefHtmlFile = string.Format("<a href=\"../{0}{1}/{2}.html\">{3}</a>", Consts.Files, year, Translit, ElectionCommitteeName);
       }
    }
 }

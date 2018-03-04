@@ -13,7 +13,7 @@ namespace Elections.Tests
         {
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
 
-            var data = ProcessData.GetElectionDataWithNormalizedPlace(dir + @"..\..\..\..\Elections\ElectionInfoDuma\ElectionInfoDuma2011.xml", 2011, "");
+            var data = ProcessData.GetElectionDataWithNormalizedPlace(dir + @"..\..\..\..\Elections\ElectionInfoDuma\ElectionInfoDuma2011.xml", 2011);
             Assert.AreEqual(39, 14, data["город Москва, район Гольяново"].GetFoo("ER").Irregularity);
         }
 
@@ -22,7 +22,7 @@ namespace Elections.Tests
         {
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
 
-            var electionsLast = ProcessData.GetElectionDataWithNormalizedPlace(dir + @"..\..\..\..\Elections\ElectionInfoPresident\ElectionInfoPresident2012.xml", 2012, "");
+            var electionsLast = ProcessData.GetElectionDataWithNormalizedPlace(dir + @"..\..\..\..\Elections\ElectionInfoPresident\ElectionInfoPresident2012.xml", 2012);
             var electionsByRegion = electionsLast
                   .GroupBy(kvp => kvp.Value.Region, kvp => kvp.Value)
                   .ToDictionary(g => g.Key, g => g.ToList());

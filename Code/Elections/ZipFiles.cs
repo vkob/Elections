@@ -26,7 +26,7 @@ namespace Elections
             string what = electionYear.DirElectionInfo;
             var resultsLast = Consts.LocalPath + @"\" + Consts.ElectionsDir + @"\" + what + @"\" + what + electionYear.Year + ".xml";
 
-            var elections = ProcessData.GetElectionDataWithNormalizedPlace(resultsLast, electionYear.Year, SortByDelta.GetAdditional(electionYear.ElectionType));
+            var elections = ProcessData.GetElectionDataWithNormalizedPlace(resultsLast, electionYear.Year);
 
             FindFiles(elections, new DirectoryInfo(Path.Combine(Data.Core.Consts.ResultsPath, electionYear.Result)), electionYear, destJpg, destJpgByIrr, destTxt, destXls);
          }

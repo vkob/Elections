@@ -38,11 +38,8 @@ namespace Elections
 
         public static string LocalPathDumaResults = Path.Combine(Data.Core.Consts.ResultsPath, Data.Core.Consts.ResultsDuma);
         public static string LocalPathPresidentResults = Path.Combine(Data.Core.Consts.ResultsPath, Data.Core.Consts.ResultsPresident);
-        public static string LocalPathAstrahanResults = Path.Combine(Data.Core.Consts.ResultsPath, Consts.ResultsAstrahan);
 
         #endregion
-
-        public const string ResultsAstrahan = "ResultsAstrahan";
         
         public const string PatternExtJpg = "*{0}.jpg";
         public const string PatternExtTxt = "*{0}.txt";
@@ -133,22 +130,6 @@ namespace Elections
                            //////
                            new FooData() {RussianShort = "Миронов", Color = "yellow", IsMain = false,  IsHiddenForIks = true, RussianLong = "Миронов А.В.", Result = 3.86},
                         };
-        #endregion
-
-        #region Astrakhan
-
-        public static FooData[] AstrahanFooData2009 = new[]
-                          {
-                           new FooData() {RussianShort = "Боженов", Color = "", IsMain = true, RussianLong = "Боженов С.А.", Result = 68.03},
-                           new FooData() {RussianShort = "Шеин", Color = "red", IsMain = false, RussianLong = "Шеин О.В.", Result = 23.88},
-                        };
-
-        public static FooData[] AstrahanFooData2012 = new[]
-                          {
-                           new FooData() {RussianShort = "Столяров", Color = "", IsMain = true, RussianLong = "Столяров М.Н.", Result = 60.00},
-                           new FooData() {RussianShort = "Шеин", Color = "red", IsMain = false, RussianLong = "Шеин О.В.", Result = 29.96},
-                        };
-
         #endregion
 
         #endregion

@@ -106,7 +106,7 @@ namespace Elections
 
          int c = 0;
          var electionsAll = electionsFilePathes
-            .Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year, GetAdditional(electionYears[c++].ElectionType)))
+            .Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year))
             .ToArray();
          var electionsByRegionAll = electionsAll
             .Select(e => e.GroupBy(kvp => kvp.Value.Region, kvp => kvp.Value)
@@ -220,7 +220,7 @@ namespace Elections
                              ".xml");
 
          int c = 0;
-         var electionsAll = electionsFilePathes.Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year, GetAdditional(electionYears[c++].ElectionType))).ToArray();
+         var electionsAll = electionsFilePathes.Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year)).ToArray();
 
          var electionLast = electionsAll[electionsAll.Length - 1];
          var mainFoos = electionYears.Select(ey => ey.FooData.First(f => f.IsMain)).ToArray();
@@ -374,9 +374,9 @@ namespace Elections
          var resultsLast = Consts.LocalPath + @"\" + Consts.ElectionsDir + @"\" + what + @"\" + what +
                            electionYears[0].Year + ".xml";
 
-         var electionsPrev = resultsPrev != null ? ProcessData.GetElectionDataWithNormalizedPlace(resultsPrev, electionYearPrevious.Year, GetAdditional(electionYearPrevious.ElectionType)) : null;
+         var electionsPrev = resultsPrev != null ? ProcessData.GetElectionDataWithNormalizedPlace(resultsPrev, electionYearPrevious.Year) : null;
 
-         var electionsLast = ProcessData.GetElectionDataWithNormalizedPlace(resultsLast, lastYear, GetAdditional(lastElectionYear.ElectionType));
+         var electionsLast = ProcessData.GetElectionDataWithNormalizedPlace(resultsLast, lastYear);
 
          var electionsFilePathes =
             electionYears
@@ -391,7 +391,7 @@ namespace Elections
          int c = 0;
          var electionsAll = needOutput 
             ? electionsFilePathes
-               .Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year, GetAdditional(electionYears[c++].ElectionType)))
+               .Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year))
                .ToArray()
             : null;
 
@@ -1006,11 +1006,9 @@ namespace Elections
 
             for (int j = 0; j < electionsAll.Length; j++)
             {
-               var what_ = (electionYears[j].ElectionType == ElectionType.Duma)
-                  ? Data.Core.Consts.ResultsDuma
-                  : (electionYears[j].ElectionType == ElectionType.President)
-                     ? Data.Core.Consts.ResultsPresident
-                     : Consts.ResultsAstrahan;
+                var what_ = (electionYears[j].ElectionType == ElectionType.Duma)
+                    ? Data.Core.Consts.ResultsDuma
+                    : Data.Core.Consts.ResultsPresident;
 
                if (!electionsAll[j].ContainsKey(place)) continue;
                var localPath = Data.Core.Consts.ResultsPath + @"\" + what_ + @"\" + electionsAll[j][place].ElectionCommittee;
