@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,23 +12,53 @@ namespace Elections.Tests
     [TestFixture]
     public class ProcessExcelTest
     {
+        private ProcessExcel processExcel;
+
+        [OneTimeSetUp]
+        public void Init()
+        {
+            processExcel = new ProcessExcel();
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            processExcel.Dispose();
+        }
+
         [Test]
         public void DrawDiagramForTxtDataTest()
         {
-            using (var processExcel = new ProcessExcel())
-            {
-                var filename1 = Common(processExcel, Consts.ElectionYear2007);
-                Assert.AreEqual(112830, new FileInfo(filename1).Length);
-                var filename2 = Common(processExcel, Consts.ElectionYear2011);
-                Assert.AreEqual(112006, new FileInfo(filename2).Length);
-            }
+            CreateFile(Consts.ElectionYear2003, @"Архангельская область\Архангельский\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 101185);
+            CreateFile(Consts.ElectionYear2007, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 112830);
+            CreateFile(Consts.ElectionYear2011, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 112006);
+            CreateFile(Consts.ElectionYear2016, @"ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 92602);
         }
 
-        private string Common(ProcessExcel processExcel, ElectionYear electionYear)
+        public void CreateFile(ElectionYear electionYear, string path, int fileLength)
         {
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
-            string fileName = Path.Combine(Path.Combine(dir, electionYear.FullPath),
-                $@"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {electionYear.Year}.txt");
+
+            var dest = Path.Combine(dir + @"\..\" + Data.Core.Consts.TopPath, "ProcessExcelTest");
+            Directory.CreateDirectory(dest);
+            var dirInfo = new DirectoryInfo(dest);
+            var fileNameSource = Common(processExcel, electionYear, path);
+
+            var fileInfo = new FileInfo(fileNameSource);
+
+            var destFileName = Path.Combine(Path.GetFullPath(dirInfo.FullName), Path.GetFileName(fileNameSource));
+
+            if (File.Exists(destFileName)) File.Delete(destFileName);
+
+            fileInfo.CopyTo(destFileName);
+
+            Assert.AreEqual(fileLength, new FileInfo(fileNameSource).Length);
+        }
+
+        private string Common(ProcessExcel processExcel, ElectionYear electionYear, string path)
+        {
+            var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
+            string fileName = Path.Combine(Path.Combine(dir, electionYear.FullPath), string.Format(path, electionYear.Year));
             return processExcel.DrawDiagramForTxtData(new FileInfo(fileName), electionYear, true);
         }
     }
