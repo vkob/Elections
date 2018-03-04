@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using Data.Core;
 
 namespace Elections.Utility
 {
@@ -15,6 +17,28 @@ namespace Elections.Utility
       private static Regex regexNormalizeRegion = new Regex(@"^(?<region>([А-Яа-я\s\.\-]+))\s\-\s[А-Я][а-я]+$");
 
       public const string SIZKSRF = "СИЗКСРФ";
+
+       private static Dictionary<string, string> mappings2016;
+
+       public static Dictionary<string, string> GetMapping()
+       {
+           if (mappings2016 == null)
+           {
+               mappings2016 = new Dictionary<string, string>();
+               Assembly assembly = typeof(ElectionFoo).Assembly;
+               using (var sr = new StreamReader(assembly.GetManifestResourceStream("Data.Core.Names2016.txt")))
+               {
+                   while (!sr.EndOfStream)
+                   {
+                       var split = sr.ReadLine().Split('\t');
+                        mappings2016.Add(split[0], split[1]);
+                   }
+               }
+
+            }
+
+           return mappings2016;
+       }
 
       public static string[] GetLocation(ElectionYear electionYear, string fileName)
       {
@@ -27,10 +51,10 @@ namespace Elections.Utility
          return parts;
       }
 
-      public static string GetElectionCommitteeName(ElectionYear electionYear, string fileName)
+      public static string GetElectionCommitteeName(ElectionYear electionYear, string fileName, Dictionary<string, string> mapping = null)
       {
          var parts = GetLocation(electionYear, fileName);
-         return GetElectionCommitteeName(parts, electionYear.Year);
+         return GetElectionCommitteeName(parts, electionYear.Year, mapping);
       } 
 
       public static string GetElectionCommitteeName(string text, int year)
@@ -39,7 +63,7 @@ namespace Elections.Utility
          return GetElectionCommitteeName(parts, year);
       }
 
-      private static string GetElectionCommitteeName(string[] parts, int year)
+      private static string GetElectionCommitteeName(string[] parts, int year, Dictionary<string, string> mapping = null)
       {
          string first = parts[0];
          string second = parts[1];
@@ -54,6 +78,11 @@ namespace Elections.Utility
                second = parts[2];
             }
          }
+
+          if (mapping !=null && first.StartsWith("ОИК №"))
+          {
+              first = mapping[first].Split(new [] { " - "}, StringSplitOptions.RemoveEmptyEntries)[0];
+          }
          var location = (second == SIZKSRF) ? first : string.Format("{0}, {1}", first, second);
          return location;
       }

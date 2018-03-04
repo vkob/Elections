@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Data.Get.Html.Xls.Txt
 {
-    public class Normalizer
+    public class Normalizer2016
     {
         private Dictionary<string, string> list = new Dictionary<string, string>();
 
-        public Normalizer()
+        public Normalizer2016()
         {
 
         }

@@ -35,6 +35,15 @@ namespace Elections.Tests
         }
 
         [Test]
+        public void TestGetLocation2016()
+        {
+            Assert.AreEqual("Архангельская область, Архангельск, Октябрьская",
+                TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2016,
+                    @"ResultsDuma\ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская 2016.xls", TextProcessFunctions.GetMapping()));
+        }
+
+
+        [Test]
         public void TestGetLocationGlobalLocal()
         {
             Assert.AreEqual("Ханты-Мансийский автономный округ, Сургутская",
@@ -71,6 +80,13 @@ namespace Elections.Tests
             Assert.AreEqual("517", TextProcessFunctions.GetUikNumber("УИК №517"));
             Assert.AreEqual("517", TextProcessFunctions.GetUikNumber("УИК 517"));
             Assert.AreEqual("517", TextProcessFunctions.GetUikNumber("УИК517"));
+        }
+
+        [Test]
+        public void GetMappingTest()
+        {
+            var dictionary = TextProcessFunctions.GetMapping();
+            Assert.AreEqual("Алтайский край - Бийский", dictionary["ОИК №41"]);
         }
     }
 }

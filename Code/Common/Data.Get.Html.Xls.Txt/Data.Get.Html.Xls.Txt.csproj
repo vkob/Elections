@@ -49,7 +49,7 @@
     <Compile Include="Download.cs" />
     <Compile Include="ExcellExtracter.cs" />
     <Compile Include="Items.cs" />
-    <Compile Include="Normalizer.cs" />
+    <Compile Include="Normalizer2016.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextProcessFunctions.cs" />
   </ItemGroup>

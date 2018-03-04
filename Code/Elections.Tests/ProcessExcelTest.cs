@@ -47,7 +47,7 @@ namespace Elections.Tests
         [Test]
         public void DrawDiagramForTxtDataTest2016()
         {
-            CreateFile(Consts.ElectionYear2016, @"ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 92602);
+            CreateFile(Consts.ElectionYear2016, @"ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 94187);
         }
 
         public void CreateFile(ElectionYear electionYear, string path, int fileLength)
