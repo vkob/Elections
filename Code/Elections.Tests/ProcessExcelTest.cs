@@ -27,11 +27,26 @@ namespace Elections.Tests
         }
 
         [Test]
-        public void DrawDiagramForTxtDataTest()
+        public void DrawDiagramForTxtDataTest2003()
         {
             CreateFile(Consts.ElectionYear2003, @"Архангельская область\Архангельский\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 101185);
+        }
+
+        [Test]
+        public void DrawDiagramForTxtDataTest2007()
+        {
             CreateFile(Consts.ElectionYear2007, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 112830);
+        }
+
+        [Test]
+        public void DrawDiagramForTxtDataTest2011()
+        {
             CreateFile(Consts.ElectionYear2011, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 112006);
+        }
+
+        [Test]
+        public void DrawDiagramForTxtDataTest2016()
+        {
             CreateFile(Consts.ElectionYear2016, @"ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 92602);
         }
 
