@@ -16,17 +16,19 @@ namespace Elections.Tests
         {
             using (var processExcel = new ProcessExcel())
             {
-                Common(processExcel, Consts.ElectionYear2007);
-                Common(processExcel, Consts.ElectionYear2011);
+                var filename1 = Common(processExcel, Consts.ElectionYear2007);
+                Assert.AreEqual(112830, new FileInfo(filename1).Length);
+                var filename2 = Common(processExcel, Consts.ElectionYear2011);
+                Assert.AreEqual(112006, new FileInfo(filename2).Length);
             }
         }
 
-        private void Common(ProcessExcel processExcel, ElectionYear electionYear)
+        private string Common(ProcessExcel processExcel, ElectionYear electionYear)
         {
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
             string fileName = Path.Combine(Path.Combine(dir, electionYear.FullPath),
                 $@"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {electionYear.Year}.txt");
-            processExcel.DrawDiagramForTxtData(new FileInfo(fileName), electionYear, true);
+            return processExcel.DrawDiagramForTxtData(new FileInfo(fileName), electionYear, true);
         }
     }
 }

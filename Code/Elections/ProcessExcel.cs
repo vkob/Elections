@@ -193,7 +193,7 @@ namespace Elections
             }
         }
 
-        public void DrawDiagramForTxtData(FileInfo fi, ElectionYear electionYear, bool overWrite)
+        public string DrawDiagramForTxtData(FileInfo fi, ElectionYear electionYear, bool overWrite)
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -203,9 +203,9 @@ namespace Elections
             var year = Convert.ToInt32(fi.FullName.Substring(fi.FullName.Length - 8, 4));
 
             var location = TextProcessFunctions.GetElectionCommitteeName(electionYear, fi.DirectoryName);
-            var picName = string.Format(@"{0}\{1}{2}.jpg", fi.DirectoryName, TextProcessFunctions.Translit(location), year);
+            var picName = $@"{fi.DirectoryName}\{TextProcessFunctions.Translit(location)}{year}.jpg";
 
-            if (File.Exists(picName) && !overWrite) return;
+            if (File.Exists(picName) && !overWrite) return picName;
             Trace.WriteLine(fi.FullName);
 
             object misValue = System.Reflection.Missing.Value;
@@ -287,6 +287,8 @@ namespace Elections
 
             stopWatch.Stop();
             Trace.WriteLine(stopWatch.Elapsed);
+
+            return picName;
         }
 
         private static SortedDictionary<int, int> GetNumbersToPresence(string foo, List<Election> elections, AxisYType axisYType)
