@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Download.cs" />
     <Compile Include="ExcellExtracter.cs" />
+    <Compile Include="Items.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,30 +10,35 @@ namespace Data.Get.Html.Xls.Txt
 {
     public class ExcellExtracter : IDisposable
     {
-        private readonly ApplicationClass app;
+        private readonly ApplicationClass _app;
 
         public ExcellExtracter()
         {
-            app = new ApplicationClass();
+            _app = new ApplicationClass();
         }
 
-        public void ExportXls(string path, string years)
+        public void ExportXls(string years)
         {
-            var filePatterns = years.Split(',').Select(y => $"*{y}.xls").ToArray();
-            ExportXls(path, filePatterns);
+            var yearsSplitted = years.Split(',').Select(y => int.Parse(y.Trim()));
+
+            foreach (var year in yearsSplitted)
+            {
+                var item = Items.ElectionItems.FirstOrDefault(i => i.Year == year);
+                ExportXls(Path.Combine(Consts.ResultsPath, item.Result), $"*{year}.xls");
+            }
         }
 
-        public void ExportXls(string path, string[] filePatterns)
+        public void ExportXls(string path, string filePattern)
         {
             var directoryInfo = new DirectoryInfo(path);
             var directoryInfos = directoryInfo.GetDirectories();
             foreach (var di in directoryInfos)
             {
-                if (di.FullName.EndsWith(Data.Core.Consts.LocalCommittee))
+                if (di.FullName.EndsWith(Consts.LocalCommittee))
                 {
-                    filePatterns.ForEach(pattern => ProcessFiles(di, pattern));
+                    ProcessFiles(di, filePattern);
                 }
-                ExportXls(di.FullName, filePatterns);
+                ExportXls(di.FullName, filePattern);
             }
         }
 
@@ -46,7 +51,7 @@ namespace Data.Get.Html.Xls.Txt
 
             object misValue = System.Reflection.Missing.Value;
 
-            var workbooks = app.Workbooks;
+            var workbooks = _app.Workbooks;
             var workBook = workbooks.Open(fi.FullName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
 
             var worksheets = workBook.Worksheets;
@@ -62,8 +67,8 @@ namespace Data.Get.Html.Xls.Txt
 
         public void Dispose()
         {
-            app.Quit();
-            Marshal.ReleaseComObject(app);
+            _app.Quit();
+            Marshal.ReleaseComObject(_app);
         }
 
         private void ProcessFiles(DirectoryInfo di, string pattern)

@@ -95,40 +95,6 @@ namespace ElectionRunHelper
 
         }
 
-        private static void DownloadHtml(string year)
-        {
-            var download = new Download();
-            download.Start(year);
-        }
-
-        private static void DownloadXls(string type, string year)
-        {
-            Download.FindFileForXlsExtraction(GetResultPath(type), year);
-        }
-
-        private static string GetResultPath(string type)
-        {
-            switch (type.ToLower())
-            {
-                case "duma":
-                    return Consts.LocalPathDumaResults;
-                case "astrahan":
-                    return Consts.LocalPathAstrahanResults;
-                case "president":
-                    return Consts.LocalPathPresidentResults;
-                default:
-                    throw new Exception("Unknown type");
-            }
-        }
-
-        private static void ExtraxtXlsToTxt(string type, string years)
-        {
-            using (var excellExtracter = new ExcellExtracter())
-            {
-                excellExtracter.ExportXls(GetResultPath(type), years);
-            }
-        }
-
         private static void GenerateAll()
         {
             var sortByDelta = new SortByDelta();
@@ -189,16 +155,17 @@ namespace ElectionRunHelper
             switch (args[0])
             {
                 case "1":
-                    DownloadHtml(args[1]);//1 2016
+                    new Download().GetHtmlFiles(args[1]);
                     break;
                 case "2":
-                    DownloadXls(args[1], args[2]);//2 duma 2016 
+                    new Download().GetXlsFiles(args[1]);//2 2016 
                     break;
-                case "3":
-                    ExtraxtXlsToTxt(args[1], args[2]);//3 duma 2016
+                case "3"://3 2016
+                    using (var excellExtracter = new ExcellExtracter())
+                        excellExtracter.ExportXls(args[1]);
                     break;
                 case "4":
-                    new FinalXmlCreator().Start(args[1]);//2016
+                    new FinalXmlCreator().Start(args[1]);//4 2016
                     break;
                 case "5":
                     GenerateDiagrams();

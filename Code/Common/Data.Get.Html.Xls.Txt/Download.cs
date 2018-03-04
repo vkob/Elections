@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -40,22 +42,9 @@ namespace Data.Get.Html.Xls.Txt
 
         public const string MainHtmlFileName = "all";
 
-        public const string AllYears = "all";
-
-        public const string PatthernExtHtml = "*.html";
-
         public const int ElectionYear2003 = 2003;
 
         public const string LocalCommitteeLong = "сайт избирательной комиссии субъекта Российской Федерации";
-
-        private const string DumaLink2003 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100095621&vrn=100100095619&region=0&global=1&sub_region=0&prver=0&pronetvd=0&vibid=100100095621&type=233";
-        private const string DumaLink2007 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100021960186&vrn=100100021960181&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=100100021960186&type=233";
-        private const string DumaLink2011 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100028713304&vrn=100100028713299&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=100100028713304&type=233";
-        private const string DumaLink2016 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100067795854&vrn=100100067795849&region=0&global=1&sub_region=0&prver=0&pronetvd=0&vibid=100100067795854&type=233";
-
-        private const string PresidentLink2004 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=1001000882951&vrn=1001000882950&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=1001000882951&type=227";
-        private const string PresidentLink2008 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100022249920&vrn=100100022176412&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=100100022249920&type=227";
-        private const string PresidentLink2012 = @"http://www.vybory.izbirkom.ru/region/region/izbirkom?action=show&root=1&tvd=100100031793509&vrn=100100031793505&region=0&global=1&sub_region=0&prver=0&pronetvd=null&vibid=100100031793509&type=227";
 
         #endregion
 
@@ -77,53 +66,34 @@ namespace Data.Get.Html.Xls.Txt
 
         #region Public Methods
 
-        public void Start(string year)
+        public void GetHtmlFiles(string years)
         {
-            int yearValue = int.Parse(year);
-            string result = "";
-            string link = "";
+            var yearsSplitted = years.Split(',').Select(y => int.Parse(y.Trim()));
 
-            switch (year)
+            foreach (var year in yearsSplitted)
             {
-                case "2003":
-                    result = Consts.ResultsDuma;
-                    link = DumaLink2003;
-                    break;
-                case "2004":
-                    result = Consts.ResultsPresident;
-                    link = PresidentLink2004;
-                    break;
-                case "2007":
-                    result = Consts.ResultsDuma;
-                    link = DumaLink2007;
-                    break;
-                case "2008":
-                    result = Consts.ResultsPresident;
-                    link = PresidentLink2008;
-                    break;
-                case "2011":
-                    result = Consts.ResultsDuma;
-                    link = DumaLink2011;
-                    break;
-                case "2012":
-                    result = Consts.ResultsPresident;
-                    link = PresidentLink2012;
-                    break;
-                case "2016":
-                    result = Consts.ResultsDuma;
-                    link = DumaLink2016;
-                    break;
+                var item = Items.ElectionItems.FirstOrDefault(i => i.Year == year);
+                Start(item.Year, Path.Combine(Consts.ResultsPath, item.Result), MainHtmlFileName, item.Link);
             }
-
-            Start(yearValue, Path.Combine(Consts.ResultsPath, result), MainHtmlFileName, link);
         }
 
-        public static void FindFileForXlsExtraction(string path, string year)
+        public void GetXlsFiles(string years)
+        {
+            var yearsSplitted = years.Split(',').Select(y => int.Parse(y.Trim()));
+
+            foreach (var year in yearsSplitted)
+            {
+                var item = Items.ElectionItems.FirstOrDefault(i => i.Year == year);
+                FindFileForXlsExtraction(Path.Combine(Consts.ResultsPath, item.Result), item.Year);
+            }
+        }
+
+        public static void FindFileForXlsExtraction(string path, int year)
         {
             var directoryInfo = new DirectoryInfo(path);
             var directoryInfos = directoryInfo.GetDirectories();
 
-            var fileFilter = year.ToLower() == AllYears ? PatthernExtHtml : $"*{year}.html";
+            var fileFilter = $"*{year}.html";
             foreach (var di in directoryInfos)
             {
                 if (di.FullName.EndsWith(Consts.LocalCommittee))
