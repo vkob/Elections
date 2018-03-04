@@ -40,7 +40,7 @@ namespace Elections
         public static string LocalPathPresidentResults = Path.Combine(Data.Core.Consts.ResultsPath, Data.Core.Consts.ResultsPresident);
 
         #endregion
-        
+
         public const string PatternExtJpg = "*{0}.jpg";
         public const string PatternExtTxt = "*{0}.txt";
         public const string PatternExtXls = "*{0}.xls";
@@ -94,13 +94,13 @@ namespace Elections
             new FooData() { RussianShort = "Я", Color = "green", IsMain = false, RussianLong = "Яблоко", Result = 3.43},
         };
 
-        public static FooData[] DumaFooData2012 = new[]
+        public static FooData[] DumaFooData2016 = new[]
         {
-            new FooData() { RussianShort = "f1", Color = "white", IsMain = true, RussianLong = "long f1", Result = -1},
-            new FooData() { RussianShort = "f2", Color = "red", IsMain = false, RussianLong = "long f2" , Result = -1},
-            new FooData() { RussianShort = "f2", Color = "yellow", IsMain = false, RussianLong = "long f3" , Result = -1},
-            new FooData() { RussianShort = "f3", Color = "blue", IsMain = false, RussianLong = "long f4", Result = -1},
-            new FooData() { RussianShort = "f4", Color = "green", IsMain = false, RussianLong = "long f5", Result = -1},
+            new FooData() { RussianShort = "ЕР", Color = "white", IsMain = true, RussianLong = "Единая Россия", Result =54.20},
+            new FooData() { RussianShort = "КПРФ", Color = "red", IsMain = false, RussianLong = "КПРФ" , Result = 13.34},
+            new FooData() { RussianShort = "СР", Color = "yellow", IsMain = false, RussianLong = "СР" , Result = 6.22},
+            new FooData() { RussianShort = "ЛДПР", Color = "blue", IsMain = false, RussianLong = "ЛДПР", Result = 13.14},
+            new FooData() { RussianShort = "Я", Color = "green", IsMain = false, RussianLong = "Яблоко", Result = 1.99},
         };
 
         #region President
@@ -137,7 +137,7 @@ namespace Elections
         public static readonly ElectionYear ElectionYear2003 = new ElectionYear(ElectionType.Duma, 2003, 55.75, DumaFooData2003);
         public static readonly ElectionYear ElectionYear2007 = new ElectionYear(ElectionType.Duma, 2007, 63.71, DumaFooData2007);
         public static readonly ElectionYear ElectionYear2011 = new ElectionYear(ElectionType.Duma, 2011, 60.2, DumaFooData2011);
-        public static readonly ElectionYear ElectionYear2016 = new ElectionYear(ElectionType.Duma, 2016, -1, DumaFooData2011);
+        public static readonly ElectionYear ElectionYear2016 = new ElectionYear(ElectionType.Duma, 2016, 47.88, DumaFooData2011);
 
         public static readonly ElectionYear ElectionYear2004 = new ElectionYear(ElectionType.President, 2004, 64.38, PresFooData2004);
         public static readonly ElectionYear ElectionYear2008 = new ElectionYear(ElectionType.President, 2008, 69.70, PresFooData2008);
@@ -145,7 +145,7 @@ namespace Elections
 
         public const string ElectionsDir = "Elections";
 
-         public const string Ending2009Txt = "2009.txt";
+        public const string Ending2009Txt = "2009.txt";
 
     }
 }

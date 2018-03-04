@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml.Serialization;
 using Data.Core;
 
 namespace Elections
@@ -13,7 +12,6 @@ namespace Elections
    {
       Duma,
       President,
-      Astrahan
    }
 
    public class ElectionCommitteeResults

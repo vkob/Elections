@@ -78,12 +78,6 @@ namespace ElectionRunHelper
             });
         }
 
-        private static void GenerateAll()
-        {
-            var sortByDelta = new SortByDelta();
-            sortByDelta.Main();
-        }
-
         private static void MainSum()
         {
             var sortByDelta = new SortByDelta();
@@ -95,40 +89,6 @@ namespace ElectionRunHelper
             var sortByDelta = new SortByDelta();
             sortByDelta.DominantForIks();
             sortByDelta.DominantForRegions();
-        }
-
-        public static void CopyFiles()
-        {
-            var zipFiles = new ZipFiles();
-            zipFiles.StartCopying(new[]
-            {
-                //Consts.ElectionYear2003, 
-                //Consts.ElectionYear2004,
-                //Consts.ElectionYear2007,
-                //Consts.ElectionYear2008,
-                //Consts.ElectionYear2011,
-                Consts.ElectionYear2012
-            });
-        }
-
-        public static void ZipFiles()
-        {
-            var zipFiles = new ZipFiles();
-            zipFiles.StartZipping(new[]
-            {
-                Consts.ElectionYear2003,
-                Consts.ElectionYear2004,
-                Consts.ElectionYear2007,
-                Consts.ElectionYear2008,
-                Consts.ElectionYear2011,
-                Consts.ElectionYear2012
-            });
-        }
-
-        public static void CopyZipFiles()
-        {
-            var zipFiles = new ZipFiles();
-            zipFiles.CopyZipFiles();
         }
 
         private static void Main(string[] args)
@@ -152,22 +112,13 @@ namespace ElectionRunHelper
                     GenerateDiagrams();
                     break;
                 case "6":
-                    GenerateAll();
+                    new SortByDelta().Main();
                     break;
                 case "7":
                     MainSum();
                     break;
                 case "8":
-                    MainDominant();
-                    break;
-                case "9":
-                    CopyFiles();
-                    break;
-                case "10":
-                    ZipFiles();
-                    break;
-                case "11":
-                    CopyZipFiles();
+                    MainDominant();//Сводная таблица результатов выборов Партии Власти и Президента за все года
                     break;
                 case "12":
                     SortByDeltaFunc();

@@ -72,7 +72,6 @@
     <Compile Include="ElectionInfo.cs" />
     <Compile Include="XmlProcessing\Election.cs" />
     <Compile Include="XmlProcessing\Foo.cs" />
-    <Compile Include="ZipFiles.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

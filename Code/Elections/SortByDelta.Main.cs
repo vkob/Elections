@@ -57,6 +57,10 @@ namespace Elections
             //2016
             res = Start(needOutput, new[] { Consts.ElectionYear2003, Consts.ElectionYear2007, Consts.ElectionYear2011, Consts.ElectionYear2016 },
                 Consts.ElectionYear2011, true);
+
+            //res = Start(needOutput, new[] { Consts.ElectionYear2016 },
+            //    null, true);
+
             sbMain.Append(res.First);
             if (res != null) sbGraphics.Append(res.Second);
 
@@ -110,6 +114,7 @@ namespace Elections
         {
             StartDominantForRegions(new[]
                              {
+                             Consts.ElectionYear2016,
                              Consts.ElectionYear2012,
                              Consts.ElectionYear2011,
                              Consts.ElectionYear2008,

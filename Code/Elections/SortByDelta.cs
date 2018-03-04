@@ -267,7 +267,6 @@ namespace Elections
          }
 
          var fileAllByName = AllIksBy + "Name.html";
-         var additional = GetAdditional(electionYears[electionYears.Length - 1].ElectionType);
          Action<string, List<SimpleRow>> outputHtml = (fileName, rows) =>
          {
             using (var sw = new StreamWriter(fileName, false, Encoding.GetEncoding(1251)))
@@ -308,7 +307,7 @@ namespace Elections
                   var sb = new StringBuilder();
                   sb.AppendFormat("<tr{0}>", cc % 2 == 0 ? " bgcolor=\"#eeeeee\"" : "");
                   var translit = TextProcessFunctions.Translit(row.Text);
-                  var hrefHtmlFile = string.Format("<a href=\"../{0}{1}{2}/{3}.html\">{4}</a>", Consts.Files, electionYears[electionYears.Length - 1].Year, additional, translit, row.Text);
+                  var hrefHtmlFile = string.Format("<a href=\"../{0}{1}/{2}.html\">{3}</a>", Consts.Files, electionYears[electionYears.Length - 1].Year, translit, row.Text);
                   sb.AppendFormat("<td class=\"name\">{0}</td>", hrefHtmlFile);
                   for (int i = 0; i < row.Values.Count - 1; i = i + 2)
                   {
@@ -436,38 +435,29 @@ namespace Elections
 
       met:
          string uiks = "";
-         var additional = GetAdditional(electionYears[0].ElectionType);
-         ResultsHtmlElectionCommittees(listRows, additional, otherFoos, mainFoo, electionYears, electionYearPrevious, lastFooData, calcDiff);
-         uiks = ResultsHtmlLocalElectionsCommitees(electionsLast, lastElectionYear.FooData, electionYears[0], additional);
-         ResultsHtmlRegions(electionsLast, lastElectionYear, additional, mainFoo);
+         ResultsHtmlElectionCommittees(listRows, otherFoos, mainFoo, electionYears, electionYearPrevious, lastFooData, calcDiff);
+         uiks = ResultsHtmlLocalElectionsCommitees(electionsLast, lastElectionYear.FooData, electionYears[0]);
+         ResultsHtmlRegions(electionsLast, lastElectionYear, mainFoo);
 
-         var res = GenerateDiagrams(additional, mainFoo, electionYears, lastFooData);
+         var res = GenerateDiagrams(mainFoo, electionYears, lastFooData);
          var sbGraphics = new StringBuilder();
-         if (additional == "")
-         {
-            //No diagram for Astrahan elections
-            sbGraphics.AppendFormat("<tr>{0}{1}{2}{3}{4}{5}</tr>", res.First, res.Second, res.Third, res.Fourth, res.Fivth, res.Sixth);
-         }
+
+         sbGraphics.AppendFormat("<tr>{0}{1}{2}{3}{4}{5}</tr>", res.First, res.Second, res.Third, res.Fourth, res.Fivth, res.Sixth);
+
 
          var sbMain = new StringBuilder();
          sbMain.AppendFormat("<tr>\n");
          sbMain.AppendFormat("<td class=\"name\" style=\"{{font-weight:bold;}}\">{0}</td>\n", lastYear);
          sbMain.AppendFormat("<td class=\"name\" style=\"{{font-weight:bold;}}\">{0}</td>\n", ElectionCaption(lastElectionYear.ElectionType));
          sbMain.AppendFormat("<td class=\"name\">{0}</td>\n",
-            (additional == ""
-            ? "<a href=\"" + Consts.Regions + lastYear + additional + "/RegionsByContribution.html" + string.Format("\">Результаты по регионам, {0} год</a><br>", lastYear) 
-            : "")
+            "<a href=\"" + Consts.Regions + lastYear + "/RegionsByContribution.html" + string.Format("\">Результаты по регионам, {0} год</a><br>", lastYear) 
+
             +
-            "<a href=\"" + Consts.Iks + lastYear + additional + "/" + string.Format(indexFiles[(int)Indexes.SortedByAlphabet], mainFoo.EnglishShort) + string.Format("\">Результаты по избирательным комиссиям, {0} год</a><br>", lastYear) +
+            "<a href=\"" + Consts.Iks + lastYear + "/" + string.Format(indexFiles[(int)Indexes.SortedByAlphabet], mainFoo.EnglishShort) + string.Format("\">Результаты по избирательным комиссиям, {0} год</a><br>", lastYear) +
             uiks);
         
          sbMain.AppendFormat("</tr>");
          return new Pair<string, string>(sbMain.ToString(), sbGraphics.ToString());
-      }
-
-      public static string GetAdditional(ElectionType electionType)
-      {
-         return (electionType == ElectionType.Astrahan) ? "Astr" : "";
       }
 
       #endregion
@@ -476,43 +466,33 @@ namespace Elections
 
       private static string ElectionCaption(ElectionType electionType)
       {
-         var caption = (electionType == ElectionType.Duma)
-                          ? "В Думу"
-                          : (electionType == ElectionType.President)
-                               ? "Президента"
-                               : "Главы города Астрахань";
+          var caption = (electionType == ElectionType.Duma)
+              ? "В Думу"
+              : "Президента";
+                               
          return caption;
       }
 
       private Six<string, string, string, string, string, string> GenerateDiagrams(
-         string additional, FooData mainFoo, ElectionYear[] electionYears, FooData[] fooData)
+         FooData mainFoo, ElectionYear[] electionYears, FooData[] fooData)
       {
          var caption = ElectionCaption(electionYears[0].ElectionType);
          var first = electionYears[0];
-         var href = string.Format("<a href=\"{0}{1}/{2}\">{3}</a>", Consts.Iks, electionYears[0].Year + additional,
+         var href = string.Format("<a href=\"{0}{1}/{2}\">{3}</a>", Consts.Iks, electionYears[0].Year,
                                   string.Format(indexFiles[(int)Indexes.SortedByLast], mainFoo.EnglishShort), caption);
 
          var threshold = 5.0;
          var foosThreshold = fooData.Where(f => f.Result > threshold).Select(f => f.EnglishShort).ToArray();
 
-         var shein = "Shein.jpg";
-         var diagramPresenceByPeople = (electionYears[0].ElectionType == ElectionType.Astrahan)
-                                          ? shein
-                                          : ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.People, DiagramType.Presence);
-         var diagramPresenceByUIKs = (electionYears[0].ElectionType == ElectionType.Astrahan)
-                                        ? shein
-                                        : ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.UIK, DiagramType.Presence);
+         var diagramPresenceByPeople = ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.People, DiagramType.Presence);
+         var diagramPresenceByUIKs = ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.UIK, DiagramType.Presence);
 
-         var diagramResultsByPeople = (electionYears[0].ElectionType == ElectionType.Astrahan)
-                                         ? shein
-                                         : ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.People, DiagramType.Results);
-         var diagramResultsByUIKs = (electionYears[0].ElectionType == ElectionType.Astrahan)
-                                       ? shein
-                                       : ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.UIK, DiagramType.Results);
+         var diagramResultsByPeople = ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.People, DiagramType.Results);
+         var diagramResultsByUIKs = ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.UIK, DiagramType.Results);
 
          Func<string, string> getImgHref =
             (name) =>
-            string.Format("<a href=\"{0}{1}/{2}\"><img src=\"{3}\"></a>", Consts.Iks, electionYears[0].Year + additional,
+            string.Format("<a href=\"{0}{1}/{2}\"><img src=\"{3}\"></a>", Consts.Iks, electionYears[0].Year,
                           string.Format(indexFiles[(int)Indexes.SortedByLast], mainFoo.EnglishShort), Consts.Graphics + "/" + name);
 
          Func<string, string> td = (content) => string.Format("<td>{0}</td>\n", content);
@@ -538,13 +518,13 @@ namespace Elections
          return electionsByRegion[region].Sum(e => e.NumberOfElectorsInList);
       }
 
-      private void ResultsHtmlRegions(Dictionary<string, Election> electionsLast, ElectionYear electionYear, string additional, FooData mainFoo)
+      private void ResultsHtmlRegions(Dictionary<string, Election> electionsLast, ElectionYear electionYear, FooData mainFoo)
       {
          var electionsByRegion = electionsLast
             .GroupBy(kvp => kvp.Value.Region, kvp => kvp.Value)
             .ToDictionary(g => g.Key, g => g.ToList());
 
-         var regionsFolder = Path.Combine(Consts.UpdatePath, Consts.Regions + electionYear.Year + additional);
+         var regionsFolder = Path.Combine(Consts.UpdatePath, Consts.Regions + electionYear.Year);
          Directory.CreateDirectory(regionsFolder);
 
          var allRows = new List<SimpleRow>(electionsByRegion.Count);
@@ -658,10 +638,10 @@ namespace Elections
 
       }
 
-      private string ResultsHtmlLocalElectionsCommitees(Dictionary<string,Election> elections, FooData[]fooData, ElectionYear electionYear, string additional)
+      private string ResultsHtmlLocalElectionsCommitees(Dictionary<string,Election> elections, FooData[]fooData, ElectionYear electionYear)
       {
          var sbUiks = new StringBuilder("Избир. участки, где в лидерах<br>");
-         var output = Path.Combine(Consts.UpdatePath, Consts.Uiks + electionYear.Year + additional);
+         var output = Path.Combine(Consts.UpdatePath, Consts.Uiks + electionYear.Year);
          Directory.CreateDirectory(output);
          var array = elections.Values.ToArray();
          const double e = 0.001;
@@ -743,7 +723,7 @@ namespace Elections
                if (sizeMB < 10)
                {
                   sbUiks.AppendFormat(
-                     "<a href=\"" + Consts.Uiks + electionYear.Year + additional + "/Uiks{0}.html" +
+                     "<a href=\"" + Consts.Uiks + electionYear.Year + "/Uiks{0}.html" +
                      "\">{1} на {2} из {3} ({4:N0} {5})</a><br>",
                      foo.EnglishShort, foo.RussianLong, listRows.Count, numberOfUiks, sizeValue, sizeText);
                }
@@ -757,7 +737,7 @@ namespace Elections
       }
 
       private void ResultsHtmlElectionCommittees(
-         List<Row> listRows, string additional, Dictionary<string, FooData> otherFoos,
+         List<Row> listRows, Dictionary<string, FooData> otherFoos,
          FooData mainFoo, ElectionYear[] electionYears, ElectionYear electionYearPrevious, FooData[] fooData, bool calcDiff) 
       {
          var rowsSortedByResultLast = listRows.OrderByDescending(r => r.ResultLast).ToArray();
@@ -778,7 +758,7 @@ namespace Elections
          }
 
          var begin = PrepareHeader(rowsSortedByResultLast, mainFoo, fooData.Where(f => !f.IsMain).ToArray(), electionYears[0], electionYearPrevious, calcDiff);
-         var output = Path.Combine(Consts.UpdatePath, Consts.Iks + electionYears[0].Year + additional);
+         var output = Path.Combine(Consts.UpdatePath, Consts.Iks + electionYears[0].Year);
          Directory.CreateDirectory(output);
          Action<Row[], Func<Row, double, string, string, bool>, string[], bool> outputHtml = (rows, func, fileNameAndFooName, isAlphabet) =>
          {
@@ -976,13 +956,12 @@ namespace Elections
       {
          Debug.Assert(electionYears.Length == electionsAll.Length, "Wrong length");
 
-         var additional = (electionYears[0].ElectionType == ElectionType.Astrahan) ? "Astr" : "";
          var filesDirs = new string[electionYears.Length];
          int i = 0;
          electionYears.ForEach(y =>
          {
-            var filesDir = Path.Combine(Consts.UpdatePath, Consts.Files + y.Year + additional);
-            var imagesDir = Path.Combine(Consts.UpdatePath, Consts.Images + y.Year + additional);
+            var filesDir = Path.Combine(Consts.UpdatePath, Consts.Files + y.Year);
+            var imagesDir = Path.Combine(Consts.UpdatePath, Consts.Images + y.Year);
 
             if (!Directory.Exists(filesDir)) Directory.CreateDirectory(filesDir);
             if (!Directory.Exists(imagesDir)) Directory.CreateDirectory(imagesDir);
@@ -1019,7 +998,7 @@ namespace Elections
                if (jpgFiles.Length == 0) continue;
 
                var jpgFile = jpgFiles[0];
-               var jpg = Path.Combine(Consts.UpdatePath,  Consts.Images + electionYears[j].Year + additional + @"\" + jpgFile.Name);
+               var jpg = Path.Combine(Consts.UpdatePath,  Consts.Images + electionYears[j].Year + @"\" + jpgFile.Name);
                if (!File.Exists(jpg))
                {
                   jpgFile.CopyTo(jpg);
@@ -1030,10 +1009,10 @@ namespace Elections
                var href = election.Href;
                sw.WriteLine("<tr><td align=\"center\" style=\"font-size: 16pt;font-weight:bold;\">{0}</td></tr>", title);
                sw.WriteLine("<tr><td align=\"center\"><a href=\"{0}\">Посмотреть результаты на официальном сайте</a></td></tr>", href);
-               sw.WriteLine("<tr><td align=\"center\"><img align=\"center\" src=\"../{0}{2}/{1}\"/><br><br></td></tr>", Consts.Images, jpgFile.Name, electionYears[j].Year + additional);
+               sw.WriteLine("<tr><td align=\"center\"><img align=\"center\" src=\"../{0}{2}/{1}\"/><br><br></td></tr>", Consts.Images, jpgFile.Name, electionYears[j].Year);
             };
 
-            sw.WriteLine("<tr><td align=\"center\"><a href=\"../{0}{1}/{2}\">Обратно на главную</a></td></tr>", Consts.Iks, electionYears[0].Year + additional, string.Format(indexFiles[(int)Indexes.SortedByLast], mainFoo.EnglishShort));
+            sw.WriteLine("<tr><td align=\"center\"><a href=\"../{0}{1}/{2}\">Обратно на главную</a></td></tr>", Consts.Iks, electionYears[0].Year, string.Format(indexFiles[(int)Indexes.SortedByLast], mainFoo.EnglishShort));
             sw.WriteLine("</table>");
             sw.WriteLine("<br>");
             sw.WriteLine("</html>");
