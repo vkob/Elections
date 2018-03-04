@@ -77,24 +77,6 @@ namespace ElectionRunHelper
             });
         }
 
-        private static void DrawOneDiagram()
-        {
-            var processExcel = new ProcessExcel();
-            string fileName;
-            //fileName = @"W:\VS2010\duma\Elections\ResultsDuma\Город Москва - Восточная\район Гольяново\СИЗКСРФ\район гольяново 2011.txt";
-            //processExcel.DrawDiagramForTxtData(new FileInfo(fileName), ElectionType.Duma, true);
-
-            //fileName = @"W:\VS2010\duma\Elections\ResultsPresident\Город Москва\район Гольяново\СИЗКСРФ\район гольяново 2012.txt";
-            //processExcel.DrawDiagramForTxtData(new FileInfo(fileName), ElectionType.President, true);
-
-            //fileName = @"W:\VS2010\duma\Elections\ResultsDuma\Чеченская Республика\Наурская\СИЗКСРФ\наурская 2011.txt";
-            //processExcel.DrawDiagramForTxtData(new FileInfo(fileName), ElectionType.Duma, true);
-
-            fileName = @"W:\VS2010\duma\Elections\ResultsDuma\Алтайский край\Табунская\СИЗКСРФ\Табунская 2011.txt";
-            processExcel.DrawDiagramForTxtData(new FileInfo(fileName), Consts.ElectionYear2007, true);
-
-        }
-
         private static void GenerateAll()
         {
             var sortByDelta = new SortByDelta();
@@ -196,9 +178,6 @@ namespace ElectionRunHelper
                     break;
                 case "14":
                     GenerateDiagrams();
-                    break;
-                case "15":
-                    DrawOneDiagram();
                     break;
                 case "16":
                     GeneratePresenceDiagram();
