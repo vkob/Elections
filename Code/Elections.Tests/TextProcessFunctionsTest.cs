@@ -1,31 +1,37 @@
-﻿using Elections.Utility;
+﻿using System.IO;
+using Elections.Utility;
 using NUnit.Framework;
 
 namespace Elections.Tests
 {
     [TestFixture]
     public class TextProcessFunctionsTest
-    {
+    { 
         [Test]
         public void TestGetLocation()
         {
             Assert.AreEqual("Агинский Бурятский автономный округ, Агинская",
-                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2003,
-                                                                        @"W:\VS2010\duma\Elections\Results\ResultsDuma\Агинский Бурятский автономный округ\Агинский Бурятский\Агинская\СИЗКСРФ\Агинская 2003.xls"));
+                TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2003,
+                    @"ResultsDuma\Агинский Бурятский автономный округ\Агинский Бурятский\Агинская\СИЗКСРФ\Агинская 2003.xls"));
 
+            Assert.AreEqual("Архангельская область, Архангельск, Октябрьская",
+                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2003,
+                    @"ResultsDuma\Архангельская область\Архангельский\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская 2003.xls"));
+
+            /////////////////////
+            
             Assert.AreEqual("Камчатский край, Петропавловск-Камчатская городская (судовая)",
                             TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2007,
-                                                                        @"W:\VS2010\duma\Elections\ResultsDuma\Камчатский край\Петропавловск-Камчатская городская (судовая)\СИЗКСРФ\петропавловск-камчатская городская (судовая) 2007.xls"));
-            Assert.AreEqual("Республика Северная Осетия - Алания, ТИК Пригородного района",
-                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2011,
-                                                                        @"W:\VS2010\duma\Elections\ResultsDuma\Республика Северная Осетия - Алания\ТИК Пригородного района\СИЗКСРФ\ТИК Пригородного района 2011.xls"));
+                                                                        @"ResultsDuma\Камчатский край\Петропавловск-Камчатская городская (судовая)\СИЗКСРФ\петропавловск-камчатская городская (судовая) 2007.xls"));
+            Assert.AreEqual("Территория за пределами РФ",
+                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2007,
+                                @"ResultsDuma\Территория за пределами РФ\СИЗКСРФ\Территория за пределами РФ 2007.xls"));
 
-            Assert.AreEqual("Территория за пределами РФ",
-                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2007,
-                                                                        @"W:\VS2010\duma\Elections\ResultsDuma\Территория за пределами РФ\СИЗКСРФ\Территория за пределами РФ 2007.xls"));
-            Assert.AreEqual("Территория за пределами РФ",
-                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2007,
-                                                                        @"W:\VS2010\duma\Elections\ResultsDuma\Территория за пределами РФ\СИЗКСРФ\Территория за пределами РФ 2007.xls"));
+            ////////////////////
+            
+            Assert.AreEqual("Республика Северная Осетия - Алания, ТИК Пригородного района",
+                TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2011,
+                    @"ResultsDuma\Республика Северная Осетия - Алания\ТИК Пригородного района\СИЗКСРФ\ТИК Пригородного района 2011.xls"));
         }
 
         [Test]

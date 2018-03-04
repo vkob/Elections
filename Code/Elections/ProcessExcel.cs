@@ -202,7 +202,7 @@ namespace Elections
 
             var year = Convert.ToInt32(fi.FullName.Substring(fi.FullName.Length - 8, 4));
 
-            var location = TextProcessFunctions.GetElectionCommitteeName(electionYear, fi.DirectoryName);
+            var location = TextProcessFunctions.GetElectionCommitteeName(electionYear, fi.FullName);
             var picName = $@"{fi.DirectoryName}\{TextProcessFunctions.Translit(location)}{year}.jpg";
 
             if (File.Exists(picName) && !overWrite) return picName;

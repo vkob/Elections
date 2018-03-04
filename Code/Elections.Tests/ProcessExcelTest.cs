@@ -29,7 +29,7 @@ namespace Elections.Tests
         [Test]
         public void DrawDiagramForTxtDataTest2003()
         {
-            CreateFile(Consts.ElectionYear2003, @"Архангельская область\Архангельский\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 101185);
+            CreateFile(Consts.ElectionYear2003, @"Архангельская область\Архангельский\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 102800);
         }
 
         [Test]
