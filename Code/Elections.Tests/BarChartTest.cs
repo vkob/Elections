@@ -1,30 +1,26 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using Elections.Diagrams;
 using NUnit.Framework;
 
 namespace Elections.Tests
 {
     [TestFixture]
-    public class ProcessExcelTest
+    public class BarChartTest
     {
-        private ProcessExcel processExcel;
+        private BarChartPreparer _barChartPreparer;
 
         [OneTimeSetUp]
         public void Init()
         {
-            processExcel = new ProcessExcel();
+            _barChartPreparer = new BarChartPreparer();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            processExcel.Dispose();
+            _barChartPreparer.Dispose();
         }
+
 
         private static void GeneratePresenceDiagram()
         {
@@ -63,17 +59,19 @@ namespace Elections.Tests
         [Test]
         public void DrawDiagramForTxtDataTest2016()
         {
-            CreateFile(Consts.ElectionYear2016, @"ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 100053);
+            CreateFile(Consts.ElectionYear2016, @"ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 101723);
         }
 
         public void CreateFile(ElectionYear electionYear, string path, int fileLength)
         {
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
 
-            var dest = Path.Combine(dir + @"\..\" + Data.Core.Consts.TopPath, "ProcessExcelTest");
+            var dest = Path.Combine(dir + @"\..\" + Data.Core.Consts.TopPath, "BarChartTest");
             Directory.CreateDirectory(dest);
             var dirInfo = new DirectoryInfo(dest);
-            var fileNameSource = Common(processExcel, electionYear, path);
+
+            string fileName = Path.Combine(Path.Combine(dir, electionYear.FullPath), string.Format(path, electionYear.Year));
+            var fileNameSource =  _barChartPreparer.DrawDiagramForTxtData(new FileInfo(fileName), electionYear, true);
 
             var fileInfo = new FileInfo(fileNameSource);
 
@@ -84,13 +82,6 @@ namespace Elections.Tests
             fileInfo.CopyTo(destFileName);
 
             Assert.AreEqual(fileLength, new FileInfo(fileNameSource).Length);
-        }
-
-        private string Common(ProcessExcel processExcel, ElectionYear electionYear, string path)
-        {
-            var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
-            string fileName = Path.Combine(Path.Combine(dir, electionYear.FullPath), string.Format(path, electionYear.Year));
-            return processExcel.DrawDiagramForTxtData(new FileInfo(fileName), electionYear, true);
         }
     }
 }

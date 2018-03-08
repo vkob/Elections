@@ -1,5 +1,6 @@
 ﻿using Data.Get.Html.Xls.Txt;
 using Elections;
+using Elections.Diagrams;
 
 namespace ElectionRunHelper
 {
@@ -24,7 +25,7 @@ namespace ElectionRunHelper
                     break;
                 case "5":
                 {
-                    var processExcel = new ProcessExcel();
+                    var processExcel = new BarChartPreparer();
                     processExcel.PrepareDrawAllDiagrams(new[]
                     {
                         Consts.ElectionYear2003,

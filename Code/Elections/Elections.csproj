@@ -52,11 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consts.cs" />
+    <Compile Include="Diagrams\BarChartPreparer.cs" />
     <Compile Include="ElectionYear.cs" />
     <Compile Include="ElectionCommitteeResults.cs" />
     <Compile Include="FooData.cs" />
     <Compile Include="Participants.cs" />
-    <Compile Include="ProcessExcel.cs" />
+    <Compile Include="Diagrams\ProcessExcel.cs" />
     <Compile Include="FinalXmlCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rows\Row.cs" />
@@ -122,6 +123,7 @@
       <Name>Data.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
