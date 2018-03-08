@@ -70,32 +70,6 @@ namespace Elections
             Trace.WriteLine(String.Format("Generated HTML-s {0}", stopwatch.Elapsed));
         }
 
-        public void MainSum()
-        {
-            var needOutput = true;
-            var sbGraphics = new StringBuilder();
-            var sbMain = new StringBuilder();
-
-            Pair<string, string> res;
-
-            ////2003
-            //res = Start(needOutput, new[] { Consts.ElectionYear2003 }, null, new[] { "ER", "KPRF", "LDPR", "Rodina", "YA" }, false);
-            //sbGraphics.Append(res.Second);
-            //sbMain.Append(res.First);
-
-            //2012
-            res = Start(needOutput, new[] { Consts.ElectionYear2012 }, Consts.ElectionYear2004, true);
-            sbGraphics.Append(res.Second);
-            sbMain.Append(res.First);
-
-            ////2011
-            //var res = Start(needOutput, new[] { Consts.ElectionYear2011 }, null, DumaFooData2011, new[] { "ER", "KPRF", "SR", "LDPR" }, false);
-            //sbGraphics.Append(res.Second);
-            //sbMain.Append(res.First);
-
-            GenerateResult(sbMain, sbGraphics);
-        }
-
         public void DominantForIks()
         {
             StartDominantForIks(new[]
