@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Elections.Diagrams;
 using NUnit.Framework;
 
@@ -12,7 +13,7 @@ namespace Elections.Tests
         [OneTimeSetUp]
         public void Init()
         {
-            _barChartPreparer = new BarChartPreparer();
+            _barChartPreparer = new BarChartPreparer(true);
         }
 
         [OneTimeTearDown]
@@ -21,6 +22,25 @@ namespace Elections.Tests
             _barChartPreparer.Dispose();
         }
 
+        [Test]
+        public void P()
+        {
+            var item = new DiagramData()
+            {
+                ChartTitle = "Hello",
+                HorizontalNames = new []{"u1", "u2"},
+                RowItem = new RowItem[5]
+                {
+                    new RowItem() {Name = "L1", Values = new List<double> { 1.00, 0.90 } },
+                    new RowItem() {Name = "L2", Values = new List<double> { 0.90, 0.80 } },
+                    new RowItem() {Name = "L3", Values = new List<double> { 0.80, 0.70 } },
+                    new RowItem() {Name = "L4", Values = new List<double> { 0.60, 0.50 } },
+                    new RowItem() {Name = "L5", Values = new List<double> { 0.50, 0.40 } },
+                },
+                PicName = @"W:\VS\Reps\GitHub\BarChartTest\hi.jpg"
+            };
+            _barChartPreparer.DrawDiagramForTxtData(item);
+        }
 
         private static void GeneratePresenceDiagram()
         {
@@ -71,7 +91,7 @@ namespace Elections.Tests
             var dirInfo = new DirectoryInfo(dest);
 
             string fileName = Path.Combine(Path.Combine(dir, electionYear.FullPath), string.Format(path, electionYear.Year));
-            var fileNameSource =  _barChartPreparer.DrawDiagramForTxtData(new FileInfo(fileName), electionYear, true);
+            var fileNameSource =  _barChartPreparer.CreateDiagram(new FileInfo(fileName), electionYear, true);
 
             var fileInfo = new FileInfo(fileNameSource);
 

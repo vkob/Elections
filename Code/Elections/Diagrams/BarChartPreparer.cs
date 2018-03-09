@@ -4,9 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Data.Core;
 using Elections.Utility;
 using Microsoft.Office.Interop.Excel;
@@ -15,7 +13,8 @@ namespace Elections.Diagrams
 {
     public class BarChartPreparer
     {
-        private ApplicationClass app;
+        private readonly bool _overwrite;
+        private ApplicationClass _app;
 
         public static Dictionary<string, int> PartiesOrder2003 = new[]
            {
@@ -77,11 +76,10 @@ namespace Elections.Diagrams
          new KeyValuePair<string,int>("Миронов",5),
       }.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
-        public bool IsStopped { get; set; }
-
-        public BarChartPreparer()
+        public BarChartPreparer(bool overwrite)
         {
-            app = new ApplicationClass();
+            _overwrite = overwrite;
+            _app = new ApplicationClass();
         }
 
         public void PrepareDrawAllDiagrams(ElectionYear[] electionYears)
@@ -91,10 +89,6 @@ namespace Elections.Diagrams
             stopWatch.Start();
 
             string path = Path.Combine(Data.Core.Consts.ResultsPath, electionYears[0].Result);
-            var electionType = electionYears[0].ElectionType;
-            var patterns = electionYears.Select(ey => ey.PatternExt).ToArray();
-
-            if (IsStopped) return;
 
             var directoryInfo = new DirectoryInfo(path);
             var directoryInfos = directoryInfo.GetDirectories(); //Enumerable.Range(0, 10).Select(i => directoryInfo.GetDirectories()[i]).ToArray();
@@ -108,91 +102,83 @@ namespace Elections.Diagrams
                 int length = (i < Environment.ProcessorCount - 1) ? count : directoryInfos.Length - start;
                 var directoryInfosNew = new DirectoryInfo[length];
                 Array.Copy(directoryInfos, start, directoryInfosNew, 0, length);
-                threads[i] = new Thread(() => DrawAllDiagrams(directoryInfosNew, electionYears));
+                threads[i] = new Thread(() => FindDataFiles(directoryInfosNew, electionYears));
             }
 
             threads.ForEach(t => t.Start());
             threads.ForEach(t => t.Join());
 
-
             stopWatch.Stop();
             Trace.WriteLine(stopWatch.Elapsed);
         }
 
-        public void DrawAllDiagrams(DirectoryInfo[] directoryInfos, ElectionYear[] electionYears)
+        public void FindDataFiles(DirectoryInfo[] directoryInfos, ElectionYear[] electionYears)
         {
-            if (IsStopped) return;
             foreach (var di in directoryInfos)
             {
-                if (IsStopped) return;
-
-                Action<ElectionYear> processFiles = (electionYear) =>
-                {
-                    foreach (var fi in di.GetFiles(electionYear.PatternExt))
-                    {
-                        if (IsStopped) return;
-                        DrawDiagramForTxtData(fi, electionYear, false);
-                    }
-                };
-
                 if (di.FullName.EndsWith(Data.Core.Consts.LocalCommittee))
                 {
-                    electionYears.ForEach(processFiles);
+                    foreach (var electionYear in electionYears)
+                    {
+                        ProcessFiles(di, electionYear);
+                    }
                 }
-                DrawAllDiagrams(di.GetDirectories(), electionYears);
+
+                FindDataFiles(di.GetDirectories(), electionYears);
             }
         }
 
-        public string DrawDiagramForTxtData(FileInfo fi, ElectionYear electionYear, bool overWrite)
+        private void ProcessFiles(DirectoryInfo di, ElectionYear electionYear)
         {
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
+            foreach (var fi in di.GetFiles(electionYear.PatternExt))
+            {
+                CreateDiagram(fi, electionYear, _overwrite);
+            }
+        }
 
+        public string CreateDiagram(FileInfo fi, ElectionYear electionYear, bool overWrite)
+        {
             var year = Convert.ToInt32(fi.FullName.Substring(fi.FullName.Length - 8, 4));
-
             var location = TextProcessFunctions.GetElectionCommitteeName(electionYear, fi.FullName, TextProcessFunctions.GetMapping());
             var picName = $@"{fi.DirectoryName}\{TextProcessFunctions.Translit(location)}{year}.jpg";
 
             if (File.Exists(picName) && !overWrite) return picName;
-            Trace.WriteLine(fi.FullName);
+
+            var partiesOrders = (electionYear.ElectionType == ElectionType.Duma)
+                ? PartiesOrders[electionYear.Year]
+                : PresidentOrder;
+
+            return DrawDiagramForTxtData(DiagramDataCreator.Create(fi.FullName, picName, string.Format(electionYear.CaptionDiagram, year, location), partiesOrders));
+        }
+
+        public string DrawDiagramForTxtData(DiagramData diagramData)
+        {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
 
             object misValue = System.Reflection.Missing.Value;
 
-            var workBooks = app.Workbooks;
+            var workBooks = _app.Workbooks;
             var workBookNew = workBooks.Add(misValue);
 
             var workSheetNew = (Worksheet)workBookNew.Worksheets[1];
 
             var rangeNew = workSheetNew.UsedRange;
-
-            var electionCommitteeResults = new ElectionCommitteeResults(fi.FullName);
-
-            for (int i = 0; i < electionCommitteeResults.uiks.Count; i++)
+            
+            for (int column = 0; column < diagramData.HorizontalNames.Length; column++)
             {
-                workSheetNew.Cells[1, i + 2] = electionCommitteeResults.uiks[i];
+                workSheetNew.Cells[1, column + 2] = diagramData.HorizontalNames[column];
             }
 
-            int rowNew = 1;
-            foreach (var kvp in electionCommitteeResults.partiesData)
+            for (int row = 0; row < diagramData.RowItem.Length; row++)
             {
-                var fooName = kvp.Key;
-                Trace.WriteLine(fooName);
-
-                if (electionYear.ElectionType == ElectionType.Duma && !PartiesOrders[electionYear.Year].ContainsKey(fooName) ||
-                    electionYear.ElectionType == ElectionType.President && !PresidentOrder.ContainsKey(fooName)) continue;
-                var partyOrder = (electionYear.ElectionType == ElectionType.Duma)
-                   ? PartiesOrders[electionYear.Year][fooName]
-                   : PresidentOrder[fooName];
-
-                workSheetNew.Cells[partyOrder + 1, 1] = string.Format("{0}, {1}%", fooName, kvp.Value.Percent.ToString().Replace(",", "."));
-                for (int j = 0; j < electionCommitteeResults.uiks.Count; j++)
+                workSheetNew.Cells[row + 2, 1] = diagramData.RowItem[row].Name;
+                for (int column = 0; column < diagramData.HorizontalNames.Length; column++)
                 {
-                    var value = kvp.Value.LocalElectionCommittees[j].Percent / 100;
-                    if (double.IsNaN(value)) value = 0;
-                    (rangeNew.Cells[partyOrder + 1, j + 2] as Range).Value2 = value;
-                    (rangeNew.Cells[partyOrder + 1, j + 2] as Range).NumberFormat = "###,##%";
+                    var range1 = rangeNew.Cells[row + 2, column + 2] as Range;
+                    range1.Value2 = diagramData.RowItem[row].Values[column];
+                    range1.NumberFormat = "###,##%";
                 }
-                rowNew++;
             }
 
             var chartObjects = (ChartObjects)workSheetNew.ChartObjects(Type.Missing);
@@ -200,7 +186,7 @@ namespace Elections.Diagrams
             const int oneWidth = 20;
             const int widthFactions = 190;
             const int widthMin = 700;
-            int uiksWidth = oneWidth * electionCommitteeResults.uiks.Count;
+            int uiksWidth = oneWidth * diagramData.HorizontalNames.Length;
             int width = widthFactions + uiksWidth;
             if (width < widthMin)
             {
@@ -214,19 +200,19 @@ namespace Elections.Diagrams
 
             var axis = (Axis)chart.Axes(XlAxisType.xlValue);
             axis.MaximumScale = 1;
-
-            var range = workSheetNew.Range["1:1", string.Format("{0}:{1}", rowNew, rowNew)];
+            
+            var range = workSheetNew.Range["1:1", string.Format("{0}:{1}", diagramData.RowItem.Length + 1, diagramData.RowItem.Length + 1)];
             chart.HasTitle = true;
-            chart.ChartTitle.Text = string.Format(electionYear.CaptionDiagram, year, location);
+            chart.ChartTitle.Text = diagramData.ChartTitle;
             chart.SetSourceData(range, 1);
             chart.Legend.Font.Size = 11;
             chart.Legend.Font.Bold = true;
             chart.PlotArea.Width = uiksWidth;
             chart.Legend.Left = chart.PlotArea.Left + chart.PlotArea.Width + 10;
 
-            chart.Export(picName, "JPG", misValue);
+            chart.Export(diagramData.PicName, "JPG", misValue);
 
-            workBookNew.Close(false, null, null);
+            workBookNew.Close(false);
 
             Marshal.ReleaseComObject(workSheetNew);
             Marshal.ReleaseComObject(workBookNew);
@@ -235,13 +221,13 @@ namespace Elections.Diagrams
             stopWatch.Stop();
             Trace.WriteLine(stopWatch.Elapsed);
 
-            return picName;
+            return diagramData.PicName;
         }
 
         public void Dispose()
         {
-            app.Quit();
-            Marshal.ReleaseComObject(app);
+            _app.Quit();
+            Marshal.ReleaseComObject(_app);
         }
     }
 }

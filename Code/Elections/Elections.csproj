@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="Consts.cs" />
     <Compile Include="Diagrams\BarChartPreparer.cs" />
+    <Compile Include="Diagrams\DiagramDataCreator.cs" />
+    <Compile Include="Diagrams\DiagramData.cs" />
+    <Compile Include="Diagrams\RowItem.cs" />
     <Compile Include="ElectionYear.cs" />
     <Compile Include="ElectionCommitteeResults.cs" />
     <Compile Include="FooData.cs" />

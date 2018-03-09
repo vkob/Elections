@@ -25,7 +25,7 @@ namespace ElectionRunHelper
                     break;
                 case "5":
                 {
-                    var processExcel = new BarChartPreparer();
+                    var processExcel = new BarChartPreparer(false);
                     processExcel.PrepareDrawAllDiagrams(new[]
                     {
                         Consts.ElectionYear2003,
