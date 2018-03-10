@@ -44,16 +44,22 @@ namespace Elections.Diagrams
             _barChartDrawer = new BarChartDrawer();
         }
 
-        public void PrepareDrawAllDiagrams(ElectionYear[] electionYears)
+        public void PrepareDrawAllDiagrams(int[] years)
         {
-            Debug.Assert(electionYears.Select(ey => ey.ElectionType).Distinct().Count() == 1, "Wrong type in election years array");
+            var dumaYears = years.Where(y => Data.Core.Consts.Duma.Contains(y)).ToArray();
+            var presidentYears = years.Where(y => Data.Core.Consts.President.Contains(y)).ToArray();
+
+            PrepareDrawAllDiagrams(dumaYears, Path.Combine(Data.Core.Consts.ResultsPath, Data.Core.Consts.ResultsDuma), ElectionYear.CaptionDiagramDuma);
+            PrepareDrawAllDiagrams(presidentYears, Path.Combine(Data.Core.Consts.ResultsPath, Data.Core.Consts.ResultsPresident), ElectionYear.CaptionDiagramPresident);
+        }
+
+        public void PrepareDrawAllDiagrams(int[] years, string path, string captionDiagram)
+        {
             var stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            string path = Path.Combine(Data.Core.Consts.ResultsPath, electionYears[0].Result);
-
             var directoryInfo = new DirectoryInfo(path);
-            var directoryInfos = directoryInfo.GetDirectories(); //Enumerable.Range(0, 10).Select(i => directoryInfo.GetDirectories()[i]).ToArray();
+            var directoryInfos = directoryInfo.GetDirectories();
 
             var count = directoryInfos.Length / Environment.ProcessorCount;
 
@@ -64,7 +70,7 @@ namespace Elections.Diagrams
                 int length = (i < Environment.ProcessorCount - 1) ? count : directoryInfos.Length - start;
                 var directoryInfosNew = new DirectoryInfo[length];
                 Array.Copy(directoryInfos, start, directoryInfosNew, 0, length);
-                threads[i] = new Thread(() => FindDataFiles(directoryInfosNew, electionYears));
+                threads[i] = new Thread(() => FindDataFiles(directoryInfosNew, years.Select(y => $"*{y}.txt").ToArray(), captionDiagram));
             }
 
             threads.ForEach(t => t.Start());
@@ -74,39 +80,39 @@ namespace Elections.Diagrams
             Trace.WriteLine(stopWatch.Elapsed);
         }
 
-        public void FindDataFiles(DirectoryInfo[] directoryInfos, ElectionYear[] electionYears)
+        public void FindDataFiles(DirectoryInfo[] directoryInfos, string[] patterns, string captionDiagram)
         {
             foreach (var di in directoryInfos)
             {
                 if (di.FullName.EndsWith(Data.Core.Consts.LocalCommittee))
                 {
-                    foreach (var electionYear in electionYears)
+                    foreach (var pattern in patterns)
                     {
-                        ProcessFiles(di, electionYear);
+                        ProcessFiles(di, pattern, captionDiagram);
                     }
                 }
 
-                FindDataFiles(di.GetDirectories(), electionYears);
+                FindDataFiles(di.GetDirectories(), patterns, captionDiagram);
             }
         }
 
-        private void ProcessFiles(DirectoryInfo di, ElectionYear electionYear)
+        private void ProcessFiles(DirectoryInfo di, string pattern, string captionDiagram)
         {
-            foreach (var fi in di.GetFiles(electionYear.PatternExt))
+            foreach (var fi in di.GetFiles(pattern))
             {
-                CreateDiagram(fi, electionYear, _overwrite);
+                CreateDiagram(fi, captionDiagram, _overwrite);
             }
         }
 
-        public string CreateDiagram(FileInfo fi, ElectionYear electionYear, bool overWrite)
+        public string CreateDiagram(FileInfo fi, string captionDiagram, bool overWrite)
         {
-            var year = Convert.ToInt32(fi.FullName.Substring(fi.FullName.Length - 8, 4));
-            var location = TextProcessFunctions.GetElectionCommitteeName(electionYear, fi.FullName, TextProcessFunctions.GetMapping());
+            var year = TextProcessFunctions.GetYear(fi.Name);
+            var location = TextProcessFunctions.GetElectionCommitteeName(fi.FullName, null, TextProcessFunctions.GetMapping());
             var picName = $@"{fi.DirectoryName}\{TextProcessFunctions.Translit(location)}{year}.jpg";
 
             if (File.Exists(picName) && !overWrite) return picName;
 
-            return _barChartDrawer.DrawDiagramForTxtData(DiagramDataCreator.Create(fi.FullName, picName, string.Format(electionYear.CaptionDiagram, year, location), PartiesOrder));
+            return _barChartDrawer.DrawDiagramForTxtData(DiagramDataCreator.Create(fi.FullName, picName, string.Format(captionDiagram, year, location), PartiesOrder));
         }
 
         public void Dispose()

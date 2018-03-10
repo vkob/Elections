@@ -1,4 +1,5 @@
-﻿using Data.Get.Html.Xls.Txt;
+﻿using System.Linq;
+using Data.Get.Html.Xls.Txt;
 using Elections;
 using Elections.Diagrams;
 
@@ -24,23 +25,8 @@ namespace ElectionRunHelper
                     new FinalXmlCreator().Start(args[1]);//4 2016
                     break;
                 case "5":
-                {
-                    var processExcel = new BarChartPreparer(false);
-                    processExcel.PrepareDrawAllDiagrams(new[]
-                    {
-                        Consts.ElectionYear2003,
-                        Consts.ElectionYear2007,
-                        Consts.ElectionYear2011,
-                        Consts.ElectionYear2016,
-                    });
-                    processExcel.PrepareDrawAllDiagrams(new[]
-                    {
-                        Consts.ElectionYear2004,
-                        Consts.ElectionYear2008,
-                        Consts.ElectionYear2012,
-                    });
+                    new BarChartPreparer(false).PrepareDrawAllDiagrams(Data.Core.Consts.Duma.Union(Data.Core.Consts.President).ToArray());
                     break;
-                }
                 case "6":
                     new SortByDelta().Main();
                     break;

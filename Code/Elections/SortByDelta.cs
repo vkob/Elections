@@ -106,7 +106,7 @@ namespace Elections
 
          int c = 0;
          var electionsAll = electionsFilePathes
-            .Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year))
+            .Select(ProcessData.GetElectionDataWithNormalizedPlace)
             .ToArray();
          var electionsByRegionAll = electionsAll
             .Select(e => e.GroupBy(kvp => kvp.Value.Region, kvp => kvp.Value)
@@ -220,7 +220,7 @@ namespace Elections
                              ".xml");
 
          int c = 0;
-         var electionsAll = electionsFilePathes.Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year)).ToArray();
+         var electionsAll = electionsFilePathes.Select(ProcessData.GetElectionDataWithNormalizedPlace).ToArray();
 
          var electionLast = electionsAll[electionsAll.Length - 1];
          var mainFoos = electionYears.Select(ey => ey.FooData.First(f => f.IsMain)).ToArray();
@@ -373,9 +373,9 @@ namespace Elections
          var resultsLast = Consts.LocalPath + @"\" + Consts.ElectionsDir + @"\" + what + @"\" + what +
                            electionYears[0].Year + ".xml";
 
-         var electionsPrev = resultsPrev != null ? ProcessData.GetElectionDataWithNormalizedPlace(resultsPrev, electionYearPrevious.Year) : null;
+         var electionsPrev = resultsPrev != null ? ProcessData.GetElectionDataWithNormalizedPlace(resultsPrev) : null;
 
-         var electionsLast = ProcessData.GetElectionDataWithNormalizedPlace(resultsLast, lastYear);
+         var electionsLast = ProcessData.GetElectionDataWithNormalizedPlace(resultsLast);
 
          var electionsFilePathes =
             electionYears
@@ -390,7 +390,7 @@ namespace Elections
          int c = 0;
          var electionsAll = needOutput 
             ? electionsFilePathes
-               .Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p, electionYears[c].Year))
+               .Select(p => ProcessData.GetElectionDataWithNormalizedPlace(p))
                .ToArray()
             : null;
 

@@ -10,44 +10,50 @@ namespace Elections.Tests
         [Test]
         public void TestGetLocation()
         {
-            Assert.AreEqual("Агинский Бурятский автономный округ, Агинская",
-                TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2003,
-                    @"ResultsDuma\Агинский Бурятский автономный округ\Агинский Бурятский\Агинская\СИЗКСРФ\Агинская 2003.xls"));
+            Assert.AreEqual("Агинский Бурятский автономный округ, Агинская", TextProcessFunctions.GetElectionCommitteeName
+                (@"ResultsDuma\Агинский Бурятский автономный округ\Агинский Бурятский\Агинская\СИЗКСРФ\Агинская 2003.xls"));
 
-            Assert.AreEqual("Архангельская область, Архангельск, Октябрьская",
-                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2003,
-                    @"ResultsDuma\Архангельская область\Архангельский\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская 2003.xls"));
+            Assert.AreEqual("Архангельская область, Архангельск, Октябрьская", TextProcessFunctions.GetElectionCommitteeName
+                (@"ResultsDuma\Архангельская область\Архангельский\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская 2003.xls"));
 
             /////////////////////
             
-            Assert.AreEqual("Камчатский край, Петропавловск-Камчатская городская (судовая)",
-                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2007,
-                                                                        @"ResultsDuma\Камчатский край\Петропавловск-Камчатская городская (судовая)\СИЗКСРФ\петропавловск-камчатская городская (судовая) 2007.xls"));
-            Assert.AreEqual("Территория за пределами РФ",
-                            TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2007,
-                                @"ResultsDuma\Территория за пределами РФ\СИЗКСРФ\Территория за пределами РФ 2007.xls"));
+            Assert.AreEqual("Камчатский край, Петропавловск-Камчатская городская (судовая)", TextProcessFunctions.GetElectionCommitteeName
+                (@"ResultsDuma\Камчатский край\Петропавловск-Камчатская городская (судовая)\СИЗКСРФ\петропавловск-камчатская городская (судовая) 2007.xls"));
+
+            Assert.AreEqual("Территория за пределами РФ", TextProcessFunctions.GetElectionCommitteeName
+                (@"ResultsDuma\Территория за пределами РФ\СИЗКСРФ\Территория за пределами РФ 2007.xls"));
 
             ////////////////////
             
-            Assert.AreEqual("Республика Северная Осетия - Алания, ТИК Пригородного района",
-                TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2011,
-                    @"ResultsDuma\Республика Северная Осетия - Алания\ТИК Пригородного района\СИЗКСРФ\ТИК Пригородного района 2011.xls"));
+            Assert.AreEqual("Республика Северная Осетия - Алания, ТИК Пригородного района", TextProcessFunctions.GetElectionCommitteeName
+                (@"ResultsDuma\Республика Северная Осетия - Алания\ТИК Пригородного района\СИЗКСРФ\ТИК Пригородного района 2011.xls"));
         }
 
         [Test]
         public void TestGetLocation2016()
         {
             Assert.AreEqual("Архангельская область, Архангельск, Октябрьская",
-                TextProcessFunctions.GetElectionCommitteeName(Consts.ElectionYear2016,
-                    @"ResultsDuma\ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская 2016.xls", TextProcessFunctions.GetMapping()));
+                TextProcessFunctions.GetElectionCommitteeName
+                    (@"ResultsDuma\ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская 2016.xls", null, TextProcessFunctions.GetMapping()));
         }
 
 
         [Test]
+        public void GetElectionCommitteeNameTest()
+        {
+            Assert.AreEqual("Агинский Бурятский автономный округ, Агинская", TextProcessFunctions.GetElectionCommitteeName
+                (@"Агинский Бурятский автономный округ\Агинский Бурятский\Агинская\СИЗКСРФ", 2003));
+
+            Assert.AreEqual("Агинский Бурятский автономный округ, Агинская", TextProcessFunctions.GetElectionCommitteeName
+                (@"Агинский Бурятский автономный округ\Агинская\СИЗКСРФ", 2007));
+        }
+
+        [Test]
         public void TestGetLocationGlobalLocal()
         {
-            Assert.AreEqual("Ханты-Мансийский автономный округ, Сургутская",
-                            TextProcessFunctions.GetElectionCommitteeName(@"Ханты-Мансийский автономный округ\Ханты-Мансийский\Сургутская\сургутская 2003.html", 2003));
+            Assert.AreEqual("Ханты-Мансийский автономный округ, Сургутская", TextProcessFunctions.GetElectionCommitteeName
+                (@"ResultsDuma\Ханты-Мансийский автономный округ\Ханты-Мансийский\Сургутская\сургутская 2003.html"));
         }
 
         [Test]

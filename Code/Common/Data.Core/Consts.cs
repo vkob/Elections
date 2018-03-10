@@ -23,5 +23,10 @@ namespace Data.Core
         public const string TopPath = @"..\..\..\..\";
         public static string ResultsPath = Path.Combine(TopPath, "Results");
         public const string LocalCommittee = @"СИЗКСРФ";
+
+        public const int Year2003 = 2003;
+
+        public static List<int> Duma = new List<int>{ Year2003, 2007, 2011, 2016 };
+        public static List<int> President = new List<int> { 2004, 2008, 2012 };
     }
 }

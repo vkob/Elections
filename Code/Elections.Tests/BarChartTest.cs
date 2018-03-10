@@ -71,7 +71,7 @@ namespace Elections.Tests
             var dirInfo = new DirectoryInfo(dest);
 
             string fileName = Path.Combine(Path.Combine(dir, electionYear.FullPath), string.Format(path, electionYear.Year));
-            var fileNameSource =  _barChartPreparer.CreateDiagram(new FileInfo(fileName), electionYear, true);
+            var fileNameSource =  _barChartPreparer.CreateDiagram(new FileInfo(fileName), electionYear.CaptionDiagram, true);
 
             var fileInfo = new FileInfo(fileNameSource);
 

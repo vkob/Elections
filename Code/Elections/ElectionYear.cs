@@ -13,8 +13,8 @@ namespace Elections
         private const string DirElectionInfoDuma = "ElectionInfoDuma";
         private const string DirElectionInfoPresident = "ElectionInfoPresident";
 
-        private const string CaptionDiagramDuma = "Результаты выборов в Гос. Думу, {0} год.\n{1}";
-        private const string CaptionDiagramPresident = "Результаты выборов Президента, {0} год.\n{1}";
+        public const string CaptionDiagramDuma = "Результаты выборов в Гос. Думу, {0} год.\n{1}";
+        public const string CaptionDiagramPresident = "Результаты выборов Президента, {0} год.\n{1}";
 
         private const string MainTitleDuma = "в Государственную Думу";
         private const string MainTitlePresident = "Президента";
