@@ -9,27 +9,26 @@ namespace Elections.Diagrams
         {
             var electionCommitteeResults = new ElectionCommitteeResults(fileName);
 
+            var participants = electionCommitteeResults.partiesData.Where(p => orderNumbers.ContainsKey(p.Key)).ToList();
+
             var item = new DiagramData()
             {
                 ChartTitle = tittle,
                 HorizontalNames = electionCommitteeResults.uiks.ToArray(),
                 PicName = picName,
-                RowItem = new RowItem[orderNumbers.Count],
+                RowItem = new RowItem[participants.Count],
             };
 
-            foreach (var participantData in electionCommitteeResults.partiesData)
+            foreach (var participantData in participants)
             {
                 var participantName = participantData.Key;
 
-                if (orderNumbers.ContainsKey(participantName))
+                var index = orderNumbers[participantName] - 1;
+                item.RowItem[index] = new RowItem()
                 {
-                    var index = orderNumbers[participantName] - 1;
-                    item.RowItem[index] = new RowItem()
-                    {
-                        Name = $"{participantName}, {participantData.Value.Percent.ToString().Replace(",", ".")}%",
-                        Values = participantData.Value.LocalElectionCommittees.Select(v => v.Percent / 100).ToList()
-                    };
-                }
+                    Name = $"{participantName}, {participantData.Value.Percent.ToString().Replace(",", ".")}%",
+                    Values = participantData.Value.LocalElectionCommittees.Select(v => v.Percent / 100).ToList()
+                };
             }
 
             return item;
