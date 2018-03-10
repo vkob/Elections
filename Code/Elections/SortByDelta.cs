@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 using Data.Core;
+using Elections.Diagrams.Graphic;
 using Elections.Rows;
 using Elections.Utility;
 using Elections.XmlProcessing;
@@ -484,11 +485,11 @@ namespace Elections
          var threshold = 5.0;
          var foosThreshold = fooData.Where(f => f.Result > threshold).Select(f => f.EnglishShort).ToArray();
 
-         var diagramPresenceByPeople = ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.People, DiagramType.Presence);
-         var diagramPresenceByUIKs = ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.UIK, DiagramType.Presence);
+         var diagramPresenceByPeople = GraphicPreparer.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.People, DiagramType.Presence);
+         var diagramPresenceByUIKs = GraphicPreparer.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.UIK, DiagramType.Presence);
 
-         var diagramResultsByPeople = ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.People, DiagramType.Results);
-         var diagramResultsByUIKs = ProcessExcel.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.UIK, DiagramType.Results);
+         var diagramResultsByPeople = GraphicPreparer.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.People, DiagramType.Results);
+         var diagramResultsByUIKs = GraphicPreparer.GenerateGraphic(electionYears[0], foosThreshold, AxisYType.UIK, DiagramType.Results);
 
          Func<string, string> getImgHref =
             (name) =>

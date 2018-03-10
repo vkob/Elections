@@ -2,6 +2,7 @@
 using Data.Get.Html.Xls.Txt;
 using Elections;
 using Elections.Diagrams;
+using Elections.Diagrams.BarChart;
 
 namespace ElectionRunHelper
 {

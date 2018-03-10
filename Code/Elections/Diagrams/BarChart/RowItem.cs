@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Elections.Diagrams
+namespace Elections.Diagrams.BarChart
 {
     public class RowItem
     {

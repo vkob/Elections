@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Elections.Diagrams;
+using Elections.Diagrams.BarChart;
 using NUnit.Framework;
 
 namespace Elections.Tests
@@ -24,7 +25,7 @@ namespace Elections.Tests
                 },
                 PicName = @"W:\VS\Reps\GitHub\BarChartTest\hi.jpg"
             };
-            new BarChartDrawer().DrawDiagramForTxtData(item);
+            new Diagrams.BarChart.BarChartDrawer().DrawDiagramForTxtData(item);
         }
     }
 }

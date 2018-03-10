@@ -52,16 +52,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consts.cs" />
-    <Compile Include="Diagrams\BarChartDrawer.cs" />
-    <Compile Include="Diagrams\BarChartPreparer.cs" />
-    <Compile Include="Diagrams\DiagramDataCreator.cs" />
-    <Compile Include="Diagrams\DiagramData.cs" />
-    <Compile Include="Diagrams\RowItem.cs" />
+    <Compile Include="Diagrams\BarChart\BarChartDrawer.cs" />
+    <Compile Include="Diagrams\BarChart\BarChartPreparer.cs" />
+    <Compile Include="Diagrams\BarChart\DiagramDataCreator.cs" />
+    <Compile Include="Diagrams\BarChart\DiagramData.cs" />
+    <Compile Include="Diagrams\BarChart\RowItem.cs" />
+    <Compile Include="Diagrams\Graphic\AxisYType.cs" />
+    <Compile Include="Diagrams\Graphic\DiagramType.cs" />
     <Compile Include="ElectionYear.cs" />
     <Compile Include="ElectionCommitteeResults.cs" />
     <Compile Include="FooData.cs" />
     <Compile Include="Participants.cs" />
-    <Compile Include="Diagrams\ProcessExcel.cs" />
+    <Compile Include="Diagrams\Graphic\GraphicPreparer.cs" />
     <Compile Include="FinalXmlCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rows\Row.cs" />
@@ -74,7 +76,6 @@
     <Compile Include="Utility\Six.cs" />
     <Compile Include="Utility\TextProcessFunctions.cs" />
     <Compile Include="Utility\Triple.cs" />
-    <Compile Include="ElectionInfo.cs" />
     <Compile Include="XmlProcessing\Election.cs" />
     <Compile Include="XmlProcessing\Foo.cs" />
   </ItemGroup>

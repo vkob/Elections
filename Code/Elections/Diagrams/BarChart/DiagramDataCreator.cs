@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Elections.Diagrams
+namespace Elections.Diagrams.BarChart
 {
     public class DiagramDataCreator
     {

@@ -4,30 +4,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
 using Data.Core;
 using Elections.Utility;
 using Elections.XmlProcessing;
 using Microsoft.Office.Interop.Excel;
 using Action = System.Action;
-using Excel = Microsoft.Office.Interop.Excel;
 
-namespace Elections
+namespace Elections.Diagrams.Graphic
 {
-    public enum AxisYType
-    {
-        UIK,
-        People
-    }
-
-    public enum DiagramType
-    {
-        Results,
-        Presence
-    }
-
-    public class ProcessExcel : IDisposable
+    public class GraphicPreparer 
     {
         #region Consts
 
@@ -49,8 +34,6 @@ namespace Elections
 
         #region Fields
 
-        private ApplicationClass app;
-
         private int minRowNumberForFactions;
 
         public string electionInfoDir;
@@ -59,19 +42,7 @@ namespace Elections
 
         #region Properties
 
-        private Pair<double, string> MaxDeltaPair { get; set; }
         public bool IsStopped { get; set; }
-
-        #endregion
-
-        #region Constructors
-
-        public ProcessExcel()
-        {
-            MaxDeltaPair = new Pair<double, string>(-1, "");
-
-            app = new ApplicationClass();
-        }
 
         #endregion
 
@@ -292,127 +263,14 @@ namespace Elections
             workBook.Close(false, misValue, misValue);
             app.Quit();
 
-            ReleaseObject(workSheet);
-            ReleaseObject(workBook);
-            ReleaseObject(app);
+
+            Marshal.ReleaseComObject(workSheet);
+            Marshal.ReleaseComObject(workBook);
+            Marshal.ReleaseComObject(app);
 
             return fi.Name;
         }
 
         #endregion Public Methods
-
-        private static void ReleaseObject(object obj)
-        {
-            try
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-                obj = null;
-            }
-            catch (Exception ex)
-            {
-                obj = null;
-                Trace.WriteLine("Exception Occured while releasing object " + ex.ToString());
-            }
-            finally
-            {
-                GC.Collect();
-            }
-        }
-
-        private static int MinRowNumberForFactions(ElectionYear year, Range range)
-        {
-            return year == Consts.ElectionYear2007 ? MinRowNumberForFactions2007 : year == Consts.ElectionYear2011 ? MinRowNumberForFactions2011 : range.Rows.Count;
-        }
-
-        private int FindFactionRow(Range range, string faction)
-        {
-            for (var row = minRowNumberForFactions; row <= range.Rows.Count; row++)
-            {
-                var str = (range.Cells[row, ColNumberForFactions] as Range).Value2 as string;
-                if (str == null) continue;
-
-                if (!string.IsNullOrEmpty(str) && str.Contains(faction))
-                {
-                    return row;
-                }
-            }
-            throw new Exception(string.Format("Wasn't able to find {0}", faction));
-        }
-
-        private static int MaxColumnUIK(Range range, string flag, int rowUIK, int colUIK)
-        {
-            if (((string)(range.Cells[rowUIK, colUIK - 1] as Range).Value2) != flag)
-                throw new Exception(String.Format("No {0} was found in [{1},{2}]", flag, rowUIK, colUIK - 1));
-
-            for (var col = range.Columns.Count; col >= colUIK; col--)
-            {
-                var val = (string)(range.Cells[rowUIK, col] as Range).Value2;
-                if (!string.IsNullOrEmpty(val) && val.Contains(UIK))
-                {
-                    return col;
-                }
-            }
-            throw new Exception("Wasn't able to find any UIK");
-        }
-
-        private Triple<double, double, double> FindMinMaxPercentages(Range range, int row, int colMin, int colMax)
-        {
-            double min = 100;
-            var columnWithMinHash = new HashSet<int>();
-            var columnWithMin = -1;
-
-            double max = 0;
-            var val = (string)(range.Cells[row, colMin - 1] as Range).Value2;
-            val = val.Replace("%", "").Replace(".", ",");
-            var resultValue = Convert.ToDouble(val);
-
-            Action findMinMax = () =>
-                               {
-                                   for (int col = colMin; col <= colMax; col++)
-                                   {
-                                       val = (string)(range.Cells[row, col] as Range).Value2;
-                                       val = val.Replace("%", "").Replace(".", ",");
-                                       var doubleValue = Convert.ToDouble(val);
-                                       if (doubleValue < min && !columnWithMinHash.Contains(col))
-                                       {
-                                           min = doubleValue;
-                                           columnWithMin = col;
-                                       }
-                                       if (doubleValue > max) max = doubleValue;
-                                       //Trace.WriteLine(string.Format("{0}", doubleValue));
-                                   }
-                               };
-
-            findMinMax();
-
-            bool isOk = false;
-            if (min == 0)
-            {
-                for (var rw = minRowNumberForFactions; rw <= range.Rows.Count; rw = rw + 2)
-                {
-                    var value = (range.Cells[rw, columnWithMin] as Range).Value2;
-                    if (value == null) continue;
-                    var str = value as string;
-                    if (str != null && str != "0" || value is double && (double)value != 0)
-                    {
-                        isOk = true;
-                        Trace.WriteLine(columnWithMin);
-                        break;
-                    }
-                }
-            }
-            if (!isOk)
-            {
-                columnWithMinHash.Add(columnWithMin);
-                findMinMax();
-            }
-            return new Triple<double, double, double>(min, max, resultValue);
-        }
-
-        public void Dispose()
-        {
-            app.Quit();
-            Marshal.ReleaseComObject(app);
-        }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading;
 using Data.Core;
 using Elections.Utility;
 
-namespace Elections.Diagrams
+namespace Elections.Diagrams.BarChart
 {
     public class BarChartPreparer : IDisposable
     {

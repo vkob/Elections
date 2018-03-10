@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Elections.Diagrams;
+using Elections.Diagrams.BarChart;
+using Elections.Diagrams.Graphic;
 using NUnit.Framework;
 
 namespace Elections.Tests
@@ -21,23 +23,7 @@ namespace Elections.Tests
         {
             _barChartPreparer.Dispose();
         }
-
-        private static void GeneratePresenceDiagram()
-        {
-            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR" }, AxisYType.People,
-                DiagramType.Presence);
-            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR" }, AxisYType.UIK,
-                DiagramType.Presence);
-        }
-
-        private static void GenerateFooResultsDiagram()
-        {
-            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR", "YA" },
-                AxisYType.People, DiagramType.Results);
-            ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR", "YA" },
-                AxisYType.UIK, DiagramType.Results);
-        }
-
+      
         [Test]
         public void DrawDiagramForTxtDataTest2003()
         {
