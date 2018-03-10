@@ -25,7 +25,7 @@ namespace Elections.Tests
                 },
                 PicName = @"W:\VS\Reps\GitHub\BarChartTest\hi.jpg"
             };
-            new Diagrams.BarChart.BarChartDrawer().DrawDiagramForTxtData(item);
+            new BarChartDrawer().DrawDiagramForTxtData(item);
         }
     }
 }

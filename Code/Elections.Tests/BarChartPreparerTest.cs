@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Elections.Diagrams;
+﻿using System.IO;
+using System.Text;
 using Elections.Diagrams.BarChart;
-using Elections.Diagrams.Graphic;
 using NUnit.Framework;
 
 namespace Elections.Tests
@@ -11,6 +9,7 @@ namespace Elections.Tests
     public class BarChartTest
     {
         private BarChartPreparer _barChartPreparer;
+        private StringBuilder sb = new StringBuilder("<html>");
 
         [OneTimeSetUp]
         public void Init()
@@ -31,9 +30,21 @@ namespace Elections.Tests
         }
 
         [Test]
+        public void DrawDiagramForTxtDataTest2004()
+        {
+            CreateFile(Consts.ElectionYear2004, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 113838);
+        }
+
+        [Test]
         public void DrawDiagramForTxtDataTest2007()
         {
             CreateFile(Consts.ElectionYear2007, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 109053);
+        }
+
+        [Test]
+        public void DrawDiagramForTxtDataTest2008()
+        {
+            CreateFile(Consts.ElectionYear2008, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 111890);
         }
 
         [Test]
@@ -43,11 +54,32 @@ namespace Elections.Tests
         }
 
         [Test]
+        public void DrawDiagramForTxtDataTest2012()
+        {
+            CreateFile(Consts.ElectionYear2012, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 116228);
+        }
+
+        [Test]
         public void DrawDiagramForTxtDataTest2016()
         {
             CreateFile(Consts.ElectionYear2016, @"ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 101723);
         }
 
+        [Test]
+        public void HtmlTest()
+        {
+            sb.AppendLine("</html>");
+
+            var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
+            var dest = Path.Combine(dir + @"\..\" + Data.Core.Consts.TopPath, "BarChartTest") + @"\All.html";
+            using (var sw = new StreamWriter(dest))
+            {
+                sw.WriteLine(sb.ToString());
+            }
+
+            Assert.AreEqual(486, new FileInfo(dest).Length);
+        }
+        
         public void CreateFile(ElectionYear electionYear, string path, int fileLength)
         {
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
@@ -62,6 +94,8 @@ namespace Elections.Tests
             var fileInfo = new FileInfo(fileNameSource);
 
             var destFileName = Path.Combine(Path.GetFullPath(dirInfo.FullName), Path.GetFileName(fileNameSource));
+
+            sb.AppendLine($"<img src=\"{Path.GetFileName(fileNameSource)}\"/>");
 
             if (File.Exists(destFileName)) File.Delete(destFileName);
 
