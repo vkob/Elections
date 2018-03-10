@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using Elections.Utility;
 using NUnit.Framework;
@@ -24,7 +25,7 @@ namespace Elections.Tests
 
             var electionsLast = ProcessData.GetElectionDataWithNormalizedPlace(dir + @"..\..\..\..\Elections\ElectionInfoPresident\ElectionInfoPresident2012.xml");
             var electionsByRegion = electionsLast
-                  .GroupBy(kvp => kvp.Value.Region, kvp => kvp.Value)
+                  .GroupBy(kvp => kvp.Value.TextData.Region, kvp => kvp.Value)
                   .ToDictionary(g => g.Key, g => g.ToList());
             var foo = "Putin";
             Assert.AreEqual(1994310, SortByDelta.NumberVotedFor(electionsByRegion, "Город Москва", foo));
@@ -39,6 +40,31 @@ namespace Elections.Tests
             Assert.AreEqual(2866307, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Республика Татарстан (Татарстан)", foo));
             Assert.AreEqual(2777766, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Нижегородская область", foo));
             Assert.AreEqual(2757879, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Челябинская область", foo));
+
+            foreach (var regionPair in electionsByRegion)
+            {
+                //Trace.WriteLine(regionPair.Key);
+            }
+
+            Assert.AreEqual(85, electionsByRegion.Count);
+        }
+
+        [Test]
+        public void TestNumbersOfVotedFor2()
+        {
+            var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
+
+            var electionsLast = ProcessData.GetElectionDataWithNormalizedPlace(dir + @"..\..\..\..\Elections\ElectionInfoDuma\ElectionInfoDuma2016.xml");
+            var electionsByRegion = electionsLast
+                  .GroupBy(kvp => kvp.Value.TextData.Region, kvp => kvp.Value)
+                  .ToDictionary(g => g.Key, g => g.ToList());
+
+            foreach (var regionPair in electionsByRegion)
+            {
+                //Trace.WriteLine(regionPair.Key);
+            }
+
+            Assert.AreEqual(85, electionsByRegion.Count);
         }
     }
 }

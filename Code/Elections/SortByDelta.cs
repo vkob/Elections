@@ -110,7 +110,7 @@ namespace Elections
             .Select(ProcessData.GetElectionDataWithNormalizedPlace)
             .ToArray();
          var electionsByRegionAll = electionsAll
-            .Select(e => e.GroupBy(kvp => kvp.Value.Region, kvp => kvp.Value)
+            .Select(e => e.GroupBy(kvp => kvp.Value.TextData.Region, kvp => kvp.Value)
             .ToDictionary(g => g.Key, g => g.ToList()))
             .ToArray();
 
@@ -246,7 +246,7 @@ namespace Elections
          {
             var row = new SimpleRow();
             var values = new List<double?>();
-            row.Text = electionKvp.Value.ElectionCommitteeName;
+            row.Text = electionKvp.Value.TextData.ElectionCommitteeName;
             for (int i = 0; i < electionsAll.Length; i++)
             {
 
@@ -407,7 +407,7 @@ namespace Elections
                //if (!place.Contains("ольяново")) continue;
 
                if (needOutput)
-                  GenerateRegionHtml(electionCurrent.Translit, electionCommitteeName, electionCurrent, electionsAll, electionYears, mainFoo);
+                  GenerateRegionHtml(electionCurrent.TextData.Translit, electionCommitteeName, electionCurrent, electionsAll, electionYears, mainFoo);
                   
                var electionPrev = (calcDiff)
                                     ? electionsPrev != null
@@ -417,7 +417,7 @@ namespace Elections
                                           : null
                                     : null;
 
-               var row = new Row(mainFoo.EnglishShort, otherFoos, electionCurrent.HrefHtmlFile, electionCurrent.Region, electionCommitteeName, electionCurrent, electionPrev);
+               var row = new Row(mainFoo.EnglishShort, otherFoos, electionCurrent.TextData.HrefHtmlFile, electionCurrent.TextData.Region, electionCommitteeName, electionCurrent, electionPrev);
                listRows.Add(row);
             }
          };
@@ -522,7 +522,7 @@ namespace Elections
       private void ResultsHtmlRegions(Dictionary<string, Election> electionsLast, ElectionYear electionYear, FooData mainFoo)
       {
          var electionsByRegion = electionsLast
-            .GroupBy(kvp => kvp.Value.Region, kvp => kvp.Value)
+            .GroupBy(kvp => kvp.Value.TextData.Region, kvp => kvp.Value)
             .ToDictionary(g => g.Key, g => g.ToList());
 
          var regionsFolder = Path.Combine(Consts.UpdatePath, Consts.Regions + electionYear.Year);
@@ -661,7 +661,7 @@ namespace Elections
                   var fooWithMax = election.Foos.FirstOrDefault(f => Math.Abs(f.AllValues[j] - max) < e && f.Name == name);
                   if (fooWithMax != null)
                   {
-                     var simpleRow = new SimpleRow() { Text = election.ElectionCommitteeName, Number = election.GetUikNumbers()[j]};
+                     var simpleRow = new SimpleRow() { Text = election.TextData.ElectionCommitteeName, Number = election.GetUikNumbers()[j]};
                      simpleRow.Values = fooData.Select(f => (double?) election.GetFoo(f.EnglishShort).AllValues[j]).ToList();
                      listRows.Add(simpleRow);
                   }

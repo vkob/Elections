@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Data.Core;
+using Elections.XmlProcessing;
 
 namespace Elections.Utility
 {
@@ -92,10 +93,18 @@ namespace Elections.Utility
             return location;
         }
 
-        public static string GetRegion(string electionCommittee)
+
+
+
+        public static string GetRegion(string electionCommittee, Dictionary<string, string> mapping = null)
         {
             var idx = electionCommittee.IndexOf('\\');
             var region = electionCommittee.Substring(0, idx);
+
+            if (mapping != null && region.StartsWith("ОИК №"))
+            {
+                region = mapping[region].Split(new[] { " - " }, StringSplitOptions.RemoveEmptyEntries)[0];
+            }
 
             if (!region.Contains(" - ")) return region;
 
@@ -106,6 +115,18 @@ namespace Elections.Utility
                 return normalizedRegion;
             }
             return region;
+        }
+
+        public static TextData NormalizeElectionCommitteeName(string electionCommittee, int year)
+        {
+            var textData = new TextData();
+            textData.ElectionCommitteeName = GetNormalizedPlace(GetElectionCommitteeName(electionCommittee, year, GetMapping()));
+            textData.Region = GetRegion(electionCommittee, GetMapping());
+
+            textData.Translit = Translit(textData.ElectionCommitteeName);
+            textData.HrefHtmlFile = string.Format("<a href=\"../{0}{1}/{2}.html\">{3}</a>", Consts.Files, year, textData.Translit, textData.ElectionCommitteeName);
+
+            return textData;
         }
 
         public static string GetNormalizedPlace(string place)

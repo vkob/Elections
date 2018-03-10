@@ -94,5 +94,16 @@ namespace Elections.Tests
             var dictionary = TextProcessFunctions.GetMapping();
             Assert.AreEqual("Алтайский край - Бийский", dictionary["ОИК №41"]);
         }
+
+        [Test]
+        public void NormalizeElectionCommitteeNameTest()
+        {
+            var textData = TextProcessFunctions.NormalizeElectionCommitteeName(@"ОИК №1\Адыгейская\СИЗКСРФ", 2016);
+
+            Assert.AreEqual("Республика Адыгея (Адыгея), Адыгейская", textData.ElectionCommitteeName);
+            Assert.AreEqual("Республика Адыгея (Адыгея)", textData.Region);
+            Assert.AreEqual("<a href=\"../Files2016/Respublika_Adigeya_Adigeya_Adigejskaya.html\">Республика Адыгея (Адыгея), Адыгейская</a>", textData.HrefHtmlFile);
+            Assert.AreEqual("Respublika_Adigeya_Adigeya_Adigejskaya", textData.Translit);
+        }
     }
 }

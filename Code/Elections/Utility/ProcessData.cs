@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -64,7 +65,20 @@ namespace Elections.Utility
         {
             var list = ReadSavedData(fileName);
             list.ForEach(e => e.NormalizeElectionCommitteeName(TextProcessFunctions.GetYear(fileName)));
-            var dict = list.ToDictionary(election => election.ElectionCommitteeName, election => election, StringComparer.CurrentCultureIgnoreCase);
+
+            var dict = new Dictionary<string, Election>(StringComparer.CurrentCultureIgnoreCase);
+
+            foreach (var election in list)
+            {
+                try
+                {
+                    dict.Add(election.TextData.ElectionCommitteeName, election);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(election.TextData.ElectionCommitteeName);
+                }
+            }
             return dict;
         }
     }
