@@ -22,26 +22,6 @@ namespace Elections.Tests
             _barChartPreparer.Dispose();
         }
 
-        [Test]
-        public void P()
-        {
-            var item = new DiagramData()
-            {
-                ChartTitle = "Hello",
-                HorizontalNames = new []{"u1", "u2"},
-                RowItem = new RowItem[5]
-                {
-                    new RowItem() {Name = "L1", Values = new List<double> { 1.00, 0.90 } },
-                    new RowItem() {Name = "L2", Values = new List<double> { 0.90, 0.80 } },
-                    new RowItem() {Name = "L3", Values = new List<double> { 0.80, 0.70 } },
-                    new RowItem() {Name = "L4", Values = new List<double> { 0.60, 0.50 } },
-                    new RowItem() {Name = "L5", Values = new List<double> { 0.50, 0.40 } },
-                },
-                PicName = @"W:\VS\Reps\GitHub\BarChartTest\hi.jpg"
-            };
-            _barChartPreparer.DrawDiagramForTxtData(item);
-        }
-
         private static void GeneratePresenceDiagram()
         {
             ProcessExcel.GenerateGraphic(Consts.ElectionYear2011, new[] { "ER", "KPRF", "SR", "LDPR" }, AxisYType.People,

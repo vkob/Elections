@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consts.cs" />
+    <Compile Include="Diagrams\BarChartDrawer.cs" />
     <Compile Include="Diagrams\BarChartPreparer.cs" />
     <Compile Include="Diagrams\DiagramDataCreator.cs" />
     <Compile Include="Diagrams\DiagramData.cs" />

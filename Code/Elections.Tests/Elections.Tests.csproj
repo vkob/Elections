@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarChartDrawerTest.cs" />
     <Compile Include="ProcessDataTest.cs" />
     <Compile Include="BarChartTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
