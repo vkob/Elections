@@ -250,7 +250,7 @@ namespace Elections.Diagrams.Graphic
 
             chart.HasTitle = true;
             var presence = diagramType == DiagramType.Results ? "" : string.Format(", {0}%", electionYear.Presence.ToString().Replace(",", "."));
-            chart.ChartTitle.Text = string.Format("{0} {1} {2} {3}", diagramType == DiagramType.Results ? "Результаты выборов" : "Явка на выборах",
+            chart.ChartTitle.Text = string.Format("{0} {1} {2}{3}", diagramType == DiagramType.Results ? "Результаты выборов" : "Явка на выборах",
                                                                   (electionYear.ElectionType == ElectionType.Duma) ? "в Думу" : "президента",
                                                                   electionYear.Year, presence);
 

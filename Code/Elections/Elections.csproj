@@ -115,10 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Calculations.txt" />
-    <EmbeddedResource Include="YandexScripts\Wall.htm" />
-    <EmbeddedResource Include="YandexScripts\FeedBack.htm" />
-    <EmbeddedResource Include="YandexScripts\Head.htm" />
-    <EmbeddedResource Include="YandexScripts\Share.htm" />
+    <EmbeddedResource Include="Html\Head.htm" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

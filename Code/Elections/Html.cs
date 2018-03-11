@@ -13,25 +13,23 @@ namespace Elections
         public const string AllIksBy = "AllIksBy";
         public const string AllRegionsBy = "AllRegionsBy";
 
-        public const string YandexScripts = "Elections.YandexScripts.";
+        public const string ElectionsHtml = "Elections.Html.";
 
         public const string TitleHolder = "#Tittle#";
 
-        public static string T(int lastYear, string caption, string name, string englishShort, string uiks)
+        public static string Middle(int lastYear, string caption, string name, string englishShort, string uiks)
         {
             var sbMain = new StringBuilder();
             sbMain.AppendFormat("<tr>\n");
-            sbMain.AppendFormat("<td class=\"name\" style=\"{{font-weight:bold;}}\">{0}</td>\n", lastYear);
-            sbMain.AppendFormat("<td class=\"name\" style=\"{{font-weight:bold;}}\">{0}</td>\n", caption);
+            sbMain.AppendFormat("<td class=\"name\"><h3>{0}</h3></td>\n", lastYear);
+            sbMain.AppendFormat("<td class=\"name\"><h3>{0}</h3></td>\n", caption);
             sbMain.AppendFormat("<td class=\"name\">{0}</td>\n",
-                "<a href=\"" + Consts.Regions + lastYear + "/RegionsByContribution.html" + string.Format("\">Результаты по регионам, {0} год</a><br>", lastYear)
-
+                "<a href=\"" + Consts.Regions + lastYear + "/RegionsByContribution.html" + $"\"><h3>Результаты по регионам, {lastYear} год</h3></a>\n"
                 +
-                "<a href=\"" + Consts.Iks + lastYear + "/" + string.Format(name, englishShort) +
-                string.Format("\">Результаты по избирательным комиссиям, {0} год</a><br>", lastYear) +
+                "<a href=\"" + Consts.Iks + lastYear + "/" + string.Format(name, englishShort) + $"\"><h3>Результаты по избирательным комиссиям, {lastYear} год</h3></a>\n" +
                 uiks);
 
-            sbMain.AppendFormat("</tr>");
+            sbMain.AppendFormat("</tr>\n");
 
             return sbMain.ToString();
         }
@@ -46,9 +44,9 @@ namespace Elections
                 sw.WriteLine("<table align=\"center\"><tr><td style=\"font-size: 22pt;font-weight:bold;\">{0}</td></tr></table><br>", title);
                 sw.WriteLine("<table class=\"my\" border=\"1\" bgcolor=\"#ffffff\" cellpadding=\"2\" cellspacing=\"1\" align=\"center\" vspace=\"0\">");
                 sw.WriteLine(
-                    "<td clas=\"header\" style=\"{ text-align: center;font-weight:bold;}\">Год</td>" +
-                    "<td clas=\"header\" style=\"{ text-align: center;font-weight:bold;}\">Выборы</td>" +
-                    "<td clas=\"header\" style=\"{ text-align: center;font-weight:bold;}\">Результаты</td>");
+                    "<td class=\"header\" style=\"{ text-align: center;}\"><h2>Год</h2></td>\n" +
+                    "<td class=\"header\" style=\"{ text-align: center;}\"><h2>Выборы</h2></td>\n" +
+                    "<td class=\"header\" style=\"{ text-align: center;}\"><h2>Результаты</h2></td>\n");
                 sw.WriteLine(stringBuilder);
                 sw.WriteLine("</table>");
                 sw.WriteLine("</html>");
@@ -57,7 +55,7 @@ namespace Elections
 
         private static string GetFromResource(string fileName)
         {
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(YandexScripts + fileName))
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(ElectionsHtml + fileName))
             using (var streamReader = new StreamReader(stream, Encoding.GetEncoding(1251)))
             {
                 var head = streamReader.ReadToEnd();
@@ -82,8 +80,6 @@ namespace Elections
                 sw.WriteLine("<table border=\"1\" align=\"center\" cellpadding=\"10\"");
                 sw.WriteLine("{0}", stringBuilder);
                 sw.WriteLine("</table>");
-                sw.WriteLine(
-                    "<table align=\"center\"><tr><td align=\"center\">Диаграмма явки в других странах</td></tr><tr><td align=\"center\"><img src=\"{0}/OtherCountries.png\"></td></tr></table>", Consts.Graphics);
                 sw.WriteLine("</html>");
             }
         }
@@ -99,17 +95,17 @@ namespace Elections
         {
             stringBuilder.AppendFormat("<tr>\n");
             stringBuilder.AppendFormat("<td></td>");
-            stringBuilder.AppendFormat("<td style=\"{{text-align: left;font-weight:bold;}}\">\nИтого</td>\n");
+            stringBuilder.AppendFormat("<td class=\"name\"\">\n<h3>Итого</h3></td>\n");
             var cell = new StringBuilder();
-            cell.AppendFormat("Сводная таблица результатов выборов<br> Партии Власти и Президента за все года");
+            cell.AppendFormat("<h3>Сводная таблица результатов выборов<br> Партии Власти и Президента за все года</h3>");
             cell.AppendFormat(
-                "<a href=\"{0}\"><br>1) по Регионам<a/>\n<br>\n",
+                "<h4><a href=\"{0}\">1) по Регионам<a/>\n<br>\n",
                 string.Format("{0}/{1}{2}.html", Consts.AllRegions, AllRegionsBy, "Name"));
             cell.AppendFormat(
-                "<a href=\"{0}\">2) по Избирательным Коммиссиям<a/>\n<br>\n<br>\n",
+                "<a href=\"{0}\">2) по Избирательным Коммиссиям<a/>\n<br>\n</h4>\n",
                 string.Format("{0}/{1}{2}.html", Consts.AllIks, AllIksBy, "Name"));
-            cell.AppendFormat("<a href=\"{0}.html\">Графики-Гауссианы всех результатов выборов и явки</a>", Consts.Graphics);
-            stringBuilder.AppendFormat("<td style=\"{{text-align: left;font-weight:bold;}}\">\n{0}</td>\n", cell);
+            cell.AppendFormat("<h3><a href=\"{0}.html\">Графики-Гауссианы всех результатов выборов и явки</a></h3>", Consts.Graphics);
+            stringBuilder.AppendFormat("<td class=\"name\">\n{0}</td>\n", cell);
             stringBuilder.AppendFormat("</tr>");
             return stringBuilder;
         }

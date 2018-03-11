@@ -33,69 +33,70 @@ namespace ElectionRunHelper
                     new BarChartPreparer(false).PrepareDrawAllDiagrams(Data.Core.Consts.Duma.Union(Data.Core.Consts.President).ToArray());
                     break;
                 case "6":
-                {
-                    var sbMain = new StringBuilder();
-                    var sbGraphics = new StringBuilder();
+                    {
+                        var sbMain = new StringBuilder();
+                        var sbGraphics = new StringBuilder();
 
-                    bool needOutput = true;
+                        bool needOutput = true;
 
-                    Pair<string, string> res = null;
+                        Pair<string, string> res = null;
 
-                    var stopwatch = new Stopwatch();
-                    stopwatch.Start();
+                        var stopwatch = new Stopwatch();
+                        stopwatch.Start();
 
-                    ////2003
-                    //res = Start(needOutput, new[] { Consts.ElectionYear2003 }, null, false);
-                    //sbMain.Append(res.First);
-                    //if (res != null) sbGraphics.Append(res.Second);
+                        var so = new SortByDelta();
 
-                    ////2004
-                    //res = Start(needOutput, new[] { Consts.ElectionYear2004 }, null, false);
-                    //sbMain.Append(res.First);
-                    //if (res != null) sbGraphics.Append(res.Second);
+                        //2003
+                        res = so.Start(needOutput, new[] { Consts.ElectionYear2003 }, null, false);
+                        sbMain.Append(res.First);
+                        if (res != null) sbGraphics.Append(res.Second);
 
-                    ////2007
-                    //res = Start(needOutput, new[] { Consts.ElectionYear2007 }, null, false);
-                    //sbMain.Append(res.First);
-                    //if (res != null) sbGraphics.Append(res.Second);
+                        //2004
+                        res = so.Start(needOutput, new[] { Consts.ElectionYear2004 }, null, false);
+                        sbMain.Append(res.First);
+                        if (res != null) sbGraphics.Append(res.Second);
 
-                    ////2008
-                    //res = Start(needOutput, new[] { Consts.ElectionYear2004, Consts.ElectionYear2008 }, null, false);
-                    //sbMain.Append(res.First);
-                    //if (res != null) sbGraphics.Append(res.Second);
+                        //2007
+                        res = so.Start(needOutput, new[] { Consts.ElectionYear2007 }, null, false);
+                        sbMain.Append(res.First);
+                        if (res != null) sbGraphics.Append(res.Second);
 
-                    ////2011
-                    //res = Start(needOutput, new[] { Consts.ElectionYear2007, Consts.ElectionYear2011 }, Consts.ElectionYear2007, true);
-                    //sbMain.Append(res.First);
-                    //if (res != null) sbGraphics.Append(res.Second);
+                        //2008
+                        res = so.Start(needOutput, new[] { Consts.ElectionYear2004, Consts.ElectionYear2008 }, null, false);
+                        sbMain.Append(res.First);
+                        if (res != null) sbGraphics.Append(res.Second);
 
-                    ////2012
-                    //res = Start(needOutput, new[] { Consts.ElectionYear2004, Consts.ElectionYear2008, Consts.ElectionYear2012 },
-                    //   Consts.ElectionYear2004, true);
-                    //sbMain.Append(res.First);
-                    //if (res != null) sbGraphics.Append(res.Second);
+                        //2011
+                        res = so.Start(needOutput, new[] { Consts.ElectionYear2007, Consts.ElectionYear2011 }, Consts.ElectionYear2007, true);
+                        sbMain.Append(res.First);
+                        if (res != null) sbGraphics.Append(res.Second);
 
-                    ////2016
-                    //res = Start(needOutput, new[] { Consts.ElectionYear2003, Consts.ElectionYear2007, Consts.ElectionYear2011, Consts.ElectionYear2016 },
-                    //    Consts.ElectionYear2011, true);
+                        //2012
+                        res = so.Start(needOutput, new[] { Consts.ElectionYear2004, Consts.ElectionYear2008, Consts.ElectionYear2012 },
+                           Consts.ElectionYear2004, true);
+                        sbMain.Append(res.First);
+                        if (res != null) sbGraphics.Append(res.Second);
 
-                    res = new SortByDelta().Start(needOutput, new[] { Consts.ElectionYear2016 },
-                        null, true);
+                        //2016
+                        res = so.Start(needOutput, new[] { Consts.ElectionYear2003, Consts.ElectionYear2007, Consts.ElectionYear2011, Consts.ElectionYear2016 },
+                            Consts.ElectionYear2011, true);
 
-                    sbMain.Append(res.First);
-                    if (res != null) sbGraphics.Append(res.Second);
+                        //res = new SortByDelta().Start(needOutput, new[] { Consts.ElectionYear2016 },null, true);
 
-                    Html.GenerateResult(Consts.UpdatePath, sbMain, sbGraphics);
+                        sbMain.Append(res.First);
+                        if (res != null) sbGraphics.Append(res.Second);
 
-                    stopwatch.Stop();
-                    Trace.WriteLine(String.Format("Generated HTML-s {0}", stopwatch.Elapsed));
-                }
+                        Html.GenerateResult(Consts.UpdatePath, sbMain, sbGraphics);
+
+                        stopwatch.Stop();
+                        Trace.WriteLine(String.Format("Generated HTML-s {0}", stopwatch.Elapsed));
+                    }
                     break;
                 case "8":
-                {
-                    var sortByDelta = new SortByDelta();
-                    sortByDelta.StartDominantForIks(new[]
                     {
+                        var sortByDelta = new SortByDelta();
+                        sortByDelta.StartDominantForIks(new[]
+                        {
                         Consts.ElectionYear2016,
                         Consts.ElectionYear2012,
                         Consts.ElectionYear2011,
@@ -104,8 +105,8 @@ namespace ElectionRunHelper
                         Consts.ElectionYear2004,
                         Consts.ElectionYear2003
                     });
-                    sortByDelta.StartDominantForRegions(new[]
-                    {
+                        sortByDelta.StartDominantForRegions(new[]
+                        {
                         Consts.ElectionYear2016,
                         Consts.ElectionYear2012,
                         Consts.ElectionYear2011,
@@ -114,8 +115,8 @@ namespace ElectionRunHelper
                         Consts.ElectionYear2004,
                         Consts.ElectionYear2003
                     });
-                    break;
-                }
+                        break;
+                    }
             }
         }
     }
