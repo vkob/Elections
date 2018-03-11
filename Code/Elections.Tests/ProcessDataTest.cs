@@ -19,7 +19,7 @@ namespace Elections.Tests
         }
 
         [Test]
-        public void TestNumbersOfVotedFor()
+        public void NumberOfElectorsInList2012()
         {
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
 
@@ -30,16 +30,16 @@ namespace Elections.Tests
             var foo = "Putin";
             Assert.AreEqual(1994310, SortByDelta.NumberVotedFor(electionsByRegion, "Город Москва", foo));
 
-            Assert.AreEqual(7309869, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Город Москва", foo));
-            Assert.AreEqual(5779495, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Московская область", foo));
-            Assert.AreEqual(3849426, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Город Санкт-Петербург", foo));
-            Assert.AreEqual(3803307, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Краснодарский край", foo));
-            Assert.AreEqual(3527808, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Свердловская область", foo));
-            Assert.AreEqual(3315673, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Ростовская область", foo));
-            Assert.AreEqual(3014076, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Республика Башкортостан", foo));
-            Assert.AreEqual(2866307, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Республика Татарстан (Татарстан)", foo));
-            Assert.AreEqual(2777766, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Нижегородская область", foo));
-            Assert.AreEqual(2757879, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Челябинская область", foo));
+            Assert.AreEqual(7309869, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Город Москва"));
+            Assert.AreEqual(5779495, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Московская область"));
+            Assert.AreEqual(3849426, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Город Санкт-Петербург"));
+            Assert.AreEqual(3803307, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Краснодарский край"));
+            Assert.AreEqual(3527808, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Свердловская область"));
+            Assert.AreEqual(3315673, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Ростовская область"));
+            Assert.AreEqual(3014076, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Республика Башкортостан"));
+            Assert.AreEqual(2866307, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Республика Татарстан (Татарстан)"));
+            Assert.AreEqual(2777766, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Нижегородская область"));
+            Assert.AreEqual(2757879, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Челябинская область"));
 
             foreach (var regionPair in electionsByRegion)
             {
@@ -50,7 +50,7 @@ namespace Elections.Tests
         }
 
         [Test]
-        public void TestNumbersOfVotedFor2()
+        public void NumberOfElectorsInList2016()
         {
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
 
@@ -58,6 +58,10 @@ namespace Elections.Tests
             var electionsByRegion = electionsLast
                   .GroupBy(kvp => kvp.Value.TextData.Region, kvp => kvp.Value)
                   .ToDictionary(g => g.Key, g => g.ToList());
+
+            Assert.AreEqual(7452834, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Город Москва"));
+            Assert.AreEqual(5649321, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Московская область"));
+            Assert.AreEqual(3835562, SortByDelta.NumberOfElectorsInList(electionsByRegion, "Город Санкт-Петербург"));
 
             foreach (var regionPair in electionsByRegion)
             {

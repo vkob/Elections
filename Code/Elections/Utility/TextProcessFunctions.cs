@@ -87,9 +87,36 @@ namespace Elections.Utility
 
             if (mapping != null && first.StartsWith("ОИК №"))
             {
-                first = mapping[first].Split(new[] { " - " }, StringSplitOptions.RemoveEmptyEntries)[0];
+                var mapped = mapping[first];
+                var splitted = mapped.Split(new[] {" - "}, StringSplitOptions.RemoveEmptyEntries);
+                first = splitted[0];
+                if ((first == "Кемеровская область" && (second == "Кемеровская" || second == "Новокузнецкая"))
+                    || (first == "Нижегородская область" && (second == "Богородская" ))
+                    || (first == "Омская область" && (second == "Омская"))
+                    || (first == "Свердловская область" && (second == "Алапаевская"))
+                    || (first == "Город Санкт-Петербург" && (second == "Территориальная избирательная комиссия №7"))
+                    || (first == "Краснодарский край" && (second == "Динская")
+                    || (first == "Ставропольский край" && (second == "Шпаковская"))))
+                {
+                    first = splitted[0] + ", " + splitted[1];
+                }
+                //if (fi)
+                //if (splitted[1] == second)
+                //{
+                //    first = splitted[0];
+                //}
+                //else
+                //{
+                //    first = splitted[0] + ", " + splitted[1];
+                //}
             }
+
             var location = (second == SIZKSRF) ? first : string.Format("{0}, {1}", first, second);
+
+            if (location.Contains("Территориальная избирательная комиссия №7"))
+            {
+
+            }
             return location;
         }
 

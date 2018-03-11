@@ -36,6 +36,14 @@ namespace Elections.Tests
             Assert.AreEqual("Архангельская область, Архангельск, Октябрьская",
                 TextProcessFunctions.GetElectionCommitteeName
                     (@"ResultsDuma\ОИК №72\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская 2016.xls", null, TextProcessFunctions.GetMapping()));
+
+            Assert.AreEqual("Кемеровская область, Кемеровский, Кемеровская",
+                TextProcessFunctions.GetElectionCommitteeName
+                    (@"ResultsDuma\ОИК №101\Кемеровская\Кемеровская 2016.xls", null, TextProcessFunctions.GetMapping()));
+
+            Assert.AreEqual("Кемеровская область, Прокопьевский, Кемеровская",
+                TextProcessFunctions.GetElectionCommitteeName
+                    (@"ResultsDuma\ОИК №102\Кемеровская\Кемеровская 2016.xls", null, TextProcessFunctions.GetMapping()));
         }
 
 

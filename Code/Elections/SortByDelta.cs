@@ -514,7 +514,7 @@ namespace Elections
          return electionsByRegion[region].Sum(e => e.GetFoo(foo).Number);
       }
 
-      public static int NumberOfElectorsInList(Dictionary<string, List<Election>> electionsByRegion, string region, string foo)
+      public static int NumberOfElectorsInList(Dictionary<string, List<Election>> electionsByRegion, string region)
       {
          return electionsByRegion[region].Sum(e => e.NumberOfElectorsInList);
       }
@@ -539,7 +539,7 @@ namespace Elections
          {
             var list = new List<double?>();
             var elections = kvp.Value;
-            var numberOfElectorsInList = NumberOfElectorsInList(electionsByRegion, kvp.Key, mainFoo.EnglishShort);
+            var numberOfElectorsInList = NumberOfElectorsInList(electionsByRegion, kvp.Key);
             var numberOfInvalidBallot = elections.Sum(e => e.NumberOfInvalidBallot);
             var numberOfValidBallot = elections.Sum(e => e.NumberOfValidBallot);
             var numberVotedFor = NumberVotedFor(electionsByRegion, kvp.Key, mainFoo.EnglishShort);
