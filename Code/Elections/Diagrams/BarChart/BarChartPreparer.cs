@@ -100,7 +100,14 @@ namespace Elections.Diagrams.BarChart
         {
             foreach (var fi in di.GetFiles(pattern))
             {
-                CreateDiagram(fi, captionDiagram, _overwrite);
+                try
+                {
+                    CreateDiagram(fi, captionDiagram, _overwrite);
+                }
+                catch (Exception)
+                {
+
+                }
             }
         }
 

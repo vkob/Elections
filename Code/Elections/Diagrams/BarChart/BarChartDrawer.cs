@@ -82,7 +82,7 @@ namespace Elections.Diagrams.BarChart
             Marshal.ReleaseComObject(workBooks);
 
             stopWatch.Stop();
-            Trace.WriteLine(stopWatch.Elapsed);
+            Console.WriteLine(diagramData.PicName + " " + stopWatch.Elapsed);
 
             return diagramData.PicName;
         }
