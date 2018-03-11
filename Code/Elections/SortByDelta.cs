@@ -31,8 +31,6 @@ namespace Elections
 
    public partial class SortByDelta
    {
-      private const string TitleHolder = "#Tittle#";
-
       private const string Counter = "<table align=\"center\">" +
                                      "<tr><td align=\"center\">" +
                                      "Счётчик посещений с 19 февраля 2012 года" +
@@ -40,8 +38,6 @@ namespace Elections
                                      "</td></tr>" +
                                      "</table>";
 
-      const string AllIksBy = "AllIksBy";
-      const string AllRegionsBy = "AllRegionsBy";
 
       private const string IrregularityHeader = "Неравно-<br>мерность<br>{0}, %";
       private const string Style = "<style type=\"text/css\">" + 
@@ -54,7 +50,6 @@ namespace Elections
       private const string NoData = "нет данных";
 
       public const string EmbeddedResource = "Elections.EmbeddedResources.";
-      public const string YandexScripts = "Elections.YandexScripts.";
 
       #region Fileds
 
@@ -144,7 +139,7 @@ namespace Elections
             allRows.Add(simpleRows);
          });
 
-         var fileRegionsByName = AllRegionsBy + "{0}.html";
+         var fileRegionsByName = Html.AllRegionsBy + "{0}.html";
 
          Action<string, SimpleRow[]> output = (ouputFile, rows) =>
          {
@@ -152,7 +147,7 @@ namespace Elections
             {
                const string title = "Сводная таблица результатов выборов Партии Власти и Президента за все года по регионам";
                sw.WriteLine("<html>");
-               sw.WriteLine(GetHead().Replace(TitleHolder, title));
+               sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title));
                sw.WriteLine(
                   "<table align=\"center\" style=\"font-weight:bold;\">" +
                      "<tr><td><a href=\"../index.html\">На главную</a></td></tr>" +
@@ -267,14 +262,14 @@ namespace Elections
             rowsByName.Add(row);
          }
 
-         var fileAllByName = AllIksBy + "Name.html";
+         var fileAllByName = Html.AllIksBy + "Name.html";
          Action<string, List<SimpleRow>> outputHtml = (fileName, rows) =>
          {
             using (var sw = new StreamWriter(fileName, false, Encoding.GetEncoding(1251)))
             {
                const string title = "Сводная таблица результатов выборов Партии Власти и Президента за все года по Избирательным Комиссиям";
                sw.WriteLine("<html>");
-               sw.WriteLine(GetHead().Replace(TitleHolder, title));
+               sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title));
                sw.WriteLine(
                   "<table align=\"center\" style=\"font-weight:bold;\">" +
                      "<tr><td><a href=\"../index.html\">На главную</a></td></tr>" +
@@ -291,9 +286,9 @@ namespace Elections
                sbHeader.AppendFormat("<td class=\"name\" style=\"font-weight:bold;\"><a href=\"{0}\">Избирательная комиссия</a></td>", fileAllByName);
                for (int i = 0; i < mainFoos.Length; i++)
                {
-                  sbHeader.AppendFormat("<td class=\"header\"><a href=\"{0}{3}{2}.html\">{1},<br>{2},<br>%</a></td>", AllIksBy, mainFoos[i].RussianLong, electionYears[i].Year, mainFoos[i].EnglishShort);
-                  sbHeader.AppendFormat("<td class=\"header\" bgcolor=\"#ffffdd\"><a href=\"{0}{2}Irr{1}.html\">{3}</a></td>", 
-                     AllIksBy,
+                  sbHeader.AppendFormat("<td class=\"header\"><a href=\"{0}{3}{2}.html\">{1},<br>{2},<br>%</a></td>", Html.AllIksBy, mainFoos[i].RussianLong, electionYears[i].Year, mainFoos[i].EnglishShort);
+                  sbHeader.AppendFormat("<td class=\"header\" bgcolor=\"#ffffdd\"><a href=\"{0}{2}Irr{1}.html\">{3}</a></td>",
+                      Html.AllIksBy,
                      electionYears[i].Year, 
                      mainFoos[i].EnglishShort,
                      string.Format(IrregularityHeader, electionYears[i].Year));
@@ -334,14 +329,14 @@ namespace Elections
          };
 
          Directory.CreateDirectory(Consts.AllIksPath);
-         outputHtml(Path.Combine(Consts.AllIksPath, AllIksBy + "Name.html"), rowsByName);
+         outputHtml(Path.Combine(Consts.AllIksPath, Html.AllIksBy + "Name.html"), rowsByName);
          for (int i = 0; i < mainFoos.Length; i++)
          {
             var rows = rowsByName.OrderByDescending(r => r.Values[2 * i]).ToList();
-            outputHtml(Path.Combine(Consts.AllIksPath, string.Format("{0}{1}{2}.html", AllIksBy, mainFoos[i].EnglishShort, electionYears[i].Year)), rows);
+            outputHtml(Path.Combine(Consts.AllIksPath, string.Format("{0}{1}{2}.html", Html.AllIksBy, mainFoos[i].EnglishShort, electionYears[i].Year)), rows);
 
             rows = rowsByName.OrderByDescending(r => r.Values[2 * i + 1]).ToList();
-            outputHtml(Path.Combine(Consts.AllIksPath, string.Format("{0}{1}Irr{2}.html", AllIksBy, mainFoos[i].EnglishShort, electionYears[i].Year)), rows);
+            outputHtml(Path.Combine(Consts.AllIksPath, string.Format("{0}{1}Irr{2}.html", Html.AllIksBy, mainFoos[i].EnglishShort, electionYears[i].Year)), rows);
          }
       }
 
@@ -445,39 +440,19 @@ namespace Elections
 
          sbGraphics.AppendFormat("<tr>{0}{1}{2}{3}{4}{5}</tr>", res.First, res.Second, res.Third, res.Fourth, res.Fivth, res.Sixth);
 
+          var sbMain = Html.T(lastYear, lastElectionYear.ElectionCaption(), indexFiles[(int)Indexes.SortedByAlphabet],  mainFoo.EnglishShort, uiks);
 
-         var sbMain = new StringBuilder();
-         sbMain.AppendFormat("<tr>\n");
-         sbMain.AppendFormat("<td class=\"name\" style=\"{{font-weight:bold;}}\">{0}</td>\n", lastYear);
-         sbMain.AppendFormat("<td class=\"name\" style=\"{{font-weight:bold;}}\">{0}</td>\n", ElectionCaption(lastElectionYear.ElectionType));
-         sbMain.AppendFormat("<td class=\"name\">{0}</td>\n",
-            "<a href=\"" + Consts.Regions + lastYear + "/RegionsByContribution.html" + string.Format("\">Результаты по регионам, {0} год</a><br>", lastYear) 
-
-            +
-            "<a href=\"" + Consts.Iks + lastYear + "/" + string.Format(indexFiles[(int)Indexes.SortedByAlphabet], mainFoo.EnglishShort) + string.Format("\">Результаты по избирательным комиссиям, {0} год</a><br>", lastYear) +
-            uiks);
-        
-         sbMain.AppendFormat("</tr>");
-         return new Pair<string, string>(sbMain.ToString(), sbGraphics.ToString());
+         return new Pair<string, string>(sbMain, sbGraphics.ToString());
       }
 
       #endregion
 
       #region Private Methods
 
-      private static string ElectionCaption(ElectionType electionType)
-      {
-          var caption = (electionType == ElectionType.Duma)
-              ? "В Думу"
-              : "Президента";
-                               
-         return caption;
-      }
-
       private Six<string, string, string, string, string, string> GenerateDiagrams(
          FooData mainFoo, ElectionYear[] electionYears, FooData[] fooData)
       {
-         var caption = ElectionCaption(electionYears[0].ElectionType);
+         var caption = electionYears[0].ElectionCaption();
          var first = electionYears[0];
          var href = string.Format("<a href=\"{0}{1}/{2}\">{3}</a>", Consts.Iks, electionYears[0].Year,
                                   string.Format(indexFiles[(int)Indexes.SortedByLast], mainFoo.EnglishShort), caption);
@@ -573,7 +548,7 @@ namespace Elections
             {
                var title = string.Format("Результаты выборов {0} года по регионам", electionYear.Year);
                sw.WriteLine("<html>");
-               sw.WriteLine(GetHead().Replace(TitleHolder, title));
+               sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title));
                sw.WriteLine(
                   "<table align=\"center\" style=\"font-weight:bold;\">" + 
                      "<tr><td><a href=\"../index.html\">На главную</a></td></tr>"+
@@ -674,7 +649,7 @@ namespace Elections
                {
                   var title = string.Format("Избирательные участки, где в лидерах {0}, {1} год", foo.RussianLong, electionYear.Year);
                   sw.WriteLine("<html>");
-                  sw.WriteLine(GetHead().Replace(TitleHolder, title));
+                  sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title));
                   sw.WriteLine("<table align=\"center\" style=\"font-weight:bold;\">" +
                                "<tr><td><a href=\"../index.html\">На главную</a></td></tr>" +
                                "</table>");
@@ -981,17 +956,13 @@ namespace Elections
          {
             var titleMain = "Результаты выборов " + place;
             sw.WriteLine("<html>");
-            sw.WriteLine(GetHead().Replace(TitleHolder, titleMain));
+            sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, titleMain));
             sw.WriteLine("<table align=\"center\">");
 
             for (int j = 0; j < electionsAll.Length; j++)
             {
-                var what_ = (electionYears[j].ElectionType == ElectionType.Duma)
-                    ? Data.Core.Consts.ResultsDuma
-                    : Data.Core.Consts.ResultsPresident;
-
                if (!electionsAll[j].ContainsKey(place)) continue;
-               var localPath = Data.Core.Consts.ResultsPath + @"\" + what_ + @"\" + electionsAll[j][place].ElectionCommittee;
+               var localPath = electionYears[j].FullPath + @"\" + electionsAll[j][place].ElectionCommittee;
                var di = new DirectoryInfo(localPath);
                //if (!di.Exists) continue;
                var pattern = string.Format(Consts.PatternExtJpg, electionYears[j].Year);
@@ -1116,7 +1087,7 @@ namespace Elections
          var begin = new StringBuilder();
          begin.Append("<html>");
          begin.Append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\">");
-         begin.Append(GetHead().Replace(TitleHolder, title));
+         begin.Append(Html.GetHead().Replace(Html.TitleHolder, title));
          begin.Append(style);    
          begin.AppendFormat("<table align=\"center\"><tr><td align=\"center\" style=\"font-size: 18pt;font-weight:bold;\">{0}</td><tr></table><br>", title);
          begin.AppendFormat("<table align=\"center\">{0}</table>", maxReport);

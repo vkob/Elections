@@ -70,6 +70,14 @@ namespace Elections
 
         #endregion
 
+        public string ElectionCaption()
+        {
+            var caption = (ElectionType == ElectionType.Duma)
+                ? "В Думу"
+                : "Президента";
+
+            return caption;
+        }
         public static ElectionYear GetElectionYear(string year)
         {
             switch (year)

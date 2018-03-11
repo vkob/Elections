@@ -62,6 +62,7 @@
     <Compile Include="ElectionYear.cs" />
     <Compile Include="ElectionCommitteeResults.cs" />
     <Compile Include="FooData.cs" />
+    <Compile Include="Html.cs" />
     <Compile Include="Participants.cs" />
     <Compile Include="Diagrams\Graphic\GraphicPreparer.cs" />
     <Compile Include="FinalXmlCreator.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Rows\Row.cs" />
     <Compile Include="Rows\SimpleRow.cs" />
     <Compile Include="SortByDelta.cs" />
-    <Compile Include="SortByDelta.Main.cs" />
     <Compile Include="Utility\Pair.cs" />
     <Compile Include="Utility\ProcessData.cs" />
     <Compile Include="Utility\Quadruple.cs" />

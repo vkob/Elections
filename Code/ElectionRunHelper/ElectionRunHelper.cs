@@ -1,8 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using Data.Get.Html.Xls.Txt;
 using Elections;
 using Elections.Diagrams;
 using Elections.Diagrams.BarChart;
+using Elections.Utility;
 
 namespace ElectionRunHelper
 {
@@ -29,13 +33,87 @@ namespace ElectionRunHelper
                     new BarChartPreparer(false).PrepareDrawAllDiagrams(Data.Core.Consts.Duma.Union(Data.Core.Consts.President).ToArray());
                     break;
                 case "6":
-                    new SortByDelta().Main();
+                {
+                    var sbMain = new StringBuilder();
+                    var sbGraphics = new StringBuilder();
+
+                    bool needOutput = true;
+
+                    Pair<string, string> res = null;
+
+                    var stopwatch = new Stopwatch();
+                    stopwatch.Start();
+
+                    ////2003
+                    //res = Start(needOutput, new[] { Consts.ElectionYear2003 }, null, false);
+                    //sbMain.Append(res.First);
+                    //if (res != null) sbGraphics.Append(res.Second);
+
+                    ////2004
+                    //res = Start(needOutput, new[] { Consts.ElectionYear2004 }, null, false);
+                    //sbMain.Append(res.First);
+                    //if (res != null) sbGraphics.Append(res.Second);
+
+                    ////2007
+                    //res = Start(needOutput, new[] { Consts.ElectionYear2007 }, null, false);
+                    //sbMain.Append(res.First);
+                    //if (res != null) sbGraphics.Append(res.Second);
+
+                    ////2008
+                    //res = Start(needOutput, new[] { Consts.ElectionYear2004, Consts.ElectionYear2008 }, null, false);
+                    //sbMain.Append(res.First);
+                    //if (res != null) sbGraphics.Append(res.Second);
+
+                    ////2011
+                    //res = Start(needOutput, new[] { Consts.ElectionYear2007, Consts.ElectionYear2011 }, Consts.ElectionYear2007, true);
+                    //sbMain.Append(res.First);
+                    //if (res != null) sbGraphics.Append(res.Second);
+
+                    ////2012
+                    //res = Start(needOutput, new[] { Consts.ElectionYear2004, Consts.ElectionYear2008, Consts.ElectionYear2012 },
+                    //   Consts.ElectionYear2004, true);
+                    //sbMain.Append(res.First);
+                    //if (res != null) sbGraphics.Append(res.Second);
+
+                    ////2016
+                    //res = Start(needOutput, new[] { Consts.ElectionYear2003, Consts.ElectionYear2007, Consts.ElectionYear2011, Consts.ElectionYear2016 },
+                    //    Consts.ElectionYear2011, true);
+
+                    res = new SortByDelta().Start(needOutput, new[] { Consts.ElectionYear2016 },
+                        null, true);
+
+                    sbMain.Append(res.First);
+                    if (res != null) sbGraphics.Append(res.Second);
+
+                    Html.GenerateResult(Consts.UpdatePath, sbMain, sbGraphics);
+
+                    stopwatch.Stop();
+                    Trace.WriteLine(String.Format("Generated HTML-s {0}", stopwatch.Elapsed));
+                }
                     break;
                 case "8":
                 {
                     var sortByDelta = new SortByDelta();
-                    sortByDelta.DominantForIks();
-                    sortByDelta.DominantForRegions();
+                    sortByDelta.StartDominantForIks(new[]
+                    {
+                        Consts.ElectionYear2016,
+                        Consts.ElectionYear2012,
+                        Consts.ElectionYear2011,
+                        Consts.ElectionYear2008,
+                        Consts.ElectionYear2007,
+                        Consts.ElectionYear2004,
+                        Consts.ElectionYear2003
+                    });
+                    sortByDelta.StartDominantForRegions(new[]
+                    {
+                        Consts.ElectionYear2016,
+                        Consts.ElectionYear2012,
+                        Consts.ElectionYear2011,
+                        Consts.ElectionYear2008,
+                        Consts.ElectionYear2007,
+                        Consts.ElectionYear2004,
+                        Consts.ElectionYear2003
+                    });
                     break;
                 }
             }
