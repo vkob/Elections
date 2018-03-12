@@ -11,6 +11,7 @@ namespace Elections.Diagrams.BarChart
 {
     public class BarChartPreparer : IDisposable
     {
+        private int exceptionCounter = 0;
         private readonly bool _overwrite;
         private readonly BarChartDrawer _barChartDrawer;
 
@@ -61,23 +62,11 @@ namespace Elections.Diagrams.BarChart
             var directoryInfo = new DirectoryInfo(path);
             var directoryInfos = directoryInfo.GetDirectories();
 
-            var count = directoryInfos.Length / Environment.ProcessorCount;
 
-            var threads = new Thread[Environment.ProcessorCount];
-            for (int i = 0; i < Environment.ProcessorCount; i++)
-            {
-                var start = i * count;
-                int length = (i < Environment.ProcessorCount - 1) ? count : directoryInfos.Length - start;
-                var directoryInfosNew = new DirectoryInfo[length];
-                Array.Copy(directoryInfos, start, directoryInfosNew, 0, length);
-                threads[i] = new Thread(() => FindDataFiles(directoryInfosNew, years.Select(y => $"*{y}.txt").ToArray(), captionDiagram));
-            }
-
-            threads.ForEach(t => t.Start());
-            threads.ForEach(t => t.Join());
+            FindDataFiles(directoryInfos, years.Select(y => $"*{y}.txt").ToArray(), captionDiagram);
 
             stopWatch.Stop();
-            Trace.WriteLine(stopWatch.Elapsed);
+            Console.WriteLine(stopWatch.Elapsed);
         }
 
         public void FindDataFiles(DirectoryInfo[] directoryInfos, string[] patterns, string captionDiagram)
@@ -104,10 +93,9 @@ namespace Elections.Diagrams.BarChart
                 {
                     CreateDiagram(fi, captionDiagram, _overwrite);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    Trace.WriteLine(ex);
-
+                    Console.WriteLine("Exception №{0}: {1}", ++exceptionCounter, fi);
                 }
             }
         }
