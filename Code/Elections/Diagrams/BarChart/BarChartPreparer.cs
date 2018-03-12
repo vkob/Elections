@@ -104,8 +104,9 @@ namespace Elections.Diagrams.BarChart
                 {
                     CreateDiagram(fi, captionDiagram, _overwrite);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Trace.WriteLine(ex);
 
                 }
             }
