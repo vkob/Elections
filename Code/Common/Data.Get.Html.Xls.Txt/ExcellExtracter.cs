@@ -54,15 +54,16 @@ namespace Data.Get.Html.Xls.Txt
             var workbooks = _app.Workbooks;
             var workBook = workbooks.Open(fi.FullName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
 
-            var worksheets = workBook.Worksheets;
-            var workSheet = (Worksheet)worksheets[1];
+            //var worksheets = workBook.Worksheets;
+            //var workSheet = (Worksheet)worksheets[1];
 
             workBook.SaveAs(fileName, XlFileFormat.xlTextWindows, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
             workBook.Close(true, misValue, misValue);
 
-            Marshal.ReleaseComObject(workSheet);
-            Marshal.ReleaseComObject(worksheets);
+            //Marshal.ReleaseComObject(workSheet);
+            //Marshal.ReleaseComObject(worksheets);
             Marshal.ReleaseComObject(workBook);
+            Marshal.ReleaseComObject(workbooks);
         }
 
         public void Dispose()
