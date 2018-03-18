@@ -24,6 +24,7 @@ namespace Data.Get.Html.Xls.Txt
         public const string Ending2007Html = "2007.html";
         public const string Ending2011Html = "2011.html";
         public const string Ending2016Html = "2016.html";
+        public const string Ending2018Html = "2018.html";
 
         public const string Ending2004Html = "2004.html";
         public const string Ending2008Html = "2008.html";
@@ -33,6 +34,7 @@ namespace Data.Get.Html.Xls.Txt
         public const string Ending2007Xls = "2007.xls";
         public const string Ending2011Xls = "2011.xls";
         public const string Ending2016Xls = "2016.xls";
+        public const string Ending2018Xls = "2018.xls";
 
         public const string Ending2004Xls = "2004.xls";
         public const string Ending2008Xls = "2008.xls";
@@ -296,6 +298,9 @@ namespace Data.Get.Html.Xls.Txt
                     break;
                 case Ending2016Html:
                     ending = Ending2016Xls;
+                    break;
+                case Ending2018Html:
+                    ending = Ending2018Xls;
                     break;
                 default:
                     throw new Exception("Add new extension to constants");
