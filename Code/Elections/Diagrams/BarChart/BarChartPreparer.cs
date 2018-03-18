@@ -24,19 +24,22 @@ namespace Elections.Diagrams.BarChart
             new KeyValuePair<string, int>("КПРФ", 2),
             new KeyValuePair<string, int>("Харитонов",2),
             new KeyValuePair<string, int>("Зюганов",2),
-               
+            new KeyValuePair<string, int>("Грудинин",2),
+
             new KeyValuePair<string, int>("ЛДПР", 3),
             new KeyValuePair<string, int>("Глазьев",3),
             new KeyValuePair<string, int>("Жириновский",3),
-               
+
             new KeyValuePair<string, int>("Родина", 4), //2003         
             new KeyValuePair<string, int>("Справедливая Россия", 4),
             new KeyValuePair<string, int>("Хакамада",4),
             new KeyValuePair<string, int>("Богданов",4),
             new KeyValuePair<string, int>("Прохоров",4),
+            new KeyValuePair<string, int>("Собчак",4),
 
             new KeyValuePair<string, int>("Яблоко", 5),
             new KeyValuePair<string, int>("Миронов",5),
+
         }.ToDictionary(k => k.Key, k => k.Value);
 
         public BarChartPreparer(bool overwrite)

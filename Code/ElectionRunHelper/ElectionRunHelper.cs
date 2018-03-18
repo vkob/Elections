@@ -17,7 +17,7 @@ namespace ElectionRunHelper
             switch (args[0])
             {
                 case "1":
-                    new Download().GetHtmlFiles(args[1]);
+                    new Download().GetHtmlFiles(args[1]);//1 2018
                     break;
                 case "2":
                     new Download().GetXlsFiles(args[1]);//2 2016 

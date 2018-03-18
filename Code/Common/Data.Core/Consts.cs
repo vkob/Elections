@@ -12,6 +12,7 @@ namespace Data.Core
         public const string Ending2007Txt = "2007.txt";
         public const string Ending2011Txt = "2011.txt";
         public const string Ending2016Txt = "2016.txt";
+        public const string Ending2018Txt = "2018.txt";
 
         public const string Ending2004Txt = "2004.txt";
         public const string Ending2008Txt = "2008.txt";
@@ -27,6 +28,6 @@ namespace Data.Core
         public const int Year2003 = 2003;
 
         public static List<int> Duma = new List<int>{ Year2003, 2007, 2011, 2016 };
-        public static List<int> President = new List<int> { 2004, 2008, 2012 };
+        public static List<int> President = new List<int> { 2004, 2008, 2012, 2018 };
     }
 }

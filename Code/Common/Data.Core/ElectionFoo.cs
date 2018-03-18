@@ -63,6 +63,7 @@
         public static ElectionFoo President2004;
         public static ElectionFoo President2008;
         public static ElectionFoo President2012;
+        public static ElectionFoo President2018;
 
         static ElectionFoo()
         {
@@ -205,6 +206,11 @@
             if (fileName.EndsWith(Consts.Ending2016Txt))
             {
                 electionFoo = Duma2016;
+            }
+            else
+            if (fileName.EndsWith(Consts.Ending2018Txt))
+            {
+                electionFoo = President2018;
             }
 
             return electionFoo;

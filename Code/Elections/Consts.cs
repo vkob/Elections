@@ -46,18 +46,6 @@ namespace Elections
         public const string PatternExtXls = "*{0}.xls";
         public const string PatternExtCommonHtml = "*{0}.html";
 
-        public const string PatternExt2003Xls = "*2003.xls";
-        public const string PatternExt2007Xls = "*2007.xls";
-        public const string PatternExt2011Xls = "*2011.xls";
-
-        public const string PatternExt2004Xls = "*2004.xls";
-        public const string PatternExt2008Xls = "*2008.xls";
-        public const string PatternExt2009Xls = "*2009.xls";
-        public const string PatternExt2012Xls = "*2012.xls";
-
-        public const string PatternExt2007Jpg = "*2007.jpg";
-        public const string PatternExt2011Jpg = "*2011.jpg";
-
         public const string DumaExtremeResults = "Duma{0}.txt";
         public const string PresidentExtremeResults = "President{0}.txt";
 
@@ -130,6 +118,15 @@ namespace Elections
                            //////
                            new FooData() {RussianShort = "Миронов", Color = "yellow", IsMain = false,  IsHiddenForIks = true, RussianLong = "Миронов А.В.", Result = 3.86},
                         };
+
+        public static FooData[] PresFooData2018 = new[] //TODO
+        {
+            new FooData() {RussianShort = "Путин", Color = "", IsMain = true, RussianLong = "Путин В.В.", Result = -1},
+            new FooData() {RussianShort = "Грудинин", Color = "red", IsMain = false, RussianLong = "Грудинин П.Н.", Result = -1},
+            new FooData() {RussianShort = "Собчак", Color = "green", IsMain = false, RussianLong = "Собчак К.А.", Result = -1},
+            new FooData() {RussianShort = "Жириновский", Color = "blue", IsMain = false, RussianLong = "Жириновский В.В.", Result = -1},
+        };
+
         #endregion
 
         #endregion
@@ -142,6 +139,8 @@ namespace Elections
         public static readonly ElectionYear ElectionYear2004 = new ElectionYear(ElectionType.President, 2004, 64.38, PresFooData2004);
         public static readonly ElectionYear ElectionYear2008 = new ElectionYear(ElectionType.President, 2008, 69.70, PresFooData2008);
         public static readonly ElectionYear ElectionYear2012 = new ElectionYear(ElectionType.President, 2012, 65.34, PresFooData2012);
+
+        public static readonly ElectionYear ElectionYear2018 = new ElectionYear(ElectionType.President, 2018, -1, PresFooData2018);//TODO
 
         public const string ElectionsDir = "Elections";
 

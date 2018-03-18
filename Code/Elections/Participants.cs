@@ -94,15 +94,12 @@ namespace Elections
             new KeyValuePair<string, string>("Жириновский Владимир Вольфович", "Жириновский"),
             new KeyValuePair<string, string>("Зюганов Геннадий Андреевич", "Зюганов"),
             new KeyValuePair<string, string>("Медведев Дмитрий Анатольевич", "Медведев"),
-
             new KeyValuePair<string, string>("Прохоров Михаил Дмитриевич", "Прохоров"),
 
-            //////////////
+            new KeyValuePair<string, string>("Грудинин Павел Николаевич", "Грудинин"),
+            new KeyValuePair<string, string>("Собчак Ксения Анатольевна", "Собчак"),
             
-            new KeyValuePair<string, string>("2.Боженов Сергей Анатольевич", "Боженов"),
-
-            new KeyValuePair<string, string>("4.Столяров Михаил Николаевич", "Столяров"),
-            new KeyValuePair<string, string>("5.Шеин Олег Васильевич", "Шеин"),
+            //////////////
 
         }.ToDictionary(k => k.Key, k => k.Value);
     }
