@@ -154,6 +154,20 @@
                 Stationary = new Label("Число бюллетеней в стационарных ящиках для голосования", 19),
                 MinRowNumberForFactions = 31
             };
+
+            President2018 = new ElectionFoo()
+            {
+                RowLocalElectionCommittee = 11,
+                NumberOfElectorsInList = new Label(ЧИСЛО_ИЗБИРАТЕЛЕЙ_ВКЛЮЧЕННЫХ_В_СПИСОК_ИЗБИРАТЕЛЕЙ, 12),
+                NumberOfEarlier = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ИЗБИРАТЕЛЯМ_ПРОГОЛОСОВАВШИМ_ДОСРОЧНО1, 14),
+                NumberOfIn = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_В_ПОМЕЩЕНИИ_ДЛЯ_ГОЛОСОВАНИЯ_В_ДЕНЬ_ГОЛОСОВАНИЯ, 15),
+                NumberOfOut = new Label(ЧИСЛО_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ВНЕ_ПОМЕЩЕНИЯ_ДЛЯ_ГОЛОСОВАНИЯ_В_ДЕНЬ_ГОЛОСОВАНИЯ, 16),
+                NumberOfInvalidBallot = new Label(ЧИСЛО_НЕДЕЙСТВИТЕЛЬНЫХ_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ, 20),
+                NumberOfValidBallot = new Label(ЧИСЛО_ДЕЙСТВИТЕЛЬНЫХ_ИЗБИРАТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ, 21),
+                Portable = new Label("Число избирательных бюллетеней в переносных ящиках для голосования", 18),
+                Stationary = new Label("Число бюллетеней в стационарных ящиках для голосования", 19),
+                MinRowNumberForFactions = 25
+            };
         }
 
         public int RowLocalElectionCommittee;

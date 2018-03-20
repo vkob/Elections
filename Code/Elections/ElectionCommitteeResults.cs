@@ -166,7 +166,7 @@ namespace Elections
 
       public static void AssertCaption(string textFromFile, string caption)
       {
-         Debug.Assert(textFromFile == caption || string.Format("\"{0}\"", textFromFile) == caption, caption);         
+         Debug.Assert(textFromFile == caption || $"\"{textFromFile}\"" == caption || $"\"{caption}\"" == textFromFile, caption);         
       }
 
       private void CheckZero()

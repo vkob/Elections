@@ -98,6 +98,7 @@ namespace Elections
 
             new KeyValuePair<string, string>("Грудинин Павел Николаевич", "Грудинин"),
             new KeyValuePair<string, string>("Собчак Ксения Анатольевна", "Собчак"),
+            new KeyValuePair<string, string>("Явлинский Григорий Алексеевич", "Явлинский"),
             
             //////////////
 

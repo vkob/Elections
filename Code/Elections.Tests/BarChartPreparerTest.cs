@@ -66,6 +66,12 @@ namespace Elections.Tests
         }
 
         [Test]
+        public void DrawDiagramForTxtDataTest2018()
+        {
+            CreateFile(Consts.ElectionYear2018, @"Архангельская область\Архангельск, Октябрьская\СИЗКСРФ\Архангельск, Октябрьская {0}.txt", 108234);
+        }
+
+        [Test]
         public void HtmlTest()
         {
             sb.AppendLine("</html>");
@@ -77,7 +83,7 @@ namespace Elections.Tests
                 sw.WriteLine(sb.ToString());
             }
 
-            Assert.AreEqual(486, new FileInfo(dest).Length);
+            Assert.AreEqual(553, new FileInfo(dest).Length);
         }
         
         public void CreateFile(ElectionYear electionYear, string path, int fileLength)

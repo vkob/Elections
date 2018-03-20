@@ -13,7 +13,7 @@ namespace ElectionRunHelper
     class ElectionRunHelper
     {
         private static void Main(string[] args)
-        {
+        { 
             switch (args[0])
             {
                 case "1":

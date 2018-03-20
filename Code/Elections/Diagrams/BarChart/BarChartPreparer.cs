@@ -39,6 +39,7 @@ namespace Elections.Diagrams.BarChart
 
             new KeyValuePair<string, int>("Яблоко", 5),
             new KeyValuePair<string, int>("Миронов",5),
+            new KeyValuePair<string, int>("Явлинский", 5),
 
         }.ToDictionary(k => k.Key, k => k.Value);
 
