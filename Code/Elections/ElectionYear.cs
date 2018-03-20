@@ -96,6 +96,8 @@ namespace Elections
                     return Consts.ElectionYear2008;
                 case "2012":
                     return Consts.ElectionYear2012;
+                case "2018":
+                    return Consts.ElectionYear2018;
             }
 
             return null;
