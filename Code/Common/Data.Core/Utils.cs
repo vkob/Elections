@@ -10,7 +10,7 @@ namespace Data.Core
     {
         public static void AssertCaption(string textFromFile, string caption)
         {
-            Debug.Assert(textFromFile == caption || $"\"{textFromFile}\"" == caption, caption);         
+            Debug.Assert(textFromFile == caption || $"\"{textFromFile}\"" == caption || $"\"{caption}\"" == textFromFile, caption);   //todo      
         }
     }
 }

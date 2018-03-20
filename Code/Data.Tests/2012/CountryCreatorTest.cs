@@ -39,7 +39,7 @@ namespace DataTest._2012
 
             var country = new Country()
             {
-                NumberOfVoters = 109860331,
+                NumberOfVoters = 109023913,//todo
                 NumberOfEarlier = 239569,
                 NumberOfInside = 65639398,
                 NumberOfOutside = 5901833,
@@ -49,7 +49,7 @@ namespace DataTest._2012
                 InValid = 836691,
             };
 
-            Common.CheckData(actualCountry, country);
+            Common.CheckData(actualCountry, country);//todo
         }
     }
 }
