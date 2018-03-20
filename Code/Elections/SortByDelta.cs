@@ -188,6 +188,7 @@ namespace Elections
                     }
                     sw.WriteLine("</tr>");
                     sw.WriteLine("</table>");
+                    sw.WriteLine(Html.WriteToDev());
                     sw.WriteLine("</html>");
                 }
             };
@@ -566,6 +567,7 @@ namespace Elections
                     sw.WriteLine("<td class=\"footer\">{0}</td>", electionYear.Presence.ToString("N2"));
                     sw.WriteLine("</tr>");
                     sw.WriteLine("</table>");
+                    sw.WriteLine(Html.WriteToDev());
                     sw.WriteLine("</html>");
                 }
             };
@@ -762,6 +764,7 @@ namespace Elections
                     sw.WriteLine();
 
                     sw.WriteLine("</table>");
+                    sw.WriteLine(Html.WriteToDev());
                     sw.WriteLine("</html>");
                 }
             };
@@ -962,7 +965,7 @@ namespace Elections
 
                 sw.WriteLine("<tr><td align=\"center\"><a href=\"../{0}{1}/{2}\">Обратно на главную</a></td></tr>", Consts.Iks, electionYears[0].Year, string.Format(indexFiles[(int)Indexes.SortedByLast], mainFoo.EnglishShort));
                 sw.WriteLine("</table>");
-                sw.WriteLine("<br>");
+                sw.WriteLine(Html.WriteToDev());
                 sw.WriteLine("</html>");
             }
         }

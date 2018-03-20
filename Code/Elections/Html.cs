@@ -49,6 +49,7 @@ namespace Elections
                     "<td class=\"header\" style=\"{ text-align: center;}\"><h2>Результаты</h2></td>\n");
                 sw.WriteLine(stringBuilder);
                 sw.WriteLine("</table>");
+                sw.WriteLine(WriteToDev());
                 sw.WriteLine("</html>");
             }
         }
@@ -80,8 +81,14 @@ namespace Elections
                 sw.WriteLine("<table border=\"1\" align=\"center\" cellpadding=\"10\"");
                 sw.WriteLine("{0}", stringBuilder);
                 sw.WriteLine("</table>");
+                sw.WriteLine(WriteToDev());
                 sw.WriteLine("</html>");
             }
+        }
+
+        public static string WriteToDev()
+        {
+            return "<br><table><tr><td><a href=\"mailto:developer@ruelections.ru\">Написать разработчику developer@ruelections.ru</a></p></td></tr></table>";
         }
 
         public static void GenerateResult(string path, StringBuilder sbMain, StringBuilder sbGraphics)
