@@ -46,12 +46,12 @@ namespace ElectionRunHelper
 
                         var so = new SortByDelta();
 
-                        ////2018
-                        //res = so.Start(needOutput, new[] { Consts.ElectionYear2004, Consts.ElectionYear2008, Consts.ElectionYear2012, Consts.ElectionYear2018 },
-                        //    Consts.ElectionYear2012, true);
-                        ////res = new SortByDelta().Start(needOutput, new[] { Consts.ElectionYear2018 },null, true);
-                        //sbMain.Append(res.First);
-                        //sbGraphics.Append(res.Second);
+                        //2018
+                        res = so.Start(needOutput, new[] { Consts.ElectionYear2004, Consts.ElectionYear2008, Consts.ElectionYear2012, Consts.ElectionYear2018 },
+                            Consts.ElectionYear2012, true);
+                        //res = new SortByDelta().Start(needOutput, new[] { Consts.ElectionYear2018 },null, true);
+                        sbMain.Append(res.First);
+                        sbGraphics.Append(res.Second);
 
                         //2016
                         res = so.Start(needOutput, new[] { Consts.ElectionYear2003, Consts.ElectionYear2007, Consts.ElectionYear2011, Consts.ElectionYear2016 },
@@ -102,6 +102,7 @@ namespace ElectionRunHelper
                         var sortByDelta = new SortByDelta();
                         sortByDelta.StartDominantForIks(new[]
                         {
+                        Consts.ElectionYear2018,
                         Consts.ElectionYear2016,
                         Consts.ElectionYear2012,
                         Consts.ElectionYear2011,
@@ -112,6 +113,7 @@ namespace ElectionRunHelper
                     });
                         sortByDelta.StartDominantForRegions(new[]
                         {
+                        Consts.ElectionYear2018,
                         Consts.ElectionYear2016,
                         Consts.ElectionYear2012,
                         Consts.ElectionYear2011,
