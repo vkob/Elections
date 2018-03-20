@@ -87,12 +87,12 @@ namespace Elections
         public static void GenerateResult(string path, StringBuilder sbMain, StringBuilder sbGraphics)
         {
             GenerateHtmlWithGraphics(path, sbGraphics);
-            sbMain = GenerateHtmlMainFooter(sbMain);
             GenerateHtmlMain(path, sbMain);
         }
 
-        private static StringBuilder GenerateHtmlMainFooter(StringBuilder stringBuilder)
+        public static StringBuilder GenerateHtmlMainTop()
         {
+            var stringBuilder = new StringBuilder();
             stringBuilder.AppendFormat("<tr>\n");
             stringBuilder.AppendFormat("<td></td>");
             stringBuilder.AppendFormat("<td class=\"name\"\">\n<h3>Итого</h3></td>\n");

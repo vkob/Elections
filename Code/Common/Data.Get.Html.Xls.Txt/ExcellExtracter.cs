@@ -47,21 +47,16 @@ namespace Data.Get.Html.Xls.Txt
             var fileName = string.Format(@"{0}\{1}.txt", fi.DirectoryName, Path.GetFileNameWithoutExtension(fi.FullName));
             if (File.Exists(fileName)) return;
 
-            Trace.WriteLine(fileName);
+            Console.WriteLine(fileName);
 
             object misValue = System.Reflection.Missing.Value;
 
             var workbooks = _app.Workbooks;
             var workBook = workbooks.Open(fi.FullName, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
 
-            //var worksheets = workBook.Worksheets;
-            //var workSheet = (Worksheet)worksheets[1];
-
             workBook.SaveAs(fileName, XlFileFormat.xlTextWindows, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
             workBook.Close(true, misValue, misValue);
 
-            //Marshal.ReleaseComObject(workSheet);
-            //Marshal.ReleaseComObject(worksheets);
             Marshal.ReleaseComObject(workBook);
             Marshal.ReleaseComObject(workbooks);
         }
@@ -83,7 +78,7 @@ namespace Data.Get.Html.Xls.Txt
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(string.Format("{0}: {1}", fi.FullName, ex.Message));
+                    Console.WriteLine($"{fi.FullName}: {ex.Message}");
                 }
             }
         }

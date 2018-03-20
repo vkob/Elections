@@ -258,12 +258,12 @@ namespace Data.Get.Html.Xls.Txt
             {
                 try
                 {
-                    Trace.WriteLine(localFile);
+                    Console.WriteLine(localFile);
                     client.DownloadFile(url, localFile);
                 }
                 catch (Exception ex)
                 {
-                    Trace.WriteLine(ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
