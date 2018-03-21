@@ -16,6 +16,7 @@ namespace Elections
         public const string ElectionsHtml = "Elections.Html.";
 
         public const string TitleHolder = "#Tittle#";
+        public const string DescriptionHolder = "#Description#";
 
         public static string Middle(int lastYear, string caption, string name, string englishShort, string uiks)
         {
@@ -40,7 +41,7 @@ namespace Elections
             {
                 var title = "Выборы Российской Федерации";
                 sw.WriteLine("<html>");
-                sw.WriteLine(GetHead().Replace(TitleHolder, title));
+                sw.WriteLine(GetHead().Replace(TitleHolder, title).Replace(DescriptionHolder, title + ": Таблицы, Диаграммы, Графики"));
                 sw.WriteLine("<table align=\"center\"><tr><td style=\"font-size: 22pt;font-weight:bold;\">{0}</td></tr></table><br>", title);
                 sw.WriteLine("<table class=\"my\" border=\"1\" bgcolor=\"#ffffff\" cellpadding=\"2\" cellspacing=\"1\" align=\"center\" vspace=\"0\">");
                 sw.WriteLine(
@@ -73,8 +74,8 @@ namespace Elections
         {
             using (var sw = new StreamWriter(Path.Combine(path, "Graphics.html"), false, Encoding.GetEncoding(1251)))
             {
-                const string title = "Диаграммы результатов и явки выборов";
-                sw.WriteLine(GetHead().Replace(TitleHolder, title));
+                const string title = "Графики-Гауссианы результатов и явки выборов";
+                sw.WriteLine(GetHead().Replace(TitleHolder, title).Replace(DescriptionHolder, title));
                 sw.WriteLine("<style type=\"text/css\">.tdimg { padding: 0; }</style>");
                 sw.WriteLine("<table align=\"center\"><tr><td style=\"font-size: 20pt;font-weight:bold;\">{0}</td></tr></table><br>", title);
                 sw.WriteLine("<table align=\"center\"><tr><td style=\"font-size: 13pt;font-weight:bold;\">Нажмите на картинку для загрузки таблицы данных.</td></tr></table><br>");

@@ -147,7 +147,7 @@ namespace Elections
                 {
                     const string title = "Сводная таблица результатов выборов Партии Власти и Президента за все года по регионам";
                     sw.WriteLine("<html>");
-                    sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title));
+                    sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title).Replace(Html.DescriptionHolder, title));
                     sw.WriteLine(
                     "<table align=\"center\" style=\"font-weight:bold;\">" +
                        "<tr><td><a href=\"../index.html\">На главную</a></td></tr>" +
@@ -270,7 +270,7 @@ namespace Elections
                 {
                     const string title = "Сводная таблица результатов выборов Партии Власти и Президента за все года по Избирательным Комиссиям";
                     sw.WriteLine("<html>");
-                    sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title));
+                    sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title).Replace(Html.DescriptionHolder, title));
                     sw.WriteLine(
                     "<table align=\"center\" style=\"font-weight:bold;\">" +
                        "<tr><td><a href=\"../index.html\">На главную</a></td></tr>" +
@@ -525,7 +525,7 @@ namespace Elections
                 {
                     var title = string.Format("Результаты выборов {0} года по регионам", electionYear.Year);
                     sw.WriteLine("<html>");
-                    sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title));
+                    sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title).Replace(Html.DescriptionHolder, title));
                     sw.WriteLine(
                     "<table align=\"center\" style=\"font-weight:bold;\">" +
                        "<tr><td><a href=\"../index.html\">На главную</a></td></tr>" +
@@ -627,7 +627,7 @@ namespace Elections
                     {
                         var title = string.Format("Избирательные участки, где в лидерах {0}, {1} год", foo.RussianLong, electionYear.Year);
                         sw.WriteLine("<html>");
-                        sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title));
+                        sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, title).Replace(Html.DescriptionHolder, title));
                         sw.WriteLine("<table align=\"center\" style=\"font-weight:bold;\">" +
                                  "<tr><td><a href=\"../index.html\">На главную</a></td></tr>" +
                                  "</table>");
@@ -935,7 +935,7 @@ namespace Elections
             {
                 var titleMain = "Результаты выборов " + place;
                 sw.WriteLine("<html>");
-                sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, titleMain));
+                sw.WriteLine(Html.GetHead().Replace(Html.TitleHolder, titleMain).Replace(Html.DescriptionHolder, titleMain));
                 sw.WriteLine("<table align=\"center\">");
 
                 for (int j = 0; j < electionsAll.Length; j++)
@@ -1066,8 +1066,8 @@ namespace Elections
             var begin = new StringBuilder();
             begin.Append("<html>");
             begin.Append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1251\">");
-            begin.Append(Html.GetHead().Replace(Html.TitleHolder, title));
-            begin.Append(style);
+            begin.Append(Html.GetHead().Replace(Html.TitleHolder, title).Replace(Html.DescriptionHolder, title));
+           begin.Append(style);
             begin.AppendFormat("<table align=\"center\"><tr><td align=\"center\" style=\"font-size: 18pt;font-weight:bold;\">{0}</td><tr></table><br>", title);
             begin.AppendFormat("<table align=\"center\">{0}</table>", maxReport);
             begin.Append("<table align=\"center\"><tr><td align=\"center\" style=\"font-size: 15pt;font-weight:bold;\"><a href=\"../index.html\">На главную</a></h3></td></tr>");//h3
