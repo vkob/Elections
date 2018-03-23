@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using Data.Creators;
 using Data.Places;
 using NUnit.Framework;
@@ -39,16 +41,20 @@ namespace DataTest._2012
 
             var country = new Country()
             {
-                NumberOfVoters = 109023913,//todo
-                NumberOfEarlier = 239569,
-                NumberOfInside = 65639398,
-                NumberOfOutside = 5901833,
-                Portable = 6139277,
-                Stationary = 65562388,
-                Valid = 70864974,
-                InValid = 836691,
+                NumberOfVoters = 109008428,//todo
+                NumberOfEarlier = 219648,
+                NumberOfInside = 68587926,
+                NumberOfOutside = 4822007,
+                Portable = 5039911,
+                Stationary = 68539081,
+                Valid = 72787734,
+                InValid = 791258,
             };
 
+
+            var t = string.Join("\n", actualCountry.Districts.Select(d => d.NumberOfOutside));
+
+            Trace.WriteLine(t);
             Common.CheckData(actualCountry, country);//todo
         }
     }
