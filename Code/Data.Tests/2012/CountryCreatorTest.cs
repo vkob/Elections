@@ -41,7 +41,7 @@ namespace DataTest._2012
 
             var country = new Country()
             {
-                NumberOfVoters = 109008428,//todo
+                NumberOfVoters = 109008428,
                 NumberOfEarlier = 219648,
                 NumberOfInside = 68587926,
                 NumberOfOutside = 4822007,
@@ -51,11 +51,7 @@ namespace DataTest._2012
                 InValid = 791258,
             };
 
-
-            var t = string.Join("\n", actualCountry.Districts.Select(d => d.NumberOfOutside));
-
-            Trace.WriteLine(t);
-            Common.CheckData(actualCountry, country);//todo
+            Common.CheckData(actualCountry, country);
         }
     }
 }
