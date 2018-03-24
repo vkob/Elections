@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Elections.Tests
 {
     [TestFixture]
-    public class BarChartPreparerMurmanskTest
+    public class BarChartPreparerOutOfBorderTest
     {
         private BarChartPreparer _barChartPreparer;
         private StringBuilder sb = new StringBuilder("<html>");
@@ -27,7 +27,7 @@ namespace Elections.Tests
         [Test]
         public void DrawDiagramForTxtDataTest2018()
         {
-            CreateFile(Consts.ElectionYear2018, @"Мурманская область\Мурманская\СИЗКСРФ\Мурманская {0}.txt", 743886);
+            CreateFile(Consts.ElectionYear2018, @"Территория за пределами РФ\СИЗКСРФ\Территория за пределами РФ {0}.txt", 1009902);
         }
 
         [Test]
@@ -36,13 +36,13 @@ namespace Elections.Tests
             sb.AppendLine("</html>");
 
             var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
-            var dest = Path.Combine(dir + @"\..\" + Data.Core.Consts.TopPath, "BarChartTest") + @"\Murmansk.html";
+            var dest = Path.Combine(dir + @"\..\" + Data.Core.Consts.TopPath, "BarChartTest") + @"\OutOfBorder.html";
             using (var sw = new StreamWriter(dest))
             {
                 sw.WriteLine(sb.ToString());
             }
 
-            Assert.AreEqual(70, new FileInfo(dest).Length);
+            Assert.AreEqual(67, new FileInfo(dest).Length);
         }
         
         public void CreateFile(ElectionYear electionYear, string path, int fileLength)
