@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BarChartDrawerTest.cs" />
+    <Compile Include="BarChartPreparerMurmanskTest.cs" />
     <Compile Include="BarChartPreparerTest.cs" />
     <Compile Include="GraphicPreparerTest.cs" />
     <Compile Include="ProcessDataTest.cs" />

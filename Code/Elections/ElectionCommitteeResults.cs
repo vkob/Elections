@@ -73,10 +73,10 @@ namespace Elections
                var line = sr.ReadLine();
                var parts = line.Split(new[] {Data.Core.Consts.Tab }, StringSplitOptions.RemoveEmptyEntries);
 
-               Func<int> getTotal = () => Convert.ToInt32(parts[captionIndex + 1]);
+               Func<int> getTotal = () => Convert.ToInt32(parts[captionIndex + 1].Trim());
                Func<List<int>> getAll = () => 
                   Enumerable.Range(captionIndex + 2, parts.Length - captionIndex - 2)
-                            .Select(i => Convert.ToInt32(parts[i]))
+                            .Select(i => Convert.ToInt32(parts[i].Trim()))
                             .ToList();
 
                if (lineCouner == electionFoo.NumberOfElectorsInList.LineNumber)
@@ -211,7 +211,7 @@ namespace Elections
 
          name = name.Replace("\"\"", "\"");
 
-         var numbers = Enumerable.Range(captionIndex + 1, numbersData.Length - captionIndex - 1).Select(i => numbersData[i]).ToArray();
+         var numbers = Enumerable.Range(captionIndex + 1, numbersData.Length - captionIndex - 1).Select(i => numbersData[i].Trim()).ToArray();
          
          var linePercents = sr.ReadLine();
 
