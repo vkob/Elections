@@ -31,27 +31,5 @@ namespace DataTest._2012
 
             Common.CheckData(actualCountry, country);
         }
-
-        [Test]
-        public void CountryTest2018()
-        {
-            var dir = Path.GetDirectoryName(typeof(TikCreatorTest).Assembly.Location);
-
-            var actualCountry = new CountryCreator().Create(dir + @"\..\..\..\..\Results\ResultsPresident\", "*2018.txt");
-
-            var country = new Country()
-            {
-                NumberOfVoters = 109008428,
-                NumberOfEarlier = 219648,
-                NumberOfInside = 68587926,
-                NumberOfOutside = 4822007,
-                Portable = 5039911,
-                Stationary = 68539081,
-                Valid = 72787734,
-                InValid = 791258,
-            };
-
-            Common.CheckData(actualCountry, country);
-        }
     }
 }

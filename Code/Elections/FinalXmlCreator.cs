@@ -117,16 +117,6 @@ namespace Elections
 
             var elections = new List<Election>();
 
-            var numberOfVoted = _dictionary.Sum(kvp => kvp.Value.NumberOfIn + kvp.Value.NumberOfOut + kvp.Value.NumberOfEarlier);
-            var all = _dictionary.Sum(kvp => kvp.Value.NumberOfElectorsInList);
-
-            var first = _dictionary.First();
-            foreach (var partyKvp in first.Value.partiesData)
-            {
-                var max = _dictionary.Max(kvp => kvp.Value.partiesData[partyKvp.Key].Percent);
-                Trace.WriteLine(string.Format("{0} {1}", partyKvp.Key, max));
-            }
-
             foreach (var kvp in _dictionary)
             {
                 var electionCommitteeResults = kvp.Value;
@@ -145,7 +135,6 @@ namespace Elections
                 var uiksNumbers = electionCommitteeResults.uiks.Select(TextProcessFunctions.GetUikNumber).ToArray();
                 Debug.Assert(uiksNumbers.Length == election.Number, "Wrong numbers");
                 election.Uiks = string.Join(",", uiksNumbers);
-                //if (electionCommitteeResults.partiesData.Count == 0) continue;//murmanks and abroad
 
                 var foos = new List<Foo>();
                 for (int i = 0; i < translitted.Length; i++)

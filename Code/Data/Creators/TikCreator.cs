@@ -115,10 +115,10 @@ namespace Data.Creators
             var parts = line.Split(new[] { Consts.Tab }, StringSplitOptions.RemoveEmptyEntries);
             Utils.AssertCaption(parts[captionIndex], label.Caption);
 
-            setFunc(tik, Convert.ToInt32(parts[captionIndex + 1]));
+            setFunc(tik, Convert.ToInt32(parts[captionIndex + 1].Trim()));
 
             var res = Enumerable.Range(captionIndex + 2, parts.Length - captionIndex - 2)
-                .Select(i => Convert.ToInt32(parts[i]))
+                .Select(i => Convert.ToInt32(parts[i].Trim()))
                 .ToList();
 
             foreach (var i in Enumerable.Range(0, res.Count))
