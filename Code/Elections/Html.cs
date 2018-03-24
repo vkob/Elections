@@ -50,7 +50,7 @@ namespace Elections
                     "<td class=\"header\" style=\"{ text-align: center;}\"><h2>Результаты</h2></td>\n");
                 sw.WriteLine(stringBuilder);
                 sw.WriteLine("</table>");
-                sw.WriteLine(WriteToDev());
+                sw.WriteLine(WriteToDevTable());
                 sw.WriteLine("</html>");
             }
         }
@@ -82,14 +82,19 @@ namespace Elections
                 sw.WriteLine("<table border=\"1\" align=\"center\" cellpadding=\"10\"");
                 sw.WriteLine("{0}", stringBuilder);
                 sw.WriteLine("</table>");
-                sw.WriteLine(WriteToDev());
+                sw.WriteLine(WriteToDevTable());
                 sw.WriteLine("</html>");
             }
         }
 
-        public static string WriteToDev()
+        public static string WriteToDevTable()
         {
-            return "<br><table><tr><td><a href=\"mailto:developer@ruelections.ru\">Написать разработчику developer@ruelections.ru</a></p></td></tr></table>";
+            return "<br><table>" + WriteToDevTr() + "</table>";
+        }
+
+        public static string WriteToDevTr()
+        {
+            return "<tr><td align=\"center\"><a href=\"mailto:developer@ruelections.ru\">Написать разработчику developer@ruelections.ru</a></td></tr>";
         }
 
         public static void GenerateResult(string path, StringBuilder sbMain, StringBuilder sbGraphics)
