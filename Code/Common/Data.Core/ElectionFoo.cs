@@ -76,6 +76,8 @@
                 NumberOfOut = new Label(ЧИСЛО_БЮЛЛЕТЕНЕЙ_ВЫДАННЫХ_ИЗБИРАТЕЛЯМ_ПРОГОЛОСОВАВШИМ_ВНЕ_ПОМЕЩЕНИЯ_ДЛЯ_ГОЛОСОВАНИЯ, 13),
                 NumberOfInvalidBallot = new Label(ЧИСЛО_НЕДЕЙСТВИТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ, 17),
                 NumberOfValidBallot = new Label(ЧИСЛО_ДЕЙСТВИТЕЛЬНЫХ_БЮЛЛЕТЕНЕЙ, 18),
+                Portable = new Label("Число бюллетеней в переносных ящиках для голосования", 15),
+                Stationary = new Label("Число бюллетеней в стационарных ящиках для голосования", 16),
                 MinRowNumberForFactions = 27,
             };
 
