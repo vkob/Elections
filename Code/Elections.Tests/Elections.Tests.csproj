@@ -45,10 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarChartPreparer\BarChartPreparerBaseTest.cs" />
+    <Compile Include="BarChartPreparer\BarChartPreparerSome2003Test.cs" />
     <Compile Include="BarChartDrawerTest.cs" />
-    <Compile Include="BarChartPreparerOutOfBorderTest.cs" />
-    <Compile Include="BarChartPreparerMurmanskTest.cs" />
-    <Compile Include="BarChartPreparerTest.cs" />
+    <Compile Include="BarChartPreparer\BarChartPreparerOutOfBorderTest.cs" />
+    <Compile Include="BarChartPreparer\BarChartPreparerMurmanskTest.cs" />
+    <Compile Include="BarChartPreparer\BarChartPreparerArhangelskTest.cs" />
     <Compile Include="GraphicPreparerTest.cs" />
     <Compile Include="ProcessDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

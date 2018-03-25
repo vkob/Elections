@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using Elections.Diagrams;
 using Elections.Diagrams.BarChart;
@@ -14,6 +15,9 @@ namespace Elections.Tests
         [Test]
         public void DrawDiagramForTxtDataTest()
         {
+            var dir = Path.GetDirectoryName(this.GetType().Assembly.Location);
+            var dest = Path.Combine(dir + @"\..\" + Data.Core.Consts.TopPath, "BarChartTest") + "hi.jpg";
+
             var item = new DiagramData()
             {
                 ChartTitle = "Hello",
@@ -26,7 +30,7 @@ namespace Elections.Tests
                     new RowItem() {Name = "L4, 20%", Values = new List<double> {0.60, 0.50}},
                     new RowItem() {Name = "L5, 10%", Values = new List<double> {0.50, 0.40}},
                 },
-                PicName = @"W:\VS\Reps\GitHub\BarChartTest\hi.jpg" //TODO
+                PicName = dest
             };
 
             using (var barChartDrawer = new BarChartDrawer())

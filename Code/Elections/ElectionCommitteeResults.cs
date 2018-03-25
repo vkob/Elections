@@ -228,7 +228,7 @@ namespace Elections
             .Range(1, numbers.Length - 1)
             .Select(i => new LocalElectionCommittee()
                             {
-                               Number = Convert.ToInt32(numbers[i]), 
+                               Number = Convert.ToInt32(numbers[i].Trim()), 
                                Percent = GetPercent(percents[i]),
                             })
             .ToList(),
@@ -252,7 +252,7 @@ namespace Elections
 
       private static double GetPercent(string text)
       {
-         text = text.Replace("%", "").Replace(".", ",");
+         text = text.Replace("%", "").Replace(".", ",").Replace("NaN", "0");
          var value = Convert.ToDouble(text);
          return value;
       }
